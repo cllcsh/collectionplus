@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="fav_web"
+  id="myeclipse.1446469275334"
+  context-root="/fv"
+  j2ee-spec="5.0"
+  archive="fav_web.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

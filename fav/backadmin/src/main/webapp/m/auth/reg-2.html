@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>恭喜发车 填写资料</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<header class="comm-header">
+    <div class="left opt">
+        <a href="#">返回</a>
+    </div>
+    <div class="right opt">
+        <a id="J-Submit" href="javascript:;">完成</a>
+    </div>
+    <h1 class="title">填写资料</h1>
+</header>
+
+<div class="wrap">
+    <div class="comm-form">
+        <form action="reg-3.html">
+            <div class="split"></div>
+            <div class="form-group">
+                <label class="label">设置密码：</label>
+
+                <div class="input"><input type="text" value="" placeholder="请填写密码"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">确认密码：</label>
+
+                <div class="input"><input type="text" value="" placeholder="请再次确认输入"></div>
+            </div>
+            <div class="form-tip">
+                请认真填写并保证如下资料的真实性。
+            </div>
+            <div class="form-group">
+                <label class="label">真实姓名：</label>
+
+                <div class="input"><input type="text" data-validate="chs" value="" placeholder="请输入真实姓名"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">身份证号：</label>
+
+                <div class="input"><input type="text" data-validate="idNo" value="" placeholder="请输入身份证号"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">电子邮箱：</label>
+
+                <div class="input"><input type="text" data-validate="email" value="" placeholder="请输入邮箱地址"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">公司地址：</label>
+
+                <div class="input">
+                        <span class="select">
+                            <select name="" id="">
+                                <option value="">江苏</option>
+                            </select>
+                        </span>
+                        <span class="select">
+                            <select name="" id="">
+                                <option value="">南京</option>
+                            </select>
+                        </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">详细地址：</div>
+                <div class="input"><input type="text" value="" placeholder="请输入详细地址"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">公司名称：</label>
+
+                <div class="input"><input type="text" value="" placeholder="请输入公司名称"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">职务名称：</label>
+
+                <div class="input"><input type="text" value="" placeholder="请输入职务名称"></div>
+            </div>
+            <div class="form-group">
+                <label class="label">工商注册号：</label>
+
+                <div class="input"><input type="text" value="" placeholder="请输入工商注册号"></div>
+            </div>
+            <div class="form-group file-upload-group">
+                <div class="row">
+                    <div class="col col-4">
+                        <div class="file-upload">
+                            <div class="img"></div>
+                            <div class="title">上传身份证正面照</div>
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <div class="file-upload">
+                            <div class="img"></div>
+                            <div class="title">上传身份证反面照</div>
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <div class="file-upload">
+                            <div class="img"></div>
+                            <div class="title">上传营业执照</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="height: auto; line-height: 2;">
+                <label class="label">经营汽车品牌：</label>
+
+                <div id="J-InputItems" class="comm-brands-mgr">
+                    <div class="item plus" onclick="modal.show();"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="J-BrandModal" class="comm-modal none">
+    <div class="modal">
+        <div class="close j-close">&times;</div>
+        <div class="title">选择汽车品牌</div>
+        <div class="module-auth-selcarbrands">
+            <div class="title">按品牌<span class="comm-text-red">拼音</span>首字母查找</div>
+            <div class="words strong j-alphas">
+
+            </div>
+            <div class="brands j-brands">
+
+            </div>
+        </div>
+        <div class="button button-primary j-close">确定</div>
+    </div>
+</div>
+
+<script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../vendor/zepto-selector.js"></script>
+<script src="../js/app.js"></script>
+<script>
+    // 选择品牌
+    var brands = $('#J-InputItems');
+    var modal = new Fache.UI.Modal({
+        id: 'J-BrandModal',
+        close: function (obj) {
+            var brand = this.modal.find('.brands').find('.active').html();
+            brands.append('<div class="item">' + brand + '<i class="comm-img angle-close"></i></div>');
+        }
+    });
+    // 删除品牌
+    brands.on(Fache.mainEvent, '.item', function () {
+        var _this = $(this);
+        if (_this.hasClass('plus')) {
+            return;
+        }
+        _this.remove();
+    });
+    // 构造表单对象
+    new Fache.UI.Form('form');
+    // 提交注册表单
+    $('#J-Submit').on(Fache.mainEvent, function () {
+        $('form').submit();
+    });
+
+    // 上传图片逻辑
+    $('.file-upload').on(Fache.mainEvent, function(){
+        new Fache.UI.ImageUploader({
+            url: '/upload',
+            ok: function(xhr, modal){
+                console.debug(xhr);
+            },
+            error: function(xhr) {
+                console.debug(xhr);
+            }
+        });
+    });
+
+    // 字母查询品牌
+    new Fache.UI.AlphaChoose({
+        domId: 'J-BrandModal',
+        url : '/buy/alphabet.html', // 写下后端查询接口，比如: /brands
+        onBrandsReceive : function(brands) {
+            // 当点击字母，查询到对应的brands之后，这个函数会被调用
+            // 你需要替换为服务端的数据
+            brands = ['奥迪', '林肯', '大众', '劳斯莱斯'];
+            var tmpl = '';
+            for (var i in brands) {
+                if (parseInt(i) === 0)
+                    tmpl += '<span class="active">'+ brands[i] +'</span>';
+                else
+                    tmpl += '<span>'+ brands[i] +'</span>';
+            }
+            choose.brands.html(tmpl);
+        },
+        ok : function(brand) {
+            // 选中品牌回调
+            console.debug(brand);
+        }
+    });
+</script>
+</body>
+</html>

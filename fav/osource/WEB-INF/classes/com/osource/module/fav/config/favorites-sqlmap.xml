@@ -1,0 +1,76 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.FavoritesInfo" id="favoritesInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="collectionId" column="collection_id" />
+		<result property="title" column="title" />
+		<result property="favoriteTime" column="favorite_time" />
+	</resultMap>
+	<select id="fav_favorites_countAll" resultClass="int">
+		select count(*) from tb_favorites
+	</select>
+
+	<select id="fav_favorites_findAll" resultMap="favoritesInfoResultMap">
+		SELECT t.*,c.title,u.user_name FROM tb_favorites t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+	</select>
+
+	<select id="fav_favorites_findById" parameterClass="java.lang.Integer" resultMap="favoritesInfoResultMap">
+		SELECT t.*,c.title,u.user_name FROM tb_favorites t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id where t.id = #value#
+	</select>
+	
+	<select id="fav_favorites_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_favorites t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="favoriteTime"><![CDATA[ t.favorite_time=#favoriteTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ c.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.favorite_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.favorite_time <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_favorites_findByCondition" parameterClass="java.util.Map" resultMap="favoritesInfoResultMap">
+		SELECT t.*,c.title,u.user_name FROM tb_favorites t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="favoriteTime"><![CDATA[ t.favorite_time=#favoriteTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ c.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.favorite_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.favorite_time <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_favorites_save" parameterClass="com.osource.module.fav.model.FavoritesInfo">
+		 insert into tb_favorites(id,user_id,collection_id,favorite_time,use_flag,insert_date,insert_id)
+     		values (#id#,#userId#,#collectionId#,#favoriteTime#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_favorites_update" parameterClass="com.osource.module.fav.model.FavoritesInfo">
+		 update tb_favorites set
+	        user_id = #userId#,
+	        collection_id = #collectionId#,
+	        favorite_time = #favoriteTime#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_favorites_deleteInIds" parameterClass="java.util.List">
+		update tb_favorites set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_favorites_deleteById" parameterClass="String">
+		update tb_favorites set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

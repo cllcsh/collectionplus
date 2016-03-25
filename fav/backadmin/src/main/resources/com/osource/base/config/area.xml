@@ -1,0 +1,25 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<delete id="area_deleAll">
+		delete FROM tb_area
+	</delete>
+	
+	<insert id="area_saveAreaInfo" parameterClass="com.osource.module.map.model.AreaCodeBean">
+		insert into tb_area (id, name, parent_id, use_flag, insert_date, insert_id) 
+		values(#areaCode#, #areaName#, #parentCode#,
+		<isNotEmpty property="useFlag">
+			#useFlag#
+		</isNotEmpty>
+		<isEmpty property="useFlag">
+			'1'
+		</isEmpty>
+		,
+		<isNotEmpty property="insertDate">
+			#insertDate#
+		</isNotEmpty>
+		<isEmpty property="insertDate">
+			now()
+		</isEmpty>
+		, 0)
+	</insert>
+</sqlMap>

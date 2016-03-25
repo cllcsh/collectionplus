@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/cang.css">
+    #parse("html/common/include.html")
+</head>
+<style>
+    .ui-loading-block.show {
+	    display: -webkit-box;
+	    display: box;
+	    z-index: 1;
+	}
+</style>
+
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>附近古玩店</h1>
+    </header>
+    <div class="shop main">
+        <div class="filter cc">
+        	<div class="fl">
+        		<span></span>
+        	</div>
+        	<div class="fr ui-txt-info">
+        		<span>范围：全城</span>
+        		<img src="images/icon-drop.png" alt="">
+        	</div>
+        </div>
+        <div class="area">
+        	<div class="inner">
+	        	<ul class="ui-list ui-border-b ui-list-text">
+	                <li class="ui-border-t">
+	                	<h4><span class="ui-txt-active" title="all">默认全城</span></h4>
+	                </li>
+	                <li class="ui-border-t">
+	                	<h4><span class="ui-txt-info" title="1">1公里以内</span></h4>
+	                </li>
+	                <li class="ui-border-t">
+	                	<h4><span class="ui-txt-info" title="2">2公里以内</span></h4>
+	                </li>
+	                <li class="ui-border-t">
+	                	<h4><span class="ui-txt-info" title="5">5公里以内</span></h4>
+	                </li>
+	            </ul>
+            </div>
+        </div>
+        <div class="plist">
+	    	<ul id="list-view">
+	    		<!-- <li data-href="shopShow">
+	    			<div class="img"><img src="images/banner.png" alt="" ></div>
+	    			<div class="txt">
+	    				<div class="title">中古青花瓷清明上河图工笔线描瓷盘</div>
+	    				<div class="ui-txt-info pt10">
+	    					距离：1000米
+	    				</div>
+	    				<div class="ui-txt-info mt5">
+	    					所属区域：南京市-白下区
+	    				</div>
+	    			</div>
+	    		</li> -->
+	    	</ul>
+	    	<!-- <div class="ui-loading-wrap">
+				<p class="ui-txt-info">加载中</p>
+				<i class="ui-loading"></i>
+			</div> -->
+	    </div>		
+	</div>	
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2AdE0C3WIjLf2A4idoaLIE0L"></script>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+    <script>
+    	var area = $('.area');
+        $('.filter .fr').click(function(){
+        	$(this).toggleClass('active');
+        	if(area.hasClass('show')){
+        		area.addClass('hide');
+        		setTimeout(function(){
+        			area.removeClass('show').removeClass('hide');
+        		},300)
+        	}else{
+        		area.addClass('show');
+        	}
+        });
+        var clearIntervalId = null;
+        (function(){
+			/*var view = $('#list-view');
+			var html = view.html();
+			
+			loadMore(function(page){
+				view.append(html);
+			});*/
+			//$(".ui-loading-block").addClass('show');
+			clearIntervalId = setInterval(function(){$(".ui-loading-block").addClass('show');},100);
+		})();
+        var rangVal = 'all';
+		$('.area .ui-list li').click(function(){
+			$('.filter .fr').removeClass('active');
+			area.removeClass('show').removeClass('hide');
+			$(this).find('span').removeClass('ui-txt-info').addClass('ui-txt-active');
+			$(this).siblings().find('span').addClass('ui-txt-info').removeClass('ui-txt-active');
+			$('.filter .fr span').text('范围：' + $(this).text().replace('默认', ''));
+			//alert($(this).text().replace('默认', ''));
+			var newRangVal = $(this).find('span').attr('title');
+			if (newRangVal != rangVal)
+			{
+				rangVal = newRangVal;
+				queryCuriosityShop(addressObj, 1, rangVal);
+			}
+		});	
+		/***
+		 Ah {address : {city: "南京市",city_code: 0,district: "",province: "江苏省",street: "",street_number: ""},latitude: "32.05723550",longitude: "118.77807441"}
+		*/
+		var addressObj = null;
+		var geolocation = null;
+		try{
+		    geolocation = new BMap.Geolocation();
+		}catch (e) {
+		    tips('对不起,请求超时 获取位置失败.');  
+		}
+		if (typeof(geolocation) != 'undefined' && geolocation != null)
+		{
+			//console.log(geolocation);
+			geolocation.getCurrentPosition(function(r){
+			    clearInterval(clearIntervalId);
+			    $(".ui-loading-block").removeClass('show');
+			    //通过Geolocation类的getStatus()可以判断是否成功定位。
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					$('.filter .fl span').text(r.address.city);
+					addressObj = r;
+					//console.log(r);
+					queryCuriosityShop(r, 1, 'all');
+					$(".ui-loading-block").removeClass('show');
+				}
+				else
+				{
+				    //关于状态码    
+		            //BMAP_STATUS_SUCCESS   检索成功。对应数值“0”。
+		            //BMAP_STATUS_CITY_LIST 城市列表。对应数值“1”。    
+		            //BMAP_STATUS_UNKNOWN_LOCATION  位置结果未知。对应数值“2”。    
+		            //BMAP_STATUS_UNKNOWN_ROUTE 导航结果未知。对应数值“3”。    
+		            //BMAP_STATUS_INVALID_KEY   非法密钥。对应数值“4”。    
+		            //BMAP_STATUS_INVALID_REQUEST   非法请求。对应数值“5”。    
+		            //BMAP_STATUS_PERMISSION_DENIED 没有权限。对应数值“6”。(自 1.1 新增)    
+		            //BMAP_STATUS_SERVICE_UNAVAILABLE   服务不可用。对应数值“7”。(自 1.1 新增)    
+		            //BMAP_STATUS_TIMEOUT   超时。对应数值“8”。(自 1.1 新增)    
+		            switch( this.getStatus())  
+		            {  
+		                case 2:
+		                case 3:  
+		                case 4:  
+		                case 5:  
+		                case 6:  
+		                case 7:  
+		                case 8:  
+		                    tips('获取用户当前位置失败.');
+		                    break; 
+		            }  
+				}  
+			},{enableHighAccuracy: true});
+		}
+		else
+		{
+		    clearInterval(clearIntervalId);
+			$(".ui-loading-block").removeClass('show');
+		    tips('对不起,请求超时 获取位置失败.');  
+		}
+		
+		
+		function queryCuriosityShop(adsObj, pageIdx, rangVal)
+		{
+		    var options = {
+                type : "POST",
+	            url: "queryCuriosityShop",
+	            data: {city : adsObj.address.city, latitude : adsObj.latitude, longitude: adsObj.longitude, pageIdx: pageIdx, rang : rangVal},
+	            dataType : "json",
+	            success : function(result) {
+	                $("#list-view li").remove();
+	                if (result)
+	                {
+	                     for(var i = 0; i < result.length; i++)
+	                     {
+	                        var html = '<li data-href="shopShow?id='+result[i].id+'">'
+	                         +'<div class="img" style="background-image:url($!{imgWebContextPath}'+result[i].icon+')"></div>'
+	                         +'<div class="txt">'
+	                         +'<div class="title">'+result[i].name+'</div>'
+	                         +'<div class="ui-txt-info pt10">距离：'+result[i].distance+'米</div>'
+	                         +'<div class="ui-txt-info mt5">所属区域：'+result[i].city+ "-"+result[i].county + '</div>'
+	    			         +'</div>'
+	    		             +'</li>';
+	    		             $("#list-view").append(html);
+	                     }
+	                }
+	            },
+	            error : function(error) {
+	            }
+            }
+            $.ajax(options);
+	        return false;
+		}
+    </script>
+</body>
+</html>

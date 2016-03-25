@@ -1,0 +1,85 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="Terminal_select"
+            parameterClass="Integer"
+            resultClass="com.osource.base.model.TerminalExt">
+        SELECT id id
+        	  ,staff_id staffId
+		      ,loc_no locationNum
+		      ,loc_type type
+		      ,railings_id railings
+		      ,dept_id deptId
+		      ,use_flag useFlag
+		      ,insert_date insertDate
+		      ,insert_id insertId
+		      ,update_date updateDate
+		      ,update_id updateId
+		  FROM tb_criminal
+         WHERE id = #id#
+    </select>
+
+	<select id="Terminal_findByIds"
+            parameterClass="java.util.List"
+            resultClass="com.osource.base.model.Terminal">
+        SELECT id id
+        	  ,staff_id staffId
+		      ,loc_no locationNum
+		      ,loc_type type
+		      ,railings_id railings
+		      ,dept_id deptId
+		      ,use_flag useFlag
+		      ,insert_date insertDate
+		      ,insert_id insertId
+		      ,update_date updateDate
+		      ,update_id updateId
+		  FROM tb_criminal
+         WHERE id in
+         	<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+    </select>
+    <select id="Terminal_selectByLocNum"
+            parameterClass="String"
+            resultClass="com.osource.base.model.Terminal">
+        SELECT id id
+        	  ,staff_id staffId
+              ,loc_no locationNum
+              ,loc_type type
+              ,railings_id railings
+              ,dept_id deptId
+              ,use_flag useFlag
+              ,insert_date insertDate
+              ,insert_id insertId
+              ,update_date updateDate
+              ,update_id updateId
+          FROM tb_criminal
+         WHERE loc_no = #locationNum#
+           AND use_flag = '1'
+    </select>
+    
+    <!-- 根据监控等级，获得需定位的矫正对象列表。added by lifa,2010-3-4. -->
+    <select id="Terminal_selectByLevel"
+            parameterClass="String"
+            resultClass="com.osource.base.model.Terminal">
+       
+       SELECT DISTINCT c.id id
+       		  ,c.staff_id staffId
+              ,c.loc_no locationNum
+              ,c.loc_type type
+              ,c.railings_id railings
+              ,c.dept_id deptId
+              ,c.use_flag useFlag
+              ,c.insert_date insertDate
+              ,c.insert_id insertId
+              ,c.update_date updateDate
+              ,c.update_id updateId
+           	   
+         FROM tb_criminal c LEFT JOIN tb_leave l ON (c.id = l.criminal_id and (l.use_flag = null or l.use_flag = '1') 
+           	   and (l.start_date > now() or now()>l.end_date))
+         WHERE  c.use_flag = '1' 
+				and c.loc_no is not null 
+				and (c.loc_no like '133%' or c.loc_no like '153%' or c.loc_no like '189%' or c.loc_no like '180%')
+				and c.monitor_level = #value#
+    </select>
+    
+</sqlMap>

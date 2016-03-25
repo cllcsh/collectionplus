@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>天天论战</h1>
+    </header>
+    <div class="lunzhan main">
+	    <div class="banner">
+	    	<img src="$!{imgWebContextPath}$!{model.dpBean.getImages()}" alt="">
+	    	<p>$!{model.dpBean.getTitle()}</p>
+	    </div>
+	    <div class="ui-row-flex guandian">
+            <div class="ui-col ui-col">
+            	<div class="item">
+            		<h3>甲方观点</h3>
+            		<p class="ui-txt-justify">$!{model.dpBean.getA_viewpoint()}</p>
+            	</div>
+            </div>
+            <div class="ui-col ui-col">
+            	<div class="item">
+            		<h3>乙方观点</h3>
+            		<p class="ui-txt-justify">$!{model.dpBean.getB_viewpoint()}</p>
+            	</div>
+            </div>
+        </div>
+        <div class="vs">
+        	<div class="dir">
+        		<div class="round left" onclick="polemicVote('$!{model.dpBean.getId()}','0')">支持甲方</div>
+        		<span>VS</span>
+        		<div class="round right" onclick="polemicVote('$!{model.dpBean.getId()}','1')">支持乙方</div>
+        	</div>
+        	<div class="ui-progress">
+                <span style="width:${model.support}"></span>
+            </div>
+            <div class="cc num">
+            	<div class="fl">$!{model.dpBean.getSupport_a_viewpoint()}票</div>
+            	<div class="fr">$!{model.dpBean.getSupport_b_viewpoint()}票</div>
+            </div>
+        </div>
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+</body>
+
+<script type="text/javascript">
+    
+    
+    function polemicVote(id, type)
+    {
+        var options = {
+         type : "POST",
+         url: "polemicVote",
+         data: {id: id, type: type},
+         dataType : "json",
+         success : function(result) {
+             if (result.result)
+             {
+                 window.location.reload();
+             }
+             else
+             {
+                 tips(result.msg);
+             }
+         },
+         error : function(error) {
+             tips("投票失败");
+         }
+        }
+        $.ajax(options);
+     return false;
+    }
+</script>
+</html>

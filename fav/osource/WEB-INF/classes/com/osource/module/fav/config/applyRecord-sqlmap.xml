@@ -1,0 +1,108 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.ApplyRecordInfo" id="applyRecordInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="collectionId" column="collection_id" />
+		<result property="collectionTitle" column="title" />
+		<result property="applierId" column="applier_id" />
+		<result property="applierName" column="user_name" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="statusDesc" column="enum_name" />
+		<result property="applyTime" column="apply_time" />
+		<result property="applyType" column="apply_type" />
+	</resultMap>
+	<select id="fav_applyRecord_countAll" resultClass="int">
+		select count(*) from tb_apply_record
+	</select>
+
+	<select id="fav_applyRecord_findAll" resultMap="applyRecordInfoResultMap">
+		SELECT t.*,c.title,u.user_name,e.enum_name FROM tb_apply_record t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.applier_id=u.id
+		LEFT JOIN tb_enum e ON t.`status`=e.enum_code AND e.enum_type='collection_status_type'
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_applyRecord_findById" parameterClass="java.lang.Integer" resultMap="applyRecordInfoResultMap">
+		SELECT t.*,c.title,u.user_name,e.enum_name FROM tb_apply_record t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.applier_id=u.id
+		LEFT JOIN tb_enum e ON t.`status`=e.enum_code AND e.enum_type='collection_status_type'
+		where t.id = #value#
+	</select>
+	
+	<select id="fav_applyRecord_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_apply_record t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.applier_id=u.id
+		LEFT JOIN tb_enum e ON t.`status`=e.enum_code AND e.enum_type='collection_status_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applierId"><![CDATA[ t.applier_id=#applierId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applyTime"><![CDATA[ t.apply_time=#applyTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applyType"><![CDATA[ t.apply_type like concat('%',#applyType#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applierName"><![CDATA[ u.user_name like concat('%',#applierName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="statusDesc"><![CDATA[ e.enum_name like concat('%',#statusDesc#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.apply_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.apply_time <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_applyRecord_findByCondition" parameterClass="java.util.Map" resultMap="applyRecordInfoResultMap">
+		SELECT t.*,c.title,u.user_name,e.enum_name FROM tb_apply_record t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_fav_user u ON t.applier_id=u.id
+		LEFT JOIN tb_enum e ON t.`status`=e.enum_code AND e.enum_type='collection_status_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applierId"><![CDATA[ t.applier_id=#applierId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applyTime"><![CDATA[ t.apply_time=#applyTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applyType"><![CDATA[ t.apply_type like concat('%',#applyType#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="applierName"><![CDATA[ u.user_name like concat('%',#applierName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="statusDesc"><![CDATA[ e.enum_name like concat('%',#statusDesc#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.apply_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.apply_time <= #endDate#]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_applyRecord_save" parameterClass="com.osource.module.fav.model.ApplyRecordInfo">
+		insert into tb_apply_record(id,collection_id,applier_id,status,remark,apply_time,apply_type,use_flag,insert_date,insert_id)
+    	 values (#id#,#collectionId#,#applierId#,#status#,#remark#,#applyTime#,#applyType#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_applyRecord_update" parameterClass="com.osource.module.fav.model.ApplyRecordInfo">
+		 update tb_apply_record set
+		    <isNotEqual property="collectionId" compareValue="0">
+	        collection_id = #collectionId#,
+	        </isNotEqual>
+	        <isNotEqual property="applierId" compareValue="0">
+	        applier_id = #applierId#,
+	        </isNotEqual>
+	        status = #status#,
+	        remark = #remark#,
+	        <isNotEmpty property="applyTime">
+			 apply_time = #applyTime#,
+			</isNotEmpty>
+			<isNotEmpty property="applyType">
+	        apply_type = #applyType#,
+	        </isNotEmpty>
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_applyRecord_deleteInIds" parameterClass="java.util.List">
+		update tb_apply_record set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_applyRecord_deleteById" parameterClass="String">
+		update tb_apply_record set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

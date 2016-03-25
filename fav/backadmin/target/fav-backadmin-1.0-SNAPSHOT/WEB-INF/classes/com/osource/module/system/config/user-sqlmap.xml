@@ -1,0 +1,193 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.system.model.UserInfo" id="userInfoResultMap" extends="baseResultMapNew">
+		<result property="loginName" column="login_name" />
+		<result property="password" column="password" />
+		<result property="formerPassword" column="former_password" />
+		<result property="name" column="name" />
+		<result property="idCard" column="id_card" />
+		<result property="email" column="e_mail" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="area" column="area" />
+		<result property="address" column="address" />
+		<result property="companyName" column="company_name" />
+		<result property="duty" column="duty" />
+		<result property="regNumber" column="reg_number" />
+		<result property="idcardbPicPath" column="idcardb_picPath" />
+		<result property="idcardfPicPath" column="idcardf_picPath" />
+		<result property="businessPicPath" column="business_picPath" />
+		<result property="brand" column="brand" />
+		<result property="vipPass" column="vip_pass" />
+		<result property="approveFlag" column="approve_flag" />
+		<result property="userType" column="user_type" />
+		<result property="imgPath" column="img_path" />
+		<result property="reason" column="reason" />
+		<result property="cardNo" column="card_no" />
+		<result property="bankName" column="bank_name" />
+		<result property="accountHolder" column="account_holder" />
+		<result property="loginCount" column="login_count" />
+	</resultMap>
+	<select id="system_user_countAll" resultClass="int">
+		select count(*) from tb_user
+	</select>
+
+	<select id="system_user_findAll" resultMap="userInfoResultMap">
+		select * from tb_user
+	</select>
+
+	<select id="system_user_findById" parameterClass="java.lang.Integer" resultMap="userInfoResultMap">
+		select * from tb_user where id = #value#
+	</select>
+
+	<select id="system_user_login_getByLoginName" parameterClass="java.lang.String" resultMap="userInfoResultMap">
+		select * from tb_user where login_name = #value# and use_flag = 1
+	</select>
+	
+	<select id="system_user_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_user t
+		where t.use_flag =1
+		<isNotEmpty prepend="and" property="loginName">
+			t.login_name like concat('%', concat(#loginName#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="name">
+			t.name like concat('%', concat(#name#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="companyName">
+			t.company_name like concat('%', concat(#companyName#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="province">
+			t.province = #province#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="city">
+			t.city = #city#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="area">
+			t.area = #area#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userType">
+			t.user_type = #userType#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="approveFlag">
+			t.approve_flag = #approveFlag#
+		</isNotEmpty>
+	</select>
+	
+	<select id="system_user_findByCondition" parameterClass="java.util.Map" resultMap="userInfoResultMap">
+		select t.* from tb_user t
+		where t.use_flag =1
+		<isNotEmpty prepend="and" property="loginName">
+			t.login_name like concat('%', concat(#loginName#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="name">
+			t.name like concat('%', concat(#name#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="companyName">
+			t.company_name like concat('%', concat(#companyName#, '%'))
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="province">
+			t.province = #province#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="city">
+			t.city = #city#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="area">
+			t.area = #area#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userType">
+			t.user_type = #userType#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="idCard">
+			t.id_card = #idCard#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="regNumber">
+			t.reg_number = #regNumber#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="approveFlag">
+			t.approve_flag = #approveFlag#
+		</isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<select id="system_user_countByIdCardOrRegNumber" parameterClass="java.util.Map" resultClass="long">
+		select count(*) from tb_user t
+		where 1=1
+		<isNotEmpty prepend="and" property="idCard">
+			t.id_card = #idCard#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="regNumber">
+			t.reg_number = #regNumber#
+		</isNotEmpty>
+	</select>
+	
+	<insert id="system_user_save" parameterClass="com.osource.module.system.model.UserInfo">
+		insert into tb_user(id,
+			login_name, password,former_password,name,id_card,
+			e_mail,province,city,area,address,company_name,
+			duty,reg_number,idcardb_picPath,idcardf_picPath,business_picPath,
+			brand,vip_pass,approve_flag,user_type,img_path,reason,
+			use_flag, insert_date, insert_id, card_no, bank_name, account_holder)
+		values (#id#,
+			#loginName#,#password#,#formerPassword#,#name#,#idCard#,
+			#email#,#province#,#city#,#area#,#address#,#companyName#,
+			#duty#,#regNumber#,#idcardbPicPath#,#idcardfPicPath#,#businessPicPath#,
+			#brand#,#vipPass#,#approveFlag#,#userType#,#imgPath#,#reason#,
+			1, now(), #insertId#, #cardNo#, #bankName#, #accountHolder#)
+	</insert>
+	
+	<update id="system_user_update" parameterClass="com.osource.module.system.model.UserInfo">
+		update tb_user set
+			login_name = #loginName#, 
+			password = #password#,
+			former_password = #formerPassword#,
+			name = #name#,
+			id_card = #idCard#,
+			e_mail = #email#,
+			province = #province#,
+			city = #city#,
+			area = #area#,
+			address = #address#,
+			company_name = #companyName#,
+			duty = #duty#,
+			reg_number = #regNumber#,
+			idcardb_picPath = #idcardbPicPath#,
+			idcardf_picPath = #idcardfPicPath#,
+			business_picPath = #businessPicPath#,
+			brand = #brand#,
+			vip_pass = #vipPass#,
+			approve_flag = #approveFlag#,
+			user_type = #userType#,
+			img_path = #imgPath#,
+			reason=#reason#,
+			update_date = now(),
+			update_id = #updateId#,
+			card_no = #cardNo#,
+			bank_name = #bankName#,
+			account_holder = #accountHolder#,
+			login_count = #loginCount#
+		where id = #id#
+	</update>
+	
+	<update id="system_user_deleteInIds" parameterClass="java.util.List">
+		update tb_user set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="system_user_deleteById" parameterClass="String">
+		update tb_user set use_flag = '0' where id = #value#
+	</update>
+	
+	<select id="system_user_findAllIdByLoginUser" parameterClass="java.util.List" resultClass="java.lang.String">
+		select * from tb_user where login_name in 
+		<iterate conjunction="," open="(" close=")" >
+		    #value[]# 
+		</iterate>
+	</select>
+	
+	<insert id="system_user_saveUserRole" parameterClass="com.osource.module.system.model.UserRole" >
+		insert into tb_user_role(id, role_id, user_id, dept_id, use_flag, insert_date, insert_id) 
+		values (#id#, #roleId#, #userId#, 0, '1',now(), #insertId#)
+	</insert>
+</sqlMap>

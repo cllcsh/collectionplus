@@ -1,0 +1,84 @@
+.tablelist{
+	background-color: #A5CCED;
+}
+
+.tablelist tr.theOne{
+	background-color:#EFF3FF;
+	font-size:12px;
+}
+
+.tablelist tr.other{
+	background-color:#e7f6ff;
+}
+
+.tablelist tr.other1{
+	background-color:#FAFAFF;
+}
+
+.border_all{
+	border:1px #666666 solid;
+	background-color:#d1eeff;
+	border:1px #73A2D6 solid;
+}
+
+.border_line{
+	border-left:1px #74A3D6 solid;
+	border-right:1px #74A3D6 solid;
+	border-bottom:1px #74A3D6 solid;
+}
+
+.textLeft	{text-align: left;padding-left: 4px;}
+.textRight	{text-align: right;padding-right: 5px;}
+.textCenter	{text-align: center;padding-center:6px}  
+
+/* Elements
+----------------------------------------*/
+body
+{
+}
+
+table.book {
+	width:650px;
+	height:980px;
+	border:1px solid #000000;
+	background:url("images/book.gif");
+}
+
+table.cataloglist {
+	font-family: "Arial", "Helvetica", "sans-serif";	
+	text-decoration: none;
+	font-size:15px;
+	text-align: left;
+	
+}
+table.cataloglist td{
+	height:30px;
+	line-height:150%;
+}
+
+table.tablelist tr.tr_even{
+	color: #003366;
+	text-decoration: none;
+	background-color: #F0F0F0;
+	height: 24px;
+}
+
+table.tablelist tr.tr_odd{
+	color: #003366;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	height: 24px;
+}
+
+/*--- Link Styles ---*/
+a:link, a:visited
+{
+	color:#536AB4;
+	text-decoration: none;
+}
+
+a:hover, a:active
+{
+	color: #FFFFFF;
+/*	background-color: #536AB4;	*/
+}

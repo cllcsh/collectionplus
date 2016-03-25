@@ -1,0 +1,83 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DynamicInfo" id="dynamicInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="releaseBy" column="release_by" />
+		<result property="releaseName" column="user_name" />
+		<result property="dynamicContent" column="dynamic_content" />
+		<result property="releaseTime" column="release_time" />
+		<result property="isShield" column="is_shield" />
+		<result property="commentNumber" column="comment_number" />
+		<result property="likeNumber" column="like_number" />
+	</resultMap>
+	<select id="fav_dynamic_countAll" resultClass="int">
+		select count(*) from tb_dynamic
+	</select>
+
+	<select id="fav_dynamic_findAll" resultMap="dynamicInfoResultMap">
+		SELECT t.*,u.user_name FROM tb_dynamic t LEFT JOIN tb_fav_user u ON t.release_by=u.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_dynamic_findById" parameterClass="java.lang.Integer" resultMap="dynamicInfoResultMap">
+		SELECT t.*,u.user_name FROM tb_dynamic t LEFT JOIN tb_fav_user u ON t.release_by=u.id where t.id = #value#
+	</select>
+	
+	<select id="fav_dynamic_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_dynamic t LEFT JOIN tb_fav_user u ON t.release_by=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="releaseBy"><![CDATA[ t.release_by=#releaseBy# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ t.dynamic_content like concat('%',#dynamicContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseTime"><![CDATA[ t.release_time=#releaseTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isShield"><![CDATA[ t.is_shield=#isShield# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentNumber"><![CDATA[ t.comment_number=#commentNumber# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="likeNumber"><![CDATA[ t.like_number=#likeNumber# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.release_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.release_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseName"><![CDATA[ u.user_name like concat('%',#releaseName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dynamic_findByCondition" parameterClass="java.util.Map" resultMap="dynamicInfoResultMap">
+		SELECT t.*,u.user_name FROM tb_dynamic t LEFT JOIN tb_fav_user u ON t.release_by=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="releaseBy"><![CDATA[ t.release_by=#releaseBy# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ t.dynamic_content like concat('%',#dynamicContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseTime"><![CDATA[ t.release_time=#releaseTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isShield"><![CDATA[ t.is_shield=#isShield# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentNumber"><![CDATA[ t.comment_number=#commentNumber# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="likeNumber"><![CDATA[ t.like_number=#likeNumber# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.release_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.release_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseName"><![CDATA[ u.user_name like concat('%',#releaseName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_dynamic_save" parameterClass="com.osource.module.fav.model.DynamicInfo">
+		  insert into tb_dynamic(id,release_by,dynamic_content,release_time,is_shield,comment_number,like_number,use_flag,insert_date,insert_id)
+    		 values (#id#,#releaseBy#,#dynamicContent#,#releaseTime#,#isShield#,#commentNumber#,#likeNumber#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_dynamic_update" parameterClass="com.osource.module.fav.model.DynamicInfo">
+		update tb_dynamic set
+	        release_by = #releaseBy#,
+	        dynamic_content = #dynamicContent#,
+	        release_time = #releaseTime#,
+	        is_shield = #isShield#,
+	        comment_number = #commentNumber#,
+	        like_number = #likeNumber#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_dynamic_deleteInIds" parameterClass="java.util.List">
+		update tb_dynamic set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dynamic_deleteById" parameterClass="String">
+		update tb_dynamic set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,83 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DynamicLikeInfo" id="dynamicLikeInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="dynamicId" column="dynamic_id" />
+		<result property="dynamicContent" column="dynamic_content" />
+		<result property="friendId" column="friend_id" />
+		<result property="friendName" column="user_name" />
+		<result property="likeTime" column="like_time" />
+		<result property="type" column="type" />
+	</resultMap>
+	<select id="fav_dynamicLike_countAll" resultClass="int">
+		select count(*) from tb_dynamic_like
+	</select>
+
+	<select id="fav_dynamicLike_findAll" resultMap="dynamicLikeInfoResultMap">
+		SELECT t.*,d.dynamic_content,u.user_name FROM tb_dynamic_like t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		order by t.like_time desc
+	</select>
+
+	<select id="fav_dynamicLike_findById" parameterClass="java.lang.Integer" resultMap="dynamicLikeInfoResultMap">
+		SELECT t.*,d.dynamic_content,u.user_name FROM tb_dynamic_like t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+ 		where t.id = #value#
+	</select>
+	
+	<select id="fav_dynamicLike_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_dynamic_like t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="likeTime"><![CDATA[ t.like_time=#likeTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.like_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.like_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendName"><![CDATA[ u.user_name like concat('%',#friendName#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ d.dynamic_content like concat('%',#dynamicContent#,'%')]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dynamicLike_findByCondition" parameterClass="java.util.Map" resultMap="dynamicLikeInfoResultMap">
+		SELECT t.*,d.dynamic_content,u.user_name FROM tb_dynamic_like t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="likeTime"><![CDATA[ t.like_time=#likeTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.like_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.like_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendName"><![CDATA[ u.user_name like concat('%',#friendName#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ d.dynamic_content like concat('%',#dynamicContent#,'%')]]></isNotEmpty>
+		order by t.like_time desc
+	</select>
+	
+	<insert id="fav_dynamicLike_save" parameterClass="com.osource.module.fav.model.DynamicLikeInfo">
+		insert into tb_dynamic_like(id,dynamic_id,friend_id,like_time,use_flag,insert_date,insert_id,type)
+    	 values (#id#,#dynamicId#,#friendId#,#likeTime#,1,now(),#insertId#,#type#)
+	</insert>
+	
+	<update id="fav_dynamicLike_update" parameterClass="com.osource.module.fav.model.DynamicLikeInfo">
+		update tb_dynamic_like set
+	        dynamic_id = #dynamicId#,
+	        friend_id = #friendId#,
+	        like_time = #likeTime#,
+	        update_date = now(),
+	        update_id = #updateId#,
+	        type = #type#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_dynamicLike_deleteInIds" parameterClass="java.util.List">
+		update tb_dynamic_like set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dynamicLike_deleteById" parameterClass="String">
+		update tb_dynamic_like set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

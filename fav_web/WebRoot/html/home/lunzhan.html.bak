@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="../../lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>天天论战</h1>
+    </header>
+    <div class="lunzhan main">
+	    <div class="banner">
+	    	<img src="../../images/banner.png" alt="">
+	    	<p>论古典欧洲油画与俄国派绘画的市场价值？</p>
+	    </div>
+	    <div class="ui-row-flex guandian">
+            <div class="ui-col ui-col">
+            	<div class="item">
+            		<h3>甲方观点</h3>
+            		<p class="ui-txt-justify">甲方观点正文内容，我方一致认为古典欧洲画派所创造的艺术市场的价值远远高于俄国绘画派别的艺术价值，不光从技法和实际价值还是拍卖行艺术品估价，还是已有的艺术大师来看认为古典欧洲画派所创造的艺术市场</p>
+            	</div>
+            </div>
+            <div class="ui-col ui-col">
+            	<div class="item">
+            		<h3>乙方观点</h3>
+            		<p class="ui-txt-justify">乙方观点正文内容，我方一致认为古典欧洲画派所创造的艺术市场的价值远远高于俄国绘画派别的艺术价值，不光从技法和实际价值还是拍卖行艺术品估价，还是已有的艺术大师来看认为古典欧洲画派所创造的艺术市场</p>
+            	</div>
+            </div>
+        </div>
+        <div class="vs">
+        	<div class="dir">
+        		<div class="round left">支持甲方</div>
+        		<span>VS</span>
+        		<div class="round right">支持乙方</div>
+        	</div>
+        	<div class="ui-progress">
+                <span style="width:50%"></span>
+            </div>
+            <div class="cc num">
+            	<div class="fl">7618票</div>
+            	<div class="fr">543票</div>
+            </div>
+        </div>
+	</div>	
+	<script src="../../lib/zepto.js"></script>
+	<script src="../../lib/frozen/js/frozen.js"></script>
+	<script src="../../js/script.js"></script>
+</body>
+</html>

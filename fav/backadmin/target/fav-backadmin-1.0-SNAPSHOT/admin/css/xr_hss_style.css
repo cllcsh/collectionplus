@@ -1,0 +1,123 @@
+A.closeBtn { POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; WIDTH: 60px; PADDING-RIGHT: 0px; DISPLAY: block; COLOR: #FFFFFF; RIGHT: 10px; PADDING-TOP: 4px; TOP: 10px; background-color: #C5E664; font-size: 12px; font-weight: bold; text-decoration: none; }
+.ele{display:block;width:30px;cursor:pointer}
+.blk {
+	POSITION: relative; WIDTH: 100%;z-index:10;
+}
+.blk .main {
+	POSITION: relative;  background: #E9FF9D; 
+}
+.blk .main H2 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; FONT-size:18px ; COLOR: #2A731A; PADDING-TOP: 10px
+}
+.hsstable{ margin-LEFT: 20px; FONT-size:14px; COLOR: #000000; PADDING-TOP: 10px; line-height:30px }
+.hsstable .blod{ font-weight: bold; width: 100px;COLOR: #2A731A; }
+.hsstable .notblod{ width: 150px;}
+.hsstab{margin-LEFT: 20px; FONT-size:14px; PADDING-TOP: 10px; line-height:30px;text-align: center;border:#2A731A solid;border-width:1px 0 0 1px;}
+.hsstab .wd{width: 250px;border:#2A731A solid;border-width:0 1px 1px 0;}
+.hsstab .wd1{COLOR: #000000;}
+
+#detailed{ POSITION: relative; WIDTH: 100%;z-index:10;background-color: #E7FF9F;height:600px;overflow:auto;}
+A.closeBtn1 { TEXT-ALIGN: center;display:block; PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; WIDTH: 60px; PADDING-RIGHT: 0px;  COLOR: #FFFFFF;  PADDING-TOP: 4px; float:right; background-color: #C5E664; font-size: 12px; font-weight: bold; text-decoration: none; }
+#detailed_tasktable { width: 90%; margin-top: 0px; margin-right: auto; margin-bottom: 20px; margin-left: auto; border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; border-top-color: #009900; border-left-color: #009900; }
+#detailed_tasktable .tdd{ border-right: #006600 1px solid; border-bottom: #006600 1px solid; line-height: 24px; height: 24px; text-align: center;font-size: 12px;  }
+#detailed_tasktable th{ color: #226603; background-color: #D5F566; }
+#detailed_tasktable td{ color: #226603; background-color: #E7FF9F; }
+#detailed_tasktable  a,span{cursor:pointer;}
+#detailed_tasktable .taskTR { position: relative; }
+.taskperson{ position: absolute; left: -741px; top: 24px;  }
+.taskperson  table{}
+#detailed_tasktable .taskperson  td,th{  line-height: 24px; height: 24px; font-size: 12px; color: #226603;; text-align: left; padding-left: 20px; }
+#detailed_tasktable .taskperson  td{}
+#detailed_tasktable .taskperson  th{}
+#detailed_tasktable .taskperson a{ color: #FFFFFF; }
+
+
+
+UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: 12px normal "宋体", Arial, Helvetica, sans-serif; PADDING-TOP: 0px
+}
+LI {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: 12px normal "宋体", Arial, Helvetica, sans-serif; PADDING-TOP: 0px
+}
+#tabbox {
+	MARGIN: 0px auto;  OVERFLOW: hidden;width: 90%;min-width: 520px;margin-top:10px;
+}
+.tab_conbox {
+	BORDER-BOTTOM:#265900 1px solid; BORDER-LEFT: #265900 1px solid; BORDER-TOP: #265900 1px; BORDER-RIGHT:#265900 1px solid
+}
+.tab_con {
+	DISPLAY: none
+}
+.tabs {
+	BORDER-BOTTOM: #265900 1px solid; BORDER-LEFT: #265900 1px solid; WIDTH: 100%; HEIGHT: 32px;
+}
+.tabs LI {
+	BORDER-BOTTOM: #265900 1px solid; POSITION: relative; BORDER-LEFT: #265900 1px; LINE-HEIGHT: 31px; MARGIN-BOTTOM: -1px; BACKGROUND: #D7F468;; FLOAT: left; HEIGHT: 31px; OVERFLOW: hidden; BORDER-TOP: #265900 1px solid; BORDER-RIGHT: #265900 1px solid
+}
+.tabs LI A {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; PADDING-BOTTOM: 0px; OUTLINE-STYLE: none; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; DISPLAY: block; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid; PADDING-TOP: 0px;COLOR: #265900; FONT-SIZE: 12px; TEXT-DECORATION: none; font-weight: bold; cursor:pointer
+}
+.tabs LI A:hover {
+	BACKGROUND: #E7FF9F;
+}
+.tabs .thistab {
+	 BORDER-BOTTOM: #E7FF9F 1px solid;BACKGROUND: #E7FF9F;
+}
+.tabs .thistab A:hover {
+	 BORDER-BOTTOM: #E7FF9F 1px solid;BACKGROUND: #E7FF9F;
+}
+.tab_con {
+	PADDING-BOTTOM: 12px; LINE-HEIGHT: 175%; PADDING-LEFT: 12px; PADDING-RIGHT: 12px; FONT-SIZE: 14px; PADDING-TOP: 12px
+}
+<!--统计图样式-->
+.axis{
+fill:#265900;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+.bar {
+  fill: #D7F468;
+}
+.bar:hover {
+  fill: orangered ;
+}
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #265900;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+.dot {
+  stroke: #000;
+}

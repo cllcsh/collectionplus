@@ -1,0 +1,58 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CollectionCategoryInfo" id="collectionCategoryInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="categoryName" column="category_name" />
+<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_collectionCategory_countAll" resultClass="int">
+		select count(*) from tb_collection_category where use_flag = 1
+	</select>
+
+	<select id="fav_collectionCategory_findAll" resultMap="collectionCategoryInfoResultMap">
+		select * from tb_collection_category where use_flag = 1 order by display_order
+	</select>
+
+	<select id="fav_collectionCategory_findById" parameterClass="java.lang.Integer" resultMap="collectionCategoryInfoResultMap">
+		select * from tb_collection_category where id = #value#
+	</select>
+	
+	<select id="fav_collectionCategory_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_collection_category t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="categoryName"><![CDATA[ t.category_name like concat('%',#categoryName#,'%') ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_collectionCategory_findByCondition" parameterClass="java.util.Map" resultMap="collectionCategoryInfoResultMap">
+		select t.* from tb_collection_category t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="categoryName"><![CDATA[ t.category_name like concat('%',#categoryName#,'%') ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_collectionCategory_save" parameterClass="com.osource.module.fav.model.CollectionCategoryInfo">
+    insert into tb_collection_category(id,category_name,display_order,use_flag,insert_date,insert_id)
+     values (#id#,#categoryName#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_collectionCategory_update" parameterClass="com.osource.module.fav.model.CollectionCategoryInfo">
+    update tb_collection_category set
+        category_name = #categoryName#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_collectionCategory_deleteInIds" parameterClass="java.util.List">
+		update tb_collection_category set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_collectionCategory_deleteById" parameterClass="String">
+		update tb_collection_category set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

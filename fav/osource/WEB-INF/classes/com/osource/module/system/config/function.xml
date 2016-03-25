@@ -1,0 +1,94 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<insert id="system_saveFunction" parameterClass="com.osource.module.system.model.FunctionInfo">
+	    <!--  <selectKey resultClass="Integer" type="pre" keyProperty="id">
+			select (nvl(max(id),0)+1) as id from tm_func
+		</selectKey>-->
+		insert into ts_func (ID, NAME, USER_TYPE, URL, FRONT_FUNC, USE_FLAG, INSERT_DATE, INSERT_ID)
+		 values (#id#, #functionName#, #userType#, #link#, #frontFucntionId#, 1, sysdate, #insertId#)
+	</insert>
+	<update id="system_updateFunction" parameterClass="com.osource.module.system.model.FunctionInfo">
+		update ts_func set update_date = sysdate
+		<isNotEmpty prepend="," property="functionName">NAME = #functionName#</isNotEmpty>
+		<isNotEmpty prepend="," property="userType">USER_TYPE = #userType#</isNotEmpty>
+		<isNotEmpty prepend="," property="link">url = #link#</isNotEmpty>
+		<isNotEmpty prepend="," property="frontFucntionId">FRONT_FUNC = #frontFucntionId#</isNotEmpty>
+		<isNotEmpty prepend="," property="updateId">update_id = #updateId#</isNotEmpty>
+		where id = #id#
+	</update>
+	<update id="system_deleteFunctionById" parameterClass="Integer">
+		update ts_func set use_flag = 0 where id = #value#
+	</update>
+	<update id="system_deleteFunctionInIds" parameterClass="String">
+		update ts_func set use_flag = 0 where id in $value$
+	</update>
+	<select id="system_findFunctionById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.FunctionInfo">
+		select func.id as id,
+			func.name as functionName, 
+			func.user_type as userType, 
+			func.url as link, 
+			func.front_func as frontFucntionId, 
+			(select name from ts_func fun2 where fun2.id = func.front_func) as frontFucntionName 
+			from ts_func func where id = #value# and func.use_flag = 1
+	</select>
+	<select id="system_getAllFunctionNum" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from ts_func where use_flag = 1 
+	</select>
+	<select id="system_findAllFunction" resultClass="com.osource.module.system.model.FunctionInfo">
+		select func.id as id,
+		    func.name as functionName,  
+			func.front_func as frontFucntionId
+			from ts_func func where func.use_flag = 1
+		<!--  select func.id as id,
+		    lpad(func.name,length(func.name)*2+(level-1)*3,'-') functionName, 
+			func.front_func as frontFucntionId
+			from ts_func func where func.use_flag = 1  
+			connect by prior func.id =  func.front_func start with func.id = ''  
+			-->
+	</select>
+	<select id="system_findFunctionListByUserId" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.FunctionInfo">
+		select distinct func.id as id,
+			func.name as functionName, 
+			func.user_type as userType, 
+			func.url as link, 
+			func.front_func as frontFucntionId,
+			func.front_func
+			from v_func func 
+			where func.binding in (1,2) and	func.user_id = #value#
+			order by func.id
+	</select>
+	<select id="system_findFrontFunction" resultClass="com.osource.module.system.model.FunctionInfo">
+		select func.id as id,
+			func.name as functionName, 
+			func.user_type as userType, 
+			func.url as link, 
+			func.front_func as frontFucntionId, 
+			(select name from ts_func fun2 where fun2.id = func.front_func) as frontFucntionName
+			from ts_func func where func.use_flag = 1 and func.front_func is null
+			order by func.id
+	</select>
+	<select id="system_getAllFunctionNumByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from ts_func where use_flag = 1 
+		<isNotEmpty prepend="AND" property="fucntionName">
+		name like '%'||#fucntionName#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="link">
+		url like '%'||#link#||'%'
+		</isNotEmpty>
+	</select>
+	<select id="system_findFunctionByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.FunctionInfo">
+		select func.id as id,
+			func.name as functionName, 
+			func.user_type as userType, 
+			func.url as link, 
+			func.front_func as frontFucntionId, 
+			(select name from ts_func fun2 where fun2.id = func.front_func) as frontFucntionName 
+			from ts_func func where func.use_flag = 1
+		<isNotEmpty prepend="AND" property="fucntionName">
+		name like '%'||#fucntionName#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="link">
+		url like '%'||#link#||'%'
+		</isNotEmpty>
+	</select>
+</sqlMap>

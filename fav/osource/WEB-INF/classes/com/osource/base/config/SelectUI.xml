@@ -1,0 +1,73 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.util.Entry" id="rectifyResultMap">
+		<result property="key" column="id"/>
+		<result property="value" column="name"/>
+	</resultMap>
+	
+	<resultMap class="com.osource.util.Entry" id="managerResultMap">
+		<result property="key" column="id"/>
+		<result property="value" column="name"/>
+	</resultMap>
+	
+	<!-- 根据查询条件获得矫正对象列表 ，用于下拉列表显示 -->
+	<select id="SelectUI_findRectifyListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		select tb_criminal.id, tb_criminal.name	
+		from tb_criminal, tb_dept
+		where tb_criminal.dept_id = tb_dept.id and tb_dept.use_flag = '1' and tb_criminal.use_flag = '1'
+		      and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = #deptId#), '%') 
+		
+		<isNotEmpty prepend="AND" property="flag">
+			tb_criminal.status != #flag#
+		</isNotEmpty> 
+	</select>
+	
+	<!-- 根据查询帮教人员条件获得矫正对象列表 ，用于下拉列表显示 -->
+	<select id="SelectUI_findCriminalListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		select tb_criminal.id, tb_criminal.name	
+		from tb_criminal
+		where tb_criminal.use_flag = '1' and  staff_id=#deptId#
+	</select>
+	
+	<!-- 根据查询条件获得矫正工作者列表 ，用于下拉列表显示 -->
+	<select id="SelectUI_findManagerListByCondition" parameterClass="java.util.Map" resultMap="managerResultMap">
+		select tb_user.id, tb_user.name	
+		from tb_user, tb_dept
+		where tb_user.dept_id = tb_dept.id and tb_dept.use_flag = '1' and tb_user.use_flag = '1'
+		      and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = #deptId#), '%')  
+	</select>
+	
+	<!-- 根据查询条件获得刑释解教人员列表 ，用于下拉列表显示 -->
+	<select id="SelectUI_findResurviverListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		select tb_resurviver.id, tb_resurviver.name	
+		from tb_resurviver, tb_dept
+		where tb_resurviver.dept_id = tb_dept.id and tb_dept.use_flag = '1' and tb_resurviver.use_flag = '1'
+		      and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = #deptId#), '%')  
+	</select>
+	
+	<select id="SelectUI_findNodeTypeListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		select t.id as id, t.name as name
+		from m_nodetype t, tb_dept
+		where t.dept_id = tb_dept.id and tb_dept.use_flag = '1' and t.use_flag = '1'
+		      and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = #deptId#), '%') 
+		      order by t.name 
+	</select>
+	
+	<select id="SelectUI_findNodeListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		select t.id as id, t.name as name
+		from m_node t, tb_dept
+		where t.dept_id = tb_dept.id and tb_dept.use_flag = '1' and t.use_flag = '1'
+		      and tb_dept.id = #deptId# and t.logickind =0
+		      order by t.name 
+	</select>
+	
+	<select id="SelectUI_findEquipListByCondition" parameterClass="java.util.Map" resultMap="rectifyResultMap">
+		SELECT b.id,
+       		concat(lpad('', (length(b.path) - length(a.path)) / 4, '-'), b.name) AS name
+  		FROM m_organization a, m_organization b
+ 			WHERE a.id = #id#
+   			AND b.use_flag = '1'
+   			AND b.path LIKE concat(a.path, '%')
+ 			ORDER BY b.path
+	</select>
+</sqlMap>

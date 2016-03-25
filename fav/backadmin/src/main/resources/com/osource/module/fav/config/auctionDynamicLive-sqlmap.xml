@@ -1,0 +1,75 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionDynamicLiveInfo" id="auctionDynamicLiveInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="auctionDynamicId" column="auction_dynamic_id" />
+		<result property="auctionDynamicTitle" column="dynamicTitle" />
+		<result property="collectionId" column="collection_id" />
+		<result property="collectionTitle" column="collectionTitle" />
+	</resultMap>
+	<select id="fav_auctionDynamicLive_countAll" resultClass="int">
+		select count(*) from tb_auction_dynamic_live
+	</select>
+
+	<select id="fav_auctionDynamicLive_findAll" resultMap="auctionDynamicLiveInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_live t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_auctionDynamicLive_findById" parameterClass="java.lang.Integer" resultMap="auctionDynamicLiveInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_live t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_auctionDynamicLive_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_dynamic_live t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionDynamicLive_findByCondition" parameterClass="java.util.Map" resultMap="auctionDynamicLiveInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_live t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_auctionDynamicLive_save" parameterClass="com.osource.module.fav.model.AuctionDynamicLiveInfo">
+		 insert into tb_auction_dynamic_live(id,auction_dynamic_id,collection_id,use_flag,insert_date,insert_id)
+     		values (#id#,#auctionDynamicId#,#collectionId#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionDynamicLive_update" parameterClass="com.osource.module.fav.model.AuctionDynamicLiveInfo">
+		update tb_auction_dynamic_live set
+	        auction_dynamic_id = #auctionDynamicId#,
+	        collection_id = #collectionId#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_auctionDynamicLive_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_dynamic_live set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionDynamicLive_deleteById" parameterClass="String">
+		update tb_auction_dynamic_live set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

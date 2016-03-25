@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<package name="fav" extends="ictmap-default" namespace="/module/fav">
+	
+	<action name="collection_*" class="com.osource.module.fav.web.action.CollectionAction" method="{1}">
+	   	<interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collection_init</param>
+		</result>
+	</action>
+	
+	<action name="collectionComments_*" class="com.osource.module.fav.web.action.CollectionCommentsAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionCommentsMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionCommentsList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionCommentsView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionCommentsSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collectionComments_init</param>
+		</result>
+	</action>
+	
+	<action name="taskPointsConfig_*" class="com.osource.module.fav.web.action.TaskPointsConfigAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/taskPointsConfigMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/taskPointsConfigList.jsp</result>
+	    <result name="view">/module/fav/jsp/taskPointsConfigView.jsp</result>
+	    <result name="set">/module/fav/jsp/taskPointsConfigSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">taskPointsConfig_init</param>
+		</result>
+	</action>
+	
+	<action name="applyRecord_*" class="com.osource.module.fav.web.action.ApplyRecordAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/applyRecordMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/applyRecordList.jsp</result>
+	    <result name="view">/module/fav/jsp/applyRecordView.jsp</result>
+	    <result name="set">/module/fav/jsp/applyRecordSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">applyRecord_init</param>
+		</result>
+	</action>
+	
+	<action name="auction_*" class="com.osource.module.fav.web.action.AuctionAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auction_init</param>
+		</result>
+	</action>
+	
+	<action name="auctionCollectionBid_*" class="com.osource.module.fav.web.action.AuctionCollectionBidAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionCollectionBidMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionCollectionBidList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionCollectionBidView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionCollectionBidSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auctionCollectionBid_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicDeal_*" class="com.osource.module.fav.web.action.DynamicDealAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicDealMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicDealList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicDealView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicDealSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicDeal_init</param>
+		</result>
+	</action>
+	
+	<action name="auctionDynamicImages_*" class="com.osource.module.fav.web.action.AuctionDynamicImagesAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionDynamicImagesMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionDynamicImagesList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionDynamicImagesView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionDynamicImagesSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auctionDynamicImages_init</param>
+		</result>
+	</action>
+	
+	<action name="auctionDynamicLive_*" class="com.osource.module.fav.web.action.AuctionDynamicLiveAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionDynamicLiveMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionDynamicLiveList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionDynamicLiveView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionDynamicLiveSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auctionDynamicLive_init</param>
+		</result>
+	</action>
+	
+	<action name="auctionDynamicPreview_*" class="com.osource.module.fav.web.action.AuctionDynamicPreviewAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionDynamicPreviewMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionDynamicPreviewList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionDynamicPreviewView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionDynamicPreviewSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auctionDynamicPreview_init</param>
+		</result>
+	</action>
+	
+	<action name="auctionDynamics_*" class="com.osource.module.fav.web.action.AuctionDynamicsAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/auctionDynamicsMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/auctionDynamicsList.jsp</result>
+	    <result name="view">/module/fav/jsp/auctionDynamicsView.jsp</result>
+	    <result name="set">/module/fav/jsp/auctionDynamicsSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">auctionDynamics_init</param>
+		</result>
+	</action>
+	
+	<action name="curiosityShop_*" class="com.osource.module.fav.web.action.CuriosityShopAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/curiosityShopMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/curiosityShopList.jsp</result>
+	    <result name="view">/module/fav/jsp/curiosityShopView.jsp</result>
+	    <result name="set">/module/fav/jsp/curiosityShopSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">curiosityShop_init</param>
+		</result>
+	</action>
+	
+	<action name="dailyPolemic_*" class="com.osource.module.fav.web.action.DailyPolemicAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dailyPolemicMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dailyPolemicList.jsp</result>
+	    <result name="view">/module/fav/jsp/dailyPolemicView.jsp</result>
+	    <result name="set">/module/fav/jsp/dailyPolemicSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dailyPolemic_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamic_*" class="com.osource.module.fav.web.action.DynamicAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamic_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicComments_*" class="com.osource.module.fav.web.action.DynamicCommentsAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicCommentsMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicCommentsList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicCommentsView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicCommentsSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicComments_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicLike_*" class="com.osource.module.fav.web.action.DynamicLikeAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicLikeMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicLikeList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicLikeView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicLikeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicLike_init</param>
+		</result>
+	</action>
+	
+	<action name="famousHome_*" class="com.osource.module.fav.web.action.FamousHomeAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/famousHomeMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/famousHomeList.jsp</result>
+	    <result name="view">/module/fav/jsp/famousHomeView.jsp</result>
+	    <result name="set">/module/fav/jsp/famousHomeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">famousHome_init</param>
+		</result>
+	</action>
+	
+	<action name="favorites_*" class="com.osource.module.fav.web.action.FavoritesAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/favoritesMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/favoritesList.jsp</result>
+	    <result name="view">/module/fav/jsp/favoritesView.jsp</result>
+	    <result name="set">/module/fav/jsp/favoritesSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">favorites_init</param>
+		</result>
+	</action>
+	
+	<action name="home_*" class="com.osource.module.fav.web.action.HomeAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/homeMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/homeList.jsp</result>
+	    <result name="view">/module/fav/jsp/homeView.jsp</result>
+	    <result name="set">/module/fav/jsp/homeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">home_init</param>
+		</result>
+	</action>
+	
+	<action name="messages_*" class="com.osource.module.fav.web.action.MessagesAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/messagesMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/messagesList.jsp</result>
+	    <result name="view">/module/fav/jsp/messagesView.jsp</result>
+	    <result name="set">/module/fav/jsp/messagesSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">messages_init</param>
+		</result>
+	</action>
+	
+	<action name="sms_*" class="com.osource.module.fav.web.action.SmsAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/smsMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/smsList.jsp</result>
+	    <result name="view">/module/fav/jsp/smsView.jsp</result>
+	    <result name="set">/module/fav/jsp/smsSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">sms_init</param>
+		</result>
+	</action>
+	
+	<action name="todayAppreciation_*" class="com.osource.module.fav.web.action.TodayAppreciationAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/todayAppreciationMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/todayAppreciationList.jsp</result>
+	    <result name="view">/module/fav/jsp/todayAppreciationView.jsp</result>
+	    <result name="set">/module/fav/jsp/todayAppreciationSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">todayAppreciation_init</param>
+		</result>
+	</action>
+	
+	<action name="favUser_*" class="com.osource.module.fav.web.action.FavUserAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/favUserMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/favUserList.jsp</result>
+	    <result name="view">/module/fav/jsp/favUserView.jsp</result>
+	    <result name="set">/module/fav/jsp/favUserSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">favUser_init</param>
+		</result>
+	</action>
+	
+	<action name="userFans_*" class="com.osource.module.fav.web.action.UserFansAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/userFansMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/userFansList.jsp</result>
+	    <result name="view">/module/fav/jsp/userFansView.jsp</result>
+	    <result name="set">/module/fav/jsp/userFansSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">userFans_init</param>
+		</result>
+	</action>
+	
+	<action name="userPointsRecord_*" class="com.osource.module.fav.web.action.UserPointsRecordAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/userPointsRecordMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/userPointsRecordList.jsp</result>
+	    <result name="view">/module/fav/jsp/userPointsRecordView.jsp</result>
+	    <result name="set">/module/fav/jsp/userPointsRecordSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">userPointsRecord_init</param>
+		</result>
+	</action>
+	
+	<action name="dailyPolemicVote_*" class="com.osource.module.fav.web.action.DailyPolemicVoteAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dailyPolemicVoteMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dailyPolemicVoteList.jsp</result>
+	    <result name="view">/module/fav/jsp/dailyPolemicVoteView.jsp</result>
+	    <result name="set">/module/fav/jsp/dailyPolemicVoteSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dailyPolemicVote_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicCommentTop_*" class="com.osource.module.fav.web.action.DynamicCommentTopAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicCommentTopMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicCommentTopList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicCommentTopView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicCommentTopSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicCommentTop_init</param>
+		</result>
+	</action>
+	
+	<action name="heat_*" class="com.osource.module.fav.web.action.HeatAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/heatMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/heatList.jsp</result>
+	    <result name="view">/module/fav/jsp/heatView.jsp</result>
+	    <result name="set">/module/fav/jsp/heatSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">heat_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicCommentsLike_*" class="com.osource.module.fav.web.action.DynamicCommentsLikeAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicCommentsLikeMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicCommentsLikeList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicCommentsLikeView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicCommentsLikeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicCommentsLike_init</param>
+		</result>
+	</action>
+	
+	<action name="collectionCategory_*" class="com.osource.module.fav.web.action.CollectionCategoryAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionCategoryMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionCategoryList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionCategoryView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionCategorySet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collectionCategory_init</param>
+		</result>
+	</action>
+	
+	<action name="collectionLable_*" class="com.osource.module.fav.web.action.CollectionLableAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionLableMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionLableList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionLableView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionLableSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collectionLable_init</param>
+		</result>
+	</action>
+	
+	<action name="collectionImages_*" class="com.osource.module.fav.web.action.CollectionImagesAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionImagesMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionImagesList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionImagesView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionImagesSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collectionImages_init</param>
+		</result>
+	</action>
+	
+	<action name="dynamicImages_*" class="com.osource.module.fav.web.action.DynamicImagesAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/dynamicImagesMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/dynamicImagesList.jsp</result>
+	    <result name="view">/module/fav/jsp/dynamicImagesView.jsp</result>
+	    <result name="set">/module/fav/jsp/dynamicImagesSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">dynamicImages_init</param>
+		</result>
+	</action>
+	
+	<action name="userBlack_*" class="com.osource.module.fav.web.action.UserBlackAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/userBlackMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/userBlackList.jsp</result>
+	    <result name="view">/module/fav/jsp/userBlackView.jsp</result>
+	    <result name="set">/module/fav/jsp/userBlackSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">userBlack_init</param>
+		</result>
+	</action>
+	
+	<action name="favUserSet_*" class="com.osource.module.fav.web.action.FavUserSetAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/favUserSetMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/favUserSetList.jsp</result>
+	    <result name="view">/module/fav/jsp/favUserSetView.jsp</result>
+	    <result name="set">/module/fav/jsp/favUserSetSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">favUserSet_init</param>
+		</result>
+	</action>
+	
+	<action name="collectionPeriod_*" class="com.osource.module.fav.web.action.CollectionPeriodAction" method="{1}">
+	    <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+	    <result name="init">/module/fav/jsp/collectionPeriodMgr.jsp</result>
+	    <result name="list">/module/fav/jsp/collectionPeriodList.jsp</result>
+	    <result name="view">/module/fav/jsp/collectionPeriodView.jsp</result>
+	    <result name="set">/module/fav/jsp/collectionPeriodSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">collectionPeriod_init</param>
+		</result>
+	</action>
+	
+</package>
+</struts>

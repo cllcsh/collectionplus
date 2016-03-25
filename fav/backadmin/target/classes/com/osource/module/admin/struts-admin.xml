@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<package name="admin" extends="ictmap-default" namespace="/module/admin">
+	
+	<action name="loginLog_*" 
+	class="com.osource.module.admin.web.action.LoginLogAction" 
+	method="{1}">
+			<result name="init">/module/admin/jsp/loginLogMgr.jsp</result>
+			<result name="list">/module/admin/jsp/loginLogList.jsp</result>
+		</action>
+	
+	<action name="loginSta_*" 
+	class="com.osource.module.admin.web.action.LoginStaAction" 
+	method="{1}">
+		<interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref>
+			<result name="init">/module/admin/jsp/loginStaMgr.jsp</result>
+			<result name="list">/module/admin/jsp/loginStaList.jsp</result>
+		</action>
+		
+	</package>
+</struts>

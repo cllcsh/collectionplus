@@ -1,0 +1,154 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.map.model.CheckBean" id="checkBeanResultMap" extends="baseResultMapNew">
+		
+	</resultMap>
+	
+	<resultMap class="com.osource.base.util.Entry" id="CriminalOptionEntry">
+		<result property="key" column="id"/>
+		<result property="value" column="name"/>
+	</resultMap>
+	
+	<select id="module_check_countAll" resultClass="int">
+		select count(*) from tb_check
+	</select>
+
+	<select id="module_check_findAll" resultMap="checkBeanResultMap">
+		select * from tb_check
+	</select>
+
+	<select id="module_check_findById" parameterClass="java.lang.Integer" resultClass="com.osource.module.map.model.CheckBean">
+		<![CDATA[
+			select c.id,c.criminal_id as criminalId,tc.name as criminalName,c.check_result as checkResult,cb.code_value as checkResultName,
+			       DATE_FORMAT(c.check_date,'%Y-%m-%d') as checkDate,c.cent,c.check_explain as checkExplain,c.remark as remark
+			           from tb_check c left join tb_criminal tc on c.criminal_id = tc.id
+			                           left join ts_codebook cb on c.check_result = cb.code_key and cb.code_type="check_result"
+			       			where c.use_flag =1 and c.id = #value# and tc.use_flag=1
+		]]> 
+	</select>
+
+	<select id="module_check_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		<![CDATA[
+			select count(*)
+			           from tb_check c left join tb_criminal tc on c.criminal_id = tc.id
+			                           left join ts_codebook cb on c.check_result = cb.code_key and cb.code_type="check_result"
+			       			where c.use_flag =1   and tc.use_flag=1
+		]]>
+		<dynamic prepend="and">
+			<isNotEmpty prepend="and" property="userId">
+				<![CDATA[
+					tc.staff_id in (
+                                  select u.id from tb_user u where u.use_flag = 1 and u.dept_id in(
+                                         select d.id from tb_dept d where d.node like concat((select dd.node from tb_dept dd,tb_user us where dd.id = us.dept_id and us.id=#userId#),'%') and d.use_flag=1))
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="criminalId">
+				<![CDATA[
+					c.criminal_id = #criminalId#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkResult">
+				<![CDATA[
+					c.check_result = #checkResult#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="startDate">
+				<![CDATA[
+					c.check_date >= #startDate#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="endDate">
+				<![CDATA[
+					c.check_date <= #endDate#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="module_check_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.map.model.CheckBean">
+		<![CDATA[
+			select c.id,c.criminal_id as criminalId,tc.name as criminalName,c.check_result as checkResult,cb.code_value as checkResultName,
+			       DATE_FORMAT(c.check_date,'%Y-%m-%d') as checkDate,c.cent,c.check_explain as checkExplain,c.remark as remark
+			           from tb_check c left join tb_criminal tc on c.criminal_id = tc.id
+			                           left join ts_codebook cb on c.check_result = cb.code_key and cb.code_type="check_result"
+			       			where c.use_flag =1  and tc.use_flag=1
+		]]>
+		<dynamic prepend="and">
+			<isNotEmpty prepend="and" property="userId">
+				<![CDATA[
+					tc.staff_id in (
+                                  select u.id from tb_user u where u.use_flag = 1 and u.dept_id in(
+                                         select d.id from tb_dept d where d.node like concat((select dd.node from tb_dept dd,tb_user us where dd.id = us.dept_id and us.id=#userId#),'%') and d.use_flag=1))
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="criminalId">
+				<![CDATA[
+					c.criminal_id = #criminalId#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkResult">
+				<![CDATA[
+					c.check_result = #checkResult#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="startDate">
+				<![CDATA[
+					c.check_date >= #startDate#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="endDate">
+				<![CDATA[
+					c.check_date <= #endDate#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<![CDATA[
+			order by c.insert_date desc
+		]]>
+	</select>
+	
+	<insert id="module_check_save" parameterClass="com.osource.module.map.model.CheckBean">
+		<![CDATA[
+			insert into tb_check(id,criminal_id,check_date,check_result,cent,check_explain,remark,dept_id,use_flag,insert_date,insert_id) 
+							values(#id#,#criminalId#,#checkDate#,#checkResult#,#cent#,#checkExplain#,#remark#,0,1,now(),#insertId#)
+		]]>
+	</insert>
+	
+	<update id="module_check_update" parameterClass="com.osource.module.map.model.CheckBean">
+		<![CDATA[
+			update tb_check c set c.criminal_id = #criminalId#,c.check_date = #checkDate#,c.check_result = #checkResult#,c.cent = #cent#,c.check_explain = #checkExplain#,c.remark = #remark#,
+								c.update_id = #updateId#,c.update_date = now()
+				where c.id = #id# and c.use_flag = 1
+		]]>
+	</update>
+
+	<update id="module_check_deleteInIds" parameterClass="java.util.List">
+		update tb_check set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="module_check_deleteById" parameterClass="String">
+		update tb_check set use_flag = '0' where id = #value#
+	</update>
+	
+	<select id="select_Criminal" parameterClass="java.lang.Integer" resultMap="CriminalOptionEntry">
+		<![CDATA[
+			select c.id,c.name
+			       from tb_criminal c
+			            where 
+			                  not EXISTS ( select * from tb_check tc where tc.check_date = DATE_FORMAT(now(),'%Y-%m-%d') and tc.criminal_id = c.id and tc.use_flag = 1)
+			                  and EXISTS (
+                                  select * from tb_user u where c.staff_id=u.id and u.use_flag = 1 and EXISTS (
+                                         select * from tb_dept d where u.dept_id=d.id and  d.node like concat((select dd.node from tb_dept dd,tb_user us where dd.id = us.dept_id and us.id=#id#),'%') and d.use_flag=1)) 
+                              and c.use_flag = 1 AND IFNULL(LENGTH(TRIM(c.loc_no)),0) > 0
+			                  
+		]]>
+	</select>
+	<select id="select_findPhone" parameterClass="java.lang.String" resultClass="java.lang.String">
+		<![CDATA[
+			select c.loc_no from tb_criminal c where c.id=#criminalId# and c.use_flag = 1
+		]]>
+	</select>
+</sqlMap>

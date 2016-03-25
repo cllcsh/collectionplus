@@ -1,0 +1,81 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionDynamicsInfo" id="auctionDynamicsInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="auctionId" column="auction_id" />
+		<result property="auctionIcon" column="icon" />
+		<result property="title" column="title" />
+		<result property="sourceId" column="source_id" />
+		<result property="auctionDynamicTypeId" column="auction_dynamic_type_id" />
+		<result property="auctionDynamicTypeName" column="name" />
+	</resultMap>
+	<select id="fav_auctionDynamics_countAll" resultClass="int">
+		select count(*) from tb_auction_dynamics
+	</select>
+
+	<select id="fav_auctionDynamics_findAll" resultMap="auctionDynamicsInfoResultMap">
+		select t.*,a.icon,d.`name` from tb_auction_dynamics t
+		LEFT JOIN tb_auction a ON t.auction_id=a.id
+		LEFT JOIN tb_auction_dynamics_type d ON t.auction_dynamic_type_id=d.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_auctionDynamics_findById" parameterClass="java.lang.Integer" resultMap="auctionDynamicsInfoResultMap">
+		select t.*,a.icon,d.`name` from tb_auction_dynamics t
+		LEFT JOIN tb_auction a ON t.auction_id=a.id
+		LEFT JOIN tb_auction_dynamics_type d ON t.auction_dynamic_type_id=d.id
+ 		where t.id = #value#
+	</select>
+	
+	<select id="fav_auctionDynamics_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_dynamics t
+		LEFT JOIN tb_auction a ON t.auction_id=a.id
+		LEFT JOIN tb_auction_dynamics_type d ON t.auction_dynamic_type_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionId"><![CDATA[ t.auction_id=#auctionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sourceId"><![CDATA[ t.source_id=#sourceId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTypeId"><![CDATA[ t.auction_dynamic_type_id=#auctionDynamicTypeId# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionDynamics_findByCondition" parameterClass="java.util.Map" resultMap="auctionDynamicsInfoResultMap">
+		select t.*,a.icon,d.`name` from tb_auction_dynamics t
+		LEFT JOIN tb_auction a ON t.auction_id=a.id
+		LEFT JOIN tb_auction_dynamics_type d ON t.auction_dynamic_type_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionId"><![CDATA[ t.auction_id=#auctionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sourceId"><![CDATA[ t.source_id=#sourceId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTypeId"><![CDATA[ t.auction_dynamic_type_id=#auctionDynamicTypeId# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_auctionDynamics_save" parameterClass="com.osource.module.fav.model.AuctionDynamicsInfo">
+		 insert into tb_auction_dynamics(id,auction_id,title,auction_dynamic_type_id,source_id,use_flag,insert_date,insert_id)
+    		 values (#id#,#auctionId#,#title#,#auctionDynamicTypeId#,#sourceId#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionDynamics_update" parameterClass="com.osource.module.fav.model.AuctionDynamicsInfo">
+		update tb_auction_dynamics set
+	        auction_id = #auctionId#,
+	        title = #title#,
+	        auction_dynamic_type_id = #auctionDynamicTypeId#,
+			<isNotEqual property="sourceId" compareValue="0">
+				source_id = #sourceId#,
+			</isNotEqual>
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_auctionDynamics_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_dynamics set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionDynamics_deleteById" parameterClass="String">
+		update tb_auction_dynamics set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

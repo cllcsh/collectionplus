@@ -1,0 +1,18 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+<resultMap class="com.osource.base.model.CodeBook" id="codeBookResultMap">
+		<result property="codeType" column="code_type"/>
+		<result property="key" column="code_key"/>
+		<result property="value" column="code_value"/>
+		<result property="codeDesc" column="code_desc"/>
+	</resultMap>
+    <select id="dict_findCodeBookByCodeType" parameterClass="String" resultMap="codeBookResultMap">
+		select dict.code_type, 
+		dict.code_key, 
+		dict.code_value, 
+		dict.code_desc 
+		from ts_codebook dict 
+		where dict.code_type = #value# and dict.use_flag = 1
+		order by order_no, code_key
+	</select>
+</sqlMap>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy file="F:\Worlk\Java\fav\frontend\target/fav-frontend-1.0-SNAPSHOT.war" tofile="F:\Worlk\Java\fav\frontend\target/fav-frontend.war"/>
+</target>
+</project>

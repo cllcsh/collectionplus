@@ -1,0 +1,75 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.FamousHomeInfo" id="famousHomeInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="icon" column="icon" />
+		<result property="introduction" column="introduction" />
+		<result property="status" column="status" />
+		<result property="specialids" column="specialids" />
+		<result property="type" column="type" />
+	</resultMap>
+	<select id="fav_famousHome_countAll" resultClass="int">
+		select count(*) from tb_famous_home
+	</select>
+
+	<select id="fav_famousHome_findAll" resultMap="famousHomeInfoResultMap">
+		select * from tb_famous_home t order by t.insert_date desc
+	</select>
+
+	<select id="fav_famousHome_findById" parameterClass="java.lang.Integer" resultMap="famousHomeInfoResultMap">
+		select * from tb_famous_home where id = #value#
+	</select>
+	
+	<select id="fav_famousHome_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_famous_home t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="icon"><![CDATA[ t.icon=#icon# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction=#introduction# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="specialids"><![CDATA[ t.specialids like concat('%',#specialids#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_famousHome_findByCondition" parameterClass="java.util.Map" resultMap="famousHomeInfoResultMap">
+		select t.* from tb_famous_home t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="icon"><![CDATA[ t.icon=#icon# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction=#introduction# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="specialids"><![CDATA[ t.specialids like concat('%',#specialids#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_famousHome_save" parameterClass="com.osource.module.fav.model.FamousHomeInfo">
+		insert into tb_famous_home(id,name,icon,introduction,status,specialids,type,use_flag,insert_date,insert_id)
+     		values (#id#,#name#,#icon#,#introduction#,#status#,#specialids#,#type#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_famousHome_update" parameterClass="com.osource.module.fav.model.FamousHomeInfo">
+		update tb_famous_home set
+	        name = #name#,
+	        icon = #icon#,
+	        introduction = #introduction#,
+	        status = #status#,
+	        specialids = #specialids#,
+	        type = #type#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_famousHome_deleteInIds" parameterClass="java.util.List">
+		update tb_famous_home set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_famousHome_deleteById" parameterClass="String">
+		update tb_famous_home set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

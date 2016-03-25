@@ -1,0 +1,8 @@
+package #{service_p};
+
+import #{service_parent_p}.#{service_parent_name};
+import #{entity_p}.#{Entity_Bean};
+
+public interface #{Entity}Service extends #{service_parent_name}<#{Entity_Bean}> {
+
+}

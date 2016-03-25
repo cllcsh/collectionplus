@@ -1,0 +1,59 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="getAllConfigNumByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_config where use_flag = '1' 
+		<isNotEmpty prepend="AND" property="configType">
+		config_type like '%$configType$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="configKey">
+		config_key like '%$configKey$%'
+		</isNotEmpty>
+	</select>
+	<select id="findConfigInfosByCondition" parameterClass="java.util.Map" resultClass="com.osource.base.model.ConfigInfo">
+		select config_code as configCode,config_key as configKey, config_type as configType,config_value as configValue,config_desc as configDesc,
+		insert_id as insertId, insert_date as insertDate, update_id as updateId, 
+		update_date as updateDate, use_flag as deleteFlag
+		from tb_config where use_flag = '1' 
+		<isNotEmpty prepend="AND" property="configType">
+		config_type like '%$configType$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="configKey">
+		config_key like '%$configKey$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="configCode">
+		config_code like '%$configCode$%'
+		</isNotEmpty>
+		order by insert_date
+	</select>
+	<select id="Config_select" parameterClass="String" resultClass="com.osource.base.model.ConfigInfo">
+		select config_code as configCode,config_key as configKey, config_type as configType,config_value as configValue,config_desc as configDesc,
+		insert_id as insertId, insert_date as insertDate, update_id as updateId, 
+		update_date as updateDate, use_flag as deleteFlag
+		from tb_config where use_flag = '1' and config_key = #value#
+	</select>
+	<insert id="saveConfigInfo" parameterClass="com.osource.base.model.ConfigInfo">
+		<selectKey resultClass="java.lang.String" type="pre"
+			keyProperty="configCode">
+			select (IFNULL(max(cast(config_code as signed integer)),0)+1) as configCode from tb_config
+		</selectKey>
+		insert into tb_config(config_code,config_type, config_key, config_value,config_desc, 
+		insert_id, insert_date) values (#configCode#,#configType#,
+		 #configKey#, #configValue#, #configDesc#,#insertId#, now())
+	</insert>
+	<update id="updateConfigInfo" parameterClass="com.osource.base.model.ConfigInfo">
+		update tb_config set update_date = now()
+		<isNotEmpty prepend="," property="configType">config_type = #configType#</isNotEmpty>
+		<isNotEmpty prepend="," property="configKey">config_key = #configKey#</isNotEmpty>
+		<isNotEmpty prepend="," property="configValue">config_value = #configValue#</isNotEmpty>
+		<isNotEmpty prepend="," property="configDesc">config_desc = #configDesc#</isNotEmpty>
+		where use_flag = '1' and config_code = #configCode#
+	</update>
+	<update id="deleteConfigInfoById" parameterClass="String">
+		update tb_config set update_date = now(),use_flag = '0' 
+		where config_code = #value#
+	</update>
+	<update id="deleteConfigInfoByIds" parameterClass="String">
+		update tb_config set update_date = now(),use_flag = '0' 
+		where config_code in $value$
+	</update>
+</sqlMap>

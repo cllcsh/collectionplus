@@ -1,0 +1,22 @@
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  
+}
+rect {
+  fill: #2A731A;  
+}
+
+.node > rect { stroke-width: 3px;
+  stroke: #333; opacity: 0.5;fill: #2A731A; }
+
+.edge rect {
+ fill: #2A731A;
+}
+
+.edge path {
+  fill: none;
+  stroke: #2A731A;
+  stroke-width: 1.5px;
+}

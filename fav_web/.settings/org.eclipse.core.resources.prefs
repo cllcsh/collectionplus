@@ -1,0 +1,15 @@
+#Fri Nov 13 00:16:11 CST 2015
+eclipse.preferences.version=1
+encoding//WebRoot/html/my=UTF-8
+encoding//WebRoot/html/my/apply.html=UTF-8
+encoding//WebRoot/html/my/password.html=UTF-8
+encoding//WebRoot/html/user=UTF-8
+encoding//WebRoot/html/user/forget-password-phone.html=UTF-8
+encoding//WebRoot/html/user/forget-password-reset.html=UTF-8
+encoding//WebRoot/html/user/forget-password-valid.html=UTF-8
+encoding//WebRoot/html/user/login.html=UTF-8
+encoding//WebRoot/html/user/register.html=UTF-8
+encoding//WebRoot/index.jsp=UTF-8
+encoding//src/config/path.properties=UTF-8
+encoding//src/config/rule.properties=UTF-8
+encoding/<project>=UTF-8

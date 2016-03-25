@@ -1,0 +1,43 @@
+/* CSS Document */
+ul {list-style:none;margin:0}
+ul li {float:left;display:block;line-height:20px}
+.icon {margin:0 380px 160px 0;}
+.icon a{display:block; position:absolute;width:360px; height:140px; margin:0; padding:0 0 0 0px;background-repeat:no-repeat}
+.icon a:hover{background-position:-360px 0;}
+.criminal_1 a { background-image:url(images/criminal_1.jpg);}
+.criminal_2 a { background-image:url(images/criminal_2.jpg);}
+.criminal_3 a { background-image:url(images/criminal_3.jpg);}
+.criminal_4 a { background-image:url(images/criminal_4.jpg);}
+.criminal_5 a { background-image:url(images/criminal_5.jpg);}
+.criminal_6 a { background-image:url(images/criminal_6.jpg);}
+.criminal_7 a { background-image:url(images/criminal_7.jpg);}
+.criminal_8 a { background-image:url(images/criminal_8.jpg);}
+.criminal_9 a { background-image:url(images/criminal_9.jpg);}
+.criminal_10 a { background-image:url(images/criminal_10.jpg);}
+
+.evaluate_1 a { background-image:url(images/evaluate_1.jpg);}
+.evaluate_2 a { background-image:url(images/evaluate_2.jpg);}
+.evaluate_3 a { background-image:url(images/evaluate_3.jpg);}
+.evaluate_4 a { background-image:url(images/evaluate_4.jpg);}
+
+.placement_1 a { background-image:url(images/placement_1.jpg);}
+.placement_2 a { background-image:url(images/placement_2.jpg);}
+.placement_3 a { background-image:url(images/placement_3.jpg);}
+.placement_4 a { background-image:url(images/placement_4.jpg);}
+.placement_5 a { background-image:url(images/placement_5.jpg);}
+.placement_6 a { background-image:url(images/placement_6.jpg);}
+
+.volunteer_1 a { background-image:url(images/volunteer_1.jpg);}
+.volunteer_2 a { background-image:url(images/volunteer_2.jpg);}
+.volunteer_3 a { background-image:url(images/volunteer_3.jpg);}
+
+.link_1 a { background-image:url(images/volunteer_1.jpg);}
+.link_2 a { background-image:url(images/volunteer_1.jpg);}
+.link_3 a { background-image:url(images/volunteer_1.jpg);}
+.link_4 a { background-image:url(images/volunteer_1.jpg);}
+.link_5 a { background-image:url(images/volunteer_1.jpg);}
+.link_6 a { background-image:url(images/volunteer_1.jpg);}
+
+.title,.title a,.title hover{margin:40px 0 0 125px;font-size:14px; color:#0561A0;font-weight:bold;text-decoration:none;}
+.main,.main a,.main hover{margin:10px 0 0 125px;font:12px Arial, Helvetica, sans-serif;color:#999999;text-decoration:none;}
+#menu {width: 90%;margin:0 auto;margin-left:10%;}

@@ -1,0 +1,123 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	
+	<select id="system_userPermission_countAll" resultClass="int">
+		select count(*) from tb_user where use_flag = '1'
+	</select>
+
+	<select id="system_userPermission_findAll" resultClass="com.osource.module.system.model.UserPermissionInfo">
+		select id, login_name as loginName, name as userName, dept_id as deptId,use_flag as useFlag,
+		insert_date as insertDate,insert_id as insertId,update_date as updateDate, update_id as updateId,
+		(select name from tb_dept where id = tb_user.dept_id) as deptName 
+		from tb_user where use_flag = '1'
+	</select>
+
+	<select id="system_userPermission_findById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.UserPermissionInfo">
+		select id, login_name as loginName, name as userName, dept_id as deptId,use_flag as useFlag,
+		insert_date as insertDate,insert_id as insertId,update_date as updateDate, update_id as updateId,
+		(select name from tb_dept where id = tb_user.dept_id) as deptName 
+		from tb_user where id = #value# and use_flag = '1'
+	</select>
+	
+	<select id="system_userPermission_findUserInfoByName" parameterClass="String" resultClass="com.osource.module.system.model.UserPermissionInfo">
+		select id, login_name as loginName, name as userName, dept_id as deptId,use_flag as useFlag,
+		insert_date as insertDate,insert_id as insertId,update_date as updateDate, update_id as updateId,
+		(select name from tb_dept where id = tb_user.dept_id) as deptName 
+		from tb_user where login_name = #value# and use_flag = '1'
+	</select>
+	
+	<select id="system_userPermission_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_user, tb_dept
+		where tb_user.dept_id = tb_dept.id and tb_user.use_flag = '1' and tb_dept.use_flag = '1' 
+		      and tb_dept.node like concat((select node from tb_dept where use_flag = '1' and id = 0), '%')
+	
+		<isNotEmpty prepend="AND" property="userName">
+			tb_user.name like concat('%', #userName#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginName">
+			tb_user.login_name like concat('%', #loginName#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locNo">
+			tb_user.loc_no = #locNo#
+		</isNotEmpty>
+		<!--  <isNotEmpty prepend="AND" property="deptId">
+			tb_user.dept_id = 0
+		</isNotEmpty>-->
+	</select>
+	
+	<select id="system_userPermission_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.UserPermissionInfo">
+		select tb_user.id, login_name as loginName, tb_user.name as userName, tb_user.dept_id as deptId, tb_user.use_flag as useFlag,
+		tb_user.insert_date as insertDate, tb_user.insert_id as insertId, tb_user.update_date as updateDate, tb_user.update_id as updateId,
+		(select name from tb_dept where id = tb_user.dept_id) as deptName 
+		from tb_user, tb_dept
+		where tb_user.dept_id = tb_dept.id and tb_user.use_flag = '1' and tb_dept.use_flag = '1'
+		
+		<isNotEmpty prepend="AND" property="deptId">
+			tb_dept.node like concat((select node from tb_dept where use_flag = '1' and id = 0), '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userName">
+			tb_user.name like concat('%', #userName#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginName">
+			tb_user.login_name like concat('%', #loginName#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locNo">
+			tb_user.loc_no = #locNo#
+		</isNotEmpty>
+		<!--  <isNotEmpty prepend="AND" property="deptId">
+			tb_user.dept_id = 0
+		</isNotEmpty>-->
+		order by tb_user.insert_date desc, tb_user.id
+	</select>
+	
+	<insert id="system_userPermission_save" parameterClass="com.osource.module.system.model.UserPermissionInfo">
+		insert into tb_user(id, login_name, name, dept_id,use_flag,insert_date,insert_id) 
+		values (#id#, #loginName#, #userName#, 0, '1',now(),#insertId#)
+	</insert>
+	
+	<update id="system_userPermission_update" parameterClass="com.osource.module.system.model.UserPermissionInfo">
+		update tb_user set update_date = now()
+		<isNotEmpty prepend="," property="loginName">login_name = #loginName#</isNotEmpty>
+		<isNotEmpty prepend="," property="userName">name = #userName#</isNotEmpty>
+		<isNotEmpty prepend="," property="deptId">dept_id = 0</isNotEmpty>
+		<isNotEmpty prepend="," property="useFlag">use_flag = #useFlag#</isNotEmpty>
+		<isNotEmpty prepend="," property="updateId">update_id = #updateId#</isNotEmpty>
+		where id = #id#
+	</update>
+	
+	<update id="system_userPermission_deleteInIds" parameterClass="java.util.List">
+		update tb_user set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="system_userPermission_deleteById" parameterClass="String">
+		update tb_user set use_flag = '0' where id = #value#
+	</update>
+	<!--  
+	<update id="system_userPermission_modifyPassword" parameterClass="com.osource.module.system.model.UserPermissionInfo">
+	    update tb_user set password = #password#
+	    where id = #id#
+	</update>
+	-->
+	<select id="system_userPermission_findUserRoleList" parameterClass="Integer" resultClass="com.osource.module.system.model.UserRole">
+		select u_role.id as id,u_role.role_id as roleId,u_role.user_id as userId,u_role.dept_id as deptId, 
+		       u_role.insert_date as insertDate,u_role.insert_id as insertId, tb_role.name as roleName
+		from tb_user_role u_role, tb_role
+		where tb_role.id = u_role.role_id and u_role.use_flag = '1' and tb_role.use_flag=1 and u_role.user_id = #value#
+	</select>
+	
+	<insert id="system_userPermission_saveUserRole" parameterClass="com.osource.module.system.model.UserRole" >
+		insert into tb_user_role(id, role_id, user_id, dept_id, use_flag, insert_date, insert_id) 
+		values (#id#, #roleId#, #userId#, 0, '1',now(), #insertId#)
+	</insert>
+	
+	<delete id="system_userPermission_deleteUserRoleByUserId" parameterClass="String">
+	     delete from tb_user_role where user_id = #value#
+	</delete>
+	
+	<delete id="system_userPermission_deleteUserRoleByUserIds" parameterClass="String">
+	     delete from tb_user_role where user_id in $value$
+	</delete>
+</sqlMap>

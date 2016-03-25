@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>车辆列表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <header class="comm-header">
+    <div class="left opt">
+        <a href="#">返回</a>
+    </div>
+    <h1 class="title">车辆列表</h1>
+</header>
+
+
+    <div class="wrap">
+        <div class="comm-search-form">
+            <form action="">
+                <div class="input"><span class="placeholder"><i class="ico"></i>输入所查询的车名</span><input type="text" name="keyword"></div>
+                <button type="submit">搜索</button>
+            </form>
+        </div>
+
+        <div class="mod-buy-listtab">
+            <div class="item up">价格 <span class="anchor"></span></div>
+            <div class="item down">时间 <span class="anchor"></span></div>
+            <div class="item" onclick="javascript:Fache.UI.FilterPanel.show();">筛选 <i class="ico-filter"></i></div>
+        </div>
+
+        <div class="mod-buy-car-list">
+            <a href="detail.html" class="item">
+                <div class="img">
+                    <img src="../img/data/car.jpg" alt="">
+                </div>
+                <div class="info">
+                    <div class="title">大大大放假放假放假放假放假但是但是但是但是</div>
+                    <span class="number"><span class="comm-text-red">20</span>辆</span>
+                    <div class="price">
+                        <span class="comm-price comm-text-red">&yen;<strong>241.83</strong>万</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="comm-text-gray">比市场价低：&yen;128万</span>
+                    </div>
+                </div>
+            </a>
+            <a href="detail.html" class="item">
+                <div class="img">
+                    <img src="../img/data/car.jpg" alt="">
+                </div>
+                <div class="info">
+                    <div class="title">大大大放假放假放假放假放假但是但是但是但是</div>
+                    <span class="number"><span class="comm-text-red">20</span>辆</span>
+                    <div class="price">
+                        <span class="comm-price comm-text-red">&yen;<strong>241.83</strong>万</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="comm-text-gray">比市场价低：&yen;128万</span>
+                    </div>
+                </div>
+            </a>
+            <a href="detail.html" class="item">
+                <div class="img">
+                    <img src="../img/data/car.jpg" alt="">
+                </div>
+                <div class="info">
+                    <div class="title">大大大放假放假放假放假放假但是但是但是但是</div>
+                    <span class="number"><span class="comm-text-red">20</span>辆</span>
+                    <div class="price">
+                        <span class="comm-price comm-text-red">&yen;<strong>241.83</strong>万</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="comm-text-gray">比市场价低：&yen;128万</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div id="J-FPanel" class="mod-buy-fpanel">
+            <div class="inner">
+                <div class="header j-header0">
+                    <div class="left">取消</div>
+                    <div class="right">确定</div>
+                    <div class="title">筛选</div>
+                </div>
+                <div class="comm-form">
+                    <div class="form-group">
+                        <span class="label">品牌</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">系列</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">车型</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">版本</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">货源</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split"></div>
+                    <div class="form-group">
+                        <span class="label">外观</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">内饰</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">燃油</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">排量</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">价位</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label">订金</span>
+                        <div class="input">
+                            <div class="comm-selector" data-single="1">
+                                <span class="value">全部</span>
+                                <div class="options">
+                                    <div class="item" data-key="0" data-value="全部"></div>
+                                    <div class="item" data-key="1" data-value="白色"></div>
+                                </div>
+                                <input type="hidden" name="cartype" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../js/app.js"></script>
+
+
+</body>
+</html>

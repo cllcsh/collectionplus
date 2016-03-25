@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<package name="loginout" extends="ictmap-default" namespace="">
+		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+		<action name="home" class="com.osource.base.web.action.HomeAction">
+			<result name="success">${jsp_base}/portal/index.jsp</result>
+		</action>
+		<action name="mhome" class="com.osource.module.gxfc.web.maction.MHomeAction">
+			<result name="success">${jsp_base}/m/home.jsp</result>
+		</action>	
+		<action name="mhome_*" class="com.osource.module.gxfc.web.maction.MHomeAction" method="{1}">
+			<result name="login">${jsp_base}/m/auth/login.jsp</result>
+			<result name="help">${jsp_base}/m/auth/help.jsp</result>
+			<result name="agree">${jsp_base}/m/auth/agree.jsp</result>
+			<result name="regstep1">${jsp_base}/m/auth/reg1.jsp</result>
+			<result name="regstep2">${jsp_base}/m/auth/reg2.jsp</result>
+			<result name="regstep3">${jsp_base}/m/auth/reg3.jsp</result>
+			<result name="password">${jsp_base}/m/auth/password.jsp</result>
+			<result name="logout" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">home</param>
+			</result>
+		</action>					
+		<action name="home_*" class="com.osource.base.web.action.HomeAction" method="{1}">
+			<result name="login">${jsp_base}/portal/auth/login.jsp</result>
+			<result name="agree">${jsp_base}/portal/auth/agree.jsp</result>
+			<result name="regstep1">${jsp_base}/portal/auth/reg1.jsp</result>
+			<result name="regstep2">${jsp_base}/portal/auth/reg2.jsp</result>
+			<result name="regstep3">${jsp_base}/portal/auth/reg3.jsp</result>
+			<result name="password">${jsp_base}/portal/auth/password.jsp</result>	
+			<result name="contact">${jsp_base}/portal/auth/contact.jsp</result>		
+			<result name="logout" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">home</param>
+			</result>
+		</action>
+		<action name="login" class="com.osource.base.web.action.LoginAction">
+			<result name="success" type="redirect">${tourl}</result>
+			<result name="input">${jsp_base}/jsp/${login_style}/login.jsp</result>
+		</action>
+		<action name="portal" class="com.osource.base.web.action.LoginAction" method="portalInit">
+			<result name="success" type="redirect">${tourl}</result>
+		</action>
+		<action name="login_ajax" class="com.osource.base.web.action.LoginAction" method="ajaxLogin">
+			<result>${jsp_base}/jsp/${login_style}/ajaxLoginPage.jsp</result>
+		</action>
+		<action name="login_smlogin" class="com.osource.base.web.action.LoginAction" method="smlogin">
+			<result name="success" type="redirect">${tourl}</result>
+			<result name="error">${jsp_base}/jsp/${login_style}/login.jsp</result>
+		</action>
+		<action name="login_authsm" class="com.osource.base.web.action.LoginAction" method="authsm">
+			<result name="success" type="redirect">${tourl}</result>
+			<result name="error">${jsp_base}/jsp/${login_style}/login.jsp</result>
+		</action>
+		<action name="login_ajaxValidate" class="com.osource.base.web.action.LoginAction" method="ajaxLoginValidate">
+		</action>
+		<action name="logout" class="com.osource.base.web.action.LoginAction" method="logout">
+			<result name="success" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">login</param>
+			</result>
+		</action>
+		<!--<action name="managerList" class="com.osource.base.web.action.ManagerListAction">
+		</action>
+		-->
+	</package>
+	
+	<package name="main" extends="ictmap-default" namespace="">
+		<action name="main" class="com.osource.base.web.action.MainAction">
+			<result name="html">${jsp_base}/jsp/main/main.jsp</result>
+			<result name="top">${jsp_base}/jsp/main/top.jsp</result>
+			<result name="left">${jsp_base}/jsp/main/left.jsp</result>
+			<result name="menu">${jsp_base}/jsp/main/left.jsp</result>
+			<result name="center">${jsp_base}/jsp/main/content.jsp</result>
+			<result name="down">${jsp_base}/jsp/main/down.jsp</result>
+		</action>
+		<action name="main_*" class="com.osource.base.web.action.MainAction" method="{1}">
+			<result name="html">${jsp_base}/jsp/main/main.jsp</result>
+			<result name="top">${jsp_base}/jsp/main/top.jsp</result>
+			<result name="left">${jsp_base}/jsp/main/left.jsp</result>
+			<result name="menu">${jsp_base}/jsp/main/left.jsp</result>
+			<result name="center">${jsp_base}/jsp/main/content.jsp</result>
+			<result name="down">${jsp_base}/jsp/main/down.jsp</result>
+		</action>
+		<action name="firstpage_*" class="com.osource.base.web.action.FirstpageAction" method="{1}">
+			<result name="init">${jsp_base}/jsp/main/firstpage.jsp</result>
+			<result name="index">${jsp_base}/jsp/main/firstpageindex.jsp</result>
+			<result name="navi">${jsp_base}/jsp/main/navipage.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<!-- 用于下拉列表显示 -->
+		<action name="select_*" class="com.osource.base.web.action.SelectAction" method="{1}">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="area_*" class="com.osource.base.web.action.AreaAction" method="{1}">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<!--<action name="first_*" class="com.osource.base.web.action.FirstAction" method="{1}">
+			<result name="init">${jsp_base}/jsp/main/firstpage.jsp</result>
+			<result name="view">/module/map${jsp_base}/jsp/alarmSet.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		-->
+		<action name="module_*"
+			class="com.osource.base.web.action.ModuleAction"
+			method="{1}">
+			<result name="menu">${jsp_base}/jsp/main/left.jsp</result>
+			<result name="content">${jsp_base}/jsp/main/content.jsp</result>
+		</action>
+		<action name="building">
+			<result>${jsp_base}/jsp/building.jsp</result>
+		</action>
+	</package>
+	
+	<package name="upload" extends="struts-default" namespace="">
+		<interceptors>
+			<interceptor name="fileUploadosource" class="com.osource.base.web.interceptor.FileUploadInterceptor" >
+			</interceptor>
+		</interceptors>
+		<action name="upload" class="com.osource.base.web.action.UploadAction">
+			<interceptor-ref name="fileUploadosource"> 
+				
+			</interceptor-ref>  
+			  <interceptor-ref name="defaultStack" /> 
+			<result name="success">/jsp/upload/succ.jsp</result>
+			<result name="ajaxjson">${jsp_base}/jsp/ajaxjson.jsp</result>
+			<result name="uploadError">/jsp/upload/error.jsp</result>
+		</action>
+		
+		
+		<action name="upload_*" class="com.osource.base.web.action.UploadAction" method="{1}" >
+			<param name="savePath">template</param>
+			<result name="fileSet">/jsp/upload/fileSet.jsp</result>
+			<result name="uploadInit">/jsp/upload/upload.jsp</result>
+			<result name="success" type="stream">
+				<param name="inputName">target</param>
+				<param name="contentDisposition">filename=${title}</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="memory" extends="ictmap-default" namespace="">
+		<action name="memory_*" class="com.osource.base.web.action.MemoryAction" method="{1}">
+			<result name="init">${jsp_base}/jsp/memory/memoryMgr.jsp</result>
+		</action>
+	</package>
+	
+	<package name="downloadFile" extends="ictmap-default" namespace="">
+		<default-interceptor-ref name="noPermissionUserAuthInterceptorStack"></default-interceptor-ref>
+		<action name="downloadFile_*" class="com.osource.module.download.web.action.DownloadFileAction" method="{1}">
+	   	<result name="download" type="stream">  
+		    <param name="contentType">application/octet-stream;charset=ISO8859-1</param>    
+	        <param name="inputName">inputStream</param>    
+	        <!-- 使用经过转码的文件名作为下载文件名，downloadFileName属性对应action类中的方法 getDownloadFileName() -->    
+	        <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>    
+	        <param name="bufferSize">4096</param>    
+	    </result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">downloadFile_init</param>
+		</result>
+		</action>
+	</package>
+	
+	<package name="presentation" extends="ictmap-default" namespace="">
+		<action name="presentation">
+			<result>${jsp_base}/jsp/presentation/main.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="presentationAllView">
+			<result>${jsp_base}/jsp/presentation/all_view.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+	
+</struts>

@@ -1,0 +1,23 @@
+/**
+ * 文件名：#{Entity}Form.java
+ * 
+ * 版本信息： 2.0
+ * 日期：#{date}
+ * 
+ */
+package #{form_p};
+
+import #{form_parent_p}.#{form_parent_name};
+
+/**
+ * 项目名称：osource
+ * <p>类名称：#{Entity}Form
+ * <p>类描述：
+ * <p>创建人：#{author}
+ * <p>创建时间：#{date}
+ * @version 2.0
+ */
+@SuppressWarnings("serial")
+public class #{Entity}Form extends #{form_parent_name} {
+
+}

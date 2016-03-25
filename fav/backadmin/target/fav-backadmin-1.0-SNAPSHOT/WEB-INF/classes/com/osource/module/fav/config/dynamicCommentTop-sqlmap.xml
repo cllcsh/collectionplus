@@ -1,0 +1,122 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DynamicCommentTopInfo" id="dynamicCommentTopInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="sourceId" column="source_id" />
+		<result property="sourceName" column="sourceName" />
+		<result property="sourceType" column="source_type" />
+		<result property="sourceTypeDesc" column="sourceType" />
+		<result property="commentId" column="comment_id" />
+		<result property="commentContent" column="comment_content" />
+		<result property="friendId" column="friend_id" />
+		<result property="userName" column="user_name" />
+		<result property="topTime" column="top_time" />
+	</resultMap>
+	<select id="fav_dynamicCommentTop_countAll" resultClass="int">
+		select count(*) from tb_comment_top
+	</select>
+
+	<select id="fav_dynamicCommentTop_findAll" resultMap="dynamicCommentTopInfoResultMap">
+		SELECT * FROM (
+		select t.*,c.title sourceName,u.user_name,'藏品' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_collection c ON t.source_id=c.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=0 
+		UNION ALL
+		select t.*,d.dynamic_content sourceName,u.user_name,'动态' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_dynamic d ON t.source_id=d.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=1 ) t
+		ORDER BY t.top_time desc
+	</select>
+
+	<select id="fav_dynamicCommentTop_findById" parameterClass="java.lang.Integer" resultMap="dynamicCommentTopInfoResultMap">
+		SELECT * FROM (
+		select t.*,c.title sourceName,u.user_name,'藏品' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_collection c ON t.source_id=c.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=0 
+		UNION ALL
+		select t.*,d.dynamic_content sourceName,u.user_name,'动态' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_dynamic d ON t.source_id=d.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=1 ) t
+		where t.id = #value#
+	</select>
+	
+	<select id="fav_dynamicCommentTop_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM (
+		select t.*,c.title sourceName,u.user_name,'藏品' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_collection c ON t.source_id=c.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=0 
+		UNION ALL
+		select t.*,d.dynamic_content sourceName,u.user_name,'动态' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_dynamic d ON t.source_id=d.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=1 ) t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="sourceName"><![CDATA[ t.sourceName like concat('%',#sourceName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sourceType"><![CDATA[ t.source_type=#sourceType# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentContent"><![CDATA[ t.comment_content like concat('%',#commentContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.top_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.top_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ t.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dynamicCommentTop_findByCondition" parameterClass="java.util.Map" resultMap="dynamicCommentTopInfoResultMap">
+		SELECT * FROM (
+		select t.*,c.title sourceName,u.user_name,'藏品' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_collection c ON t.source_id=c.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=0 
+		UNION ALL
+		select t.*,d.dynamic_content sourceName,u.user_name,'动态' sourceType,ct.comment_content from tb_comment_top t 
+		LEFT JOIN tb_dynamic d ON t.source_id=d.id LEFT JOIN tb_fav_user u ON t.friend_id=u.id 
+		LEFT JOIN tb_comment ct ON t.comment_id=ct.id
+		WHERE t.source_type=1 ) t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="sourceName"><![CDATA[ t.sourceName like concat('%',#sourceName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sourceType"><![CDATA[ t.source_type=#sourceType# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentContent"><![CDATA[ t.comment_content like concat('%',#commentContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.top_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.top_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ t.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_dynamicCommentTop_save" parameterClass="com.osource.module.fav.model.DynamicCommentTopInfo">
+		insert into tb_comment_top(id,source_id,source_type,friend_id,comment_id,top_time,use_flag,insert_date,insert_id)
+     		values (#id#,#sourceId#,#sourceType#,#friendId#,#commentId#,#topTime#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_dynamicCommentTop_update" parameterClass="com.osource.module.fav.model.DynamicCommentTopInfo">
+		 update tb_comment_top set
+	        source_id = #sourceId#,
+			source_type = #sourceType#,
+		    friend_id = #friendId#,
+		    comment_id = #commentId#,
+	        top_time = #topTime#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_comment_update_top" parameterClass="java.util.Map">
+		 update tb_comment set
+	        top_size = top_size + #size#,
+	        update_date = now()
+	    where id = #commentId#
+	</update>
+	
+	<update id="fav_dynamicCommentTop_deleteInIds" parameterClass="java.util.List">
+		update tb_comment_top set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dynamicCommentTop_deleteById" parameterClass="String">
+		update tb_comment_top set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

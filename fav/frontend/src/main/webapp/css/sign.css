@@ -1,0 +1,7 @@
+.login .myform .group .input-text {padding-left: 40px;}
+.login .myform .group:nth-child(1) .input-text {background: url(../images/username.png) no-repeat 10px center;background-size: 20px auto;}
+.login .myform .group:nth-child(2) .input-text {background: url(../images/password.png) no-repeat 10px center;background-size: 18px auto;}
+
+
+
+

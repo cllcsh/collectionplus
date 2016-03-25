@@ -1,0 +1,11 @@
+.netChart ul,li{padding:0;margin:0;}
+.netChart li { list-style-type: none; color: #006633;height:34px;line-height:1px;}
+.netChart table td{height:35px;}
+.round{ -webkit-border-top-left-radius:10px;-webkit-border-bottom-left-radius: 10px;-webkit-border-top-right-radius:10px;-webkit-border-bottom-right-radius: 10px; -webkit-box-shadow: 3px 5px 10px #ccc ; }
+
+.bbg{ background-color: #E7FF9F;}
+#box { position:absolute; height:40px;width:32px;left:0px;top:0px;z-index:50;}
+.wz ul,li{ margin:0; padding:0; list-style-type: none; }
+.wz li{ float:left; font-size: 12px; font-weight: bold; display: inline; padding-right: 20px; padding-left: 20px; color: #1D5A00; cursor:pointer; height:40px; background-color:#E7FF9F;line-height: 40px; }
+.wz { float: left; display: none; line-height: 41px; height: 41px; background-color: #E7FF9F; }
+.an { float: left; }

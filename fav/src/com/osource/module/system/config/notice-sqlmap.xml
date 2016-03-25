@@ -1,0 +1,66 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.system.model.NoticeInfo" id="noticeInfoResultMap" extends="baseResultMapNew">
+		<result property="title" column="title" />
+		<result property="type" column="type" />
+		<result property="content" column="content" />	
+		<result property="status" column="status" />		
+	</resultMap>
+	<select id="system_notice_countAll" resultClass="int">
+		select count(*) from tb_notice
+	</select>
+
+	<select id="system_notice_findAll" resultMap="noticeInfoResultMap">
+		select * from tb_notice
+	</select>
+
+	<select id="system_notice_findById" parameterClass="java.lang.Integer" resultMap="noticeInfoResultMap">
+		select * from tb_notice where id = #value#
+	</select>
+	
+	<select id="system_notice_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_notice t
+		where t.use_flag =1
+		<isNotEmpty prepend="AND" property="title">
+			t.title like concat('%', #title#,'%')
+		</isNotEmpty>			
+	</select>
+	
+	<select id="system_notice_findByCondition" parameterClass="java.util.Map" resultMap="noticeInfoResultMap">
+		select t.* from tb_notice t
+		where t.use_flag =1
+		<isNotEmpty prepend="AND" property="title">
+			t.title like concat('%', #title#,'%')
+		</isNotEmpty>		
+	</select>
+	
+	<insert id="system_notice_save" parameterClass="com.osource.module.system.model.NoticeInfo">
+		insert into tb_notice(id,title,type,content,status,			 
+			use_flag, insert_date, insert_id)
+		values (#id#,#title#,#type#,#content#,#status#,
+			
+			1, now(), #insertId#)
+	</insert>
+	
+	<update id="system_notice_update" parameterClass="com.osource.module.system.model.NoticeInfo">
+		update tb_notice set
+			title = #title#,
+			type = #type#,
+			content = #content#,
+			status = #status#,
+			update_date = now(),
+			update_id = #updateId#
+		where id = #id#
+	</update>
+	
+	<update id="system_notice_deleteInIds" parameterClass="java.util.List">
+		update tb_notice set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="system_notice_deleteById" parameterClass="String">
+		update tb_notice set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

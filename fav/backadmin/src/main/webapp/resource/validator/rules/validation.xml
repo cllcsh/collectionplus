@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<formset>
+	<rules>
+		<filter rule="filter" empty="请填写您要注册的用户名" warn="不允许注册的用户名" as="badword" accept="管理员, Admin, Administrator" />
+
+	</rules>
+
+	<form name="demo" path="/validator/index.html">
+		<item for="UserName" apply="//filter" empty="注册名不允许为空" pass="验证正确了"/>
+		<item for="Zip" rule="zip" empty="请填写您的邮政编码" warn="您输入的邮政编码不存在或格式不正确" pass="验证正确了" />
+	</form>
+</formset>

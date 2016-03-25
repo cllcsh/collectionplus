@@ -1,0 +1,143 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="system_specialist_findSpecialistInfoById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.SpecialistInfo">
+		select tb_specialist.id, tb_specialist.certificate_id as certificateId, tb_specialist.name, tb_specialist.sex, tb_specialist.id_num as idNum, tb_specialist.birthday, 
+			tb_specialist.native_place as nativePlace,tb_specialist.political_status as politicalStatus, tb_specialist.nation, tb_specialist.phone_no as phoneNo, tb_specialist.mobile_no as mobileNo, 
+			tb_specialist.work_unit as workUnit, tb_specialist.professional_title as professionalTitle, tb_specialist.address, tb_specialist.edu_bg as eduBg, tb_specialist.e_mail as email, 
+			tb_specialist.fax_no as faxNo, tb_specialist.postcode as postCode, tb_specialist.study_his as studyHis, tb_specialist.work_his as workHis, tb_specialist.certificate,
+			tb_specialist.research_area as researchArea, tb_specialist.research_findings as researchFindings, tb_specialist.pic_path as picPath,
+			tb_specialist.dept_id as deptId, tb_specialist.use_flag as useFlag,
+			tb_specialist.insert_date as insertDate, tb_specialist.insert_id as insertId,tb_specialist.update_date as updateDate, tb_specialist.update_id as updateId
+		
+		from tb_specialist where id = #value# and use_flag = '1'
+	</select>
+	<select id="system_specialist_getAllSpecialistNumByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) 
+		from tb_specialist, tb_dept 
+			where tb_specialist.dept_id = tb_dept.id and tb_specialist.use_flag = '1' and tb_dept.use_flag = '1' 
+		      and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%') 
+	
+	    <isNotEmpty prepend="AND" property="certificateId">
+			<!--  tb_specialist.certificate_id like concat(#certificateId#,'%')-->
+			LOCATE(#certificateId#, tb_specialist.certificate_id) &gt;0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="name">
+			<!--  tb_specialist.name like concat('%',#name#,'%')-->
+			LOCATE(#name#, tb_specialist.name) &gt;0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sex">
+			tb_specialist.sex = #sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="idNum">
+			tb_specialist.id_num like concat(#idNum#,'%') 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="workUnit">
+			<!--  tb_specialist.work_unit like concat('%',#workUnit#,'%')-->
+			LOCATE(#workUnit#, tb_specialist.work_unit) &gt;0
+		</isNotEmpty>
+		<!--  <isNotEmpty prepend="AND" property="useFlag">
+			tb_specialist.use_flag = #useFlag#		
+		</isNotEmpty>-->
+		<isNotEmpty prepend="AND" property="deptId">
+			tb_specialist.dept_id = 0
+		</isNotEmpty>
+	</select>
+	
+	<select id="system_specialist_findSpecialistInfosByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.SpecialistInfo">
+		select tb_specialist.id, tb_specialist.certificate_id as certificateId, tb_specialist.name, tb_specialist.sex, tb_specialist.id_num as idNum, tb_specialist.birthday, 
+			tb_specialist.native_place as nativePlace,tb_specialist.political_status as politicalStatus, tb_specialist.nation, tb_specialist.phone_no as phoneNo, tb_specialist.mobile_no as mobileNo, 
+			tb_specialist.work_unit as workUnit, tb_specialist.professional_title as professionalTitle, tb_specialist.address, tb_specialist.edu_bg as eduBg, tb_specialist.e_mail as email, 
+			tb_specialist.fax_no as faxNo, tb_specialist.postcode as postCode, tb_specialist.study_his as studyHis, tb_specialist.work_his as workHis, tb_specialist.certificate,
+			tb_specialist.research_area as researchArea, tb_specialist.research_findings as researchFindings, tb_specialist.pic_path as picPath,
+			tb_specialist.dept_id as deptId, tb_specialist.use_flag as useFlag,
+			tb_specialist.insert_date as insertDate, tb_specialist.insert_id as insertId,tb_specialist.update_date as updateDate, tb_specialist.update_id as updateId
+		
+		from tb_specialist, tb_dept 
+		where tb_specialist.dept_id = tb_dept.id and tb_specialist.use_flag = '1' and tb_dept.use_flag = '1'
+			   and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%')  
+		
+		<isNotEmpty prepend="AND" property="certificateId">
+			<!--  tb_specialist.certificate_id like concat(#certificateId#,'%')-->
+			LOCATE(#certificateId#, tb_specialist.certificate_id) &gt;0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="name">
+			<!--  tb_specialist.name like concat('%',#name#,'%')-->
+			LOCATE(#name#, tb_specialist.name) &gt;0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sex">
+			tb_specialist.sex = #sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="idNum">
+			tb_specialist.id_num like concat(#idNum#,'%') 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="workUnit">
+			<!--  tb_specialist.work_unit like concat('%',#workUnit#,'%')-->
+			LOCATE(#workUnit#, tb_specialist.work_unit) &gt;0
+		</isNotEmpty>
+		<!--  <isNotEmpty prepend="AND" property="useFlag">
+			tb_specialist.use_flag = #useFlag#
+		</isNotEmpty> -->
+		<isNotEmpty prepend="AND" property="deptId">
+			tb_specialist.dept_id = 0
+		</isNotEmpty>
+		
+		order by tb_specialist.insert_date desc, tb_specialist.id
+	</select>
+	
+	<insert id="system_specialist_saveSpecialistInfo" parameterClass="com.osource.module.system.model.SpecialistInfo">
+		insert into tb_specialist(id, certificate_id, name, sex, id_num
+			<isNotEmpty prepend="," property="birthday">birthday</isNotEmpty>,
+			native_place ,political_status, nation, phone_no, mobile_no, 
+			work_unit, professional_title, address, edu_bg, e_mail, 
+			fax_no, postcode, study_his, work_his , certificate,
+			research_area, research_findings, pic_path,dept_id,use_flag,insert_date,insert_id) 
+		
+		values (#id#, #certificateId#, #name#, #sex#, #idNum# 
+			<isNotEmpty prepend="," property="birthday"> #birthday#</isNotEmpty>, 
+			#nativePlace#, #politicalStatus#, #nation#, #phoneNo#, #mobileNo#, #workUnit#, #professionalTitle#, #address#, #eduBg#, #email#,
+			#faxNo#, #postCode#, #studyHis#, #workHis#, #certificate#,
+			#researchArea#, #researchFindings#, #picPath#, 0, '1', now(), #insertId#)
+	</insert>
+	
+	<update id="system_specialist_updateSpecialistInfo" parameterClass="com.osource.module.system.model.SpecialistInfo">
+		update tb_specialist set certificate_id = #certificateId#, name = #name#, sex = #sex#, update_date = now()
+		<isNotEmpty prepend="," property="idNum">id_num = #idNum#</isNotEmpty>
+		<isNotEmpty prepend="," property="birthday">birthday = #birthday#</isNotEmpty>
+		<isNotEmpty prepend="," property="nativePlace">native_place = #nativePlace#</isNotEmpty>
+		<isNotEmpty prepend="," property="politicalStatus">political_status = #politicalStatus#</isNotEmpty>
+		<isNotEmpty prepend="," property="nation">nation = #nation#</isNotEmpty>
+		<isNotEmpty prepend="," property="phoneNo">phone_no = #phoneNo#</isNotEmpty>
+		<isNotEmpty prepend="," property="mobileNo">mobile_no = #mobileNo#</isNotEmpty>
+		
+		<isNotEmpty prepend="," property="workUnit">work_unit = #workUnit#</isNotEmpty>
+		<isNotEmpty prepend="," property="professionalTitle">professional_title = #professionalTitle#</isNotEmpty>
+		<isNotEmpty prepend="," property="address">address = #address#</isNotEmpty>
+		<isNotEmpty prepend="," property="eduBg">edu_bg = #eduBg#</isNotEmpty>
+		
+		<isNotEmpty prepend="," property="email">e_mail = #email#</isNotEmpty>
+		<isNotEmpty prepend="," property="faxNo">fax_no = #faxNo#</isNotEmpty>
+		
+		<isNotEmpty prepend="," property="postCode">postcode = #postCode#</isNotEmpty>
+		<isNotEmpty prepend="," property="studyHis">study_his = #studyHis#</isNotEmpty>
+		<isNotEmpty prepend="," property="workHis">work_his = #workHis#</isNotEmpty>
+		<isNotEmpty prepend="," property="certificate">certificate = #certificate#</isNotEmpty>
+		
+		<isNotEmpty prepend="," property="researchArea">research_area = #researchArea#</isNotEmpty>
+		<isNotEmpty prepend="," property="researchFindings">research_findings = #researchFindings#</isNotEmpty>
+		<isNotEmpty prepend="," property="picPath">pic_path = #picPath#</isNotEmpty>
+	
+		<isNotEmpty prepend="," property="deptId">dept_id = 0</isNotEmpty>
+		<isNotEmpty prepend="," property="useFlag">use_flag = #useFlag#</isNotEmpty>
+		<isNotEmpty prepend="," property="updateId">update_id = #updateId#</isNotEmpty>
+		where id = #id#
+	</update>
+	
+	<update id="system_specialist_deleteSpecialistInfoInIds" parameterClass="String">
+		update tb_specialist set use_flag = '0' where id in $value$
+	</update>
+	<update id="system_specialist_deleteSpecialistInfoById" parameterClass="String">
+		update tb_specialist set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

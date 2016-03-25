@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+		<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>拍卖行历史成交查询</h1>
+    </header>
+    <div class="cate info main">
+	    <div class="ui-searchbar-wrap info-search ui-border-b">
+            <div class="ui-searchbar ui-border-radius">
+                <i class="ui-icon-search"></i>
+                <div class="ui-searchbar-text">搜索藏品</div>
+                <form id="searchCollection" action="queryCangSearchList" method="post">
+                    <div class="ui-searchbar-input"><input value="" type="text" name="title" placeholder="搜索藏品" autocapitalize="off"></div>
+                </form>
+            </div>
+            <button class="ui-searchbar-cancel" onclick="searchCollection('searchCollection')">确定</button>
+        </div>
+	    <div class="container">
+	    	<div class="sidebar">
+	    		<ul id="categoryId">
+	    		   #foreach($category in $model.categoryList)
+	    			<li id='$!{category.getId()}'>$!{category.getCategory_name()}</li>
+	    		   #end
+	    		</ul>
+	    	</div>
+	    	<div class="content">
+	    		<div class="item cc">
+	    			#foreach($period in $model.periodList)
+	    			    <a href="javascript:goCateList('$!{period.getId()}')"><img src="$!{imgWebContextPath}$!{period.getImage_url()}" alt=""><p>$!{period.getName()}</p></a>
+	    			#end
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		$('.ui-searchbar').click(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+   
+        $(".sidebar li").click(function(){
+        	$(this).addClass('active').siblings().removeClass('active');
+        	$('.content .item').eq($(this).index()).show().siblings().hide();
+        }).eq(0).click();
+        
+        
+        function goCateList(periodId)
+        {
+             var categoryId = $('#categoryId .active').attr("id");
+             window.location.href = "cangSearchList?periodId=" + periodId + "&categoryId=" + categoryId;
+        }
+	</script>
+</body>
+</html>

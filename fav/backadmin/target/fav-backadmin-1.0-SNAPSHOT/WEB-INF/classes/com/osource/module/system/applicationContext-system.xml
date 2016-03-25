@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <!--
+	<bean id="tb_rp_type" class="com.osource.module.system.dao.impl.RpTypeIctListUIDaoImpl"/>
+
+    <bean id="userDao2" class="com.osource.module.system.dao.impl.UserDaoImpl"/>
+    <bean id="userSelect" class="com.osource.module.system.ui.UserSelectUI">
+    	<property name="userDao"><ref local="userDao2"/></property>
+    </bean>
+    <bean id="managersSelectDao" class="com.osource.module.information.dao.impl.ManagerSelectDaoImpl"/>
+    <bean id="managerSelect" class="com.osource.module.information.ui.ManagerSelectUI">
+    	<property name="managerSelectDao"> <ref local="managersSelectDao"/></property>
+    </bean>
+
+	<bean id="criminalSelect" class="com.osource.module.map.ui.CriminalSelectUI">
+	</bean>
+    <bean id="deptDao" class="com.osource.module.system.dao.impl.DeptDaoImpl"/>
+    <bean id="deptSelect" class="com.osource.module.system.ui.DeptSelectUI">
+    	<property name="deptDao"><ref local="deptDao"/></property>
+    </bean>
+	-->
+
+</beans>

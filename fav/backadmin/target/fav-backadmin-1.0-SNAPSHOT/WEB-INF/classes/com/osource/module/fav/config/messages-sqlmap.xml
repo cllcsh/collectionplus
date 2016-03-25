@@ -1,0 +1,90 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.MessagesInfo" id="messagesInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="sender" column="sender" />
+		<result property="senderName" column="senderName" />
+		<result property="receiver" column="receiver" />
+		<result property="receiverName" column="receiverName" />
+		<result property="sendTime" column="send_time" />
+		<result property="content" column="content" />
+		<result property="isRead" column="is_read" />
+		<result property="isReadDesc" column="isReadDesc" />
+		<result property="isDelete" column="is_delete" />
+	</resultMap>
+	<select id="fav_messages_countAll" resultClass="int">
+		select count(*) from tb_messages
+	</select>
+
+	<select id="fav_messages_findAll" resultMap="messagesInfoResultMap">
+		select * from tb_messages order by insert_date desc
+	</select>
+
+	<select id="fav_messages_findById" parameterClass="java.lang.Integer" resultMap="messagesInfoResultMap">
+		select * from tb_messages where id = #value#
+	</select>
+	
+	<select id="fav_messages_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_messages t
+		LEFT JOIN tb_fav_user u ON t.sender=u.id LEFT JOIN tb_fav_user r ON t.receiver=r.id
+		LEFT JOIN tb_enum e ON t.is_read=e.enum_code AND e.enum_type='messages_is_read_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="sender"><![CDATA[ t.sender=#sender# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="receiver"><![CDATA[ t.receiver=#receiver# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sendTime"><![CDATA[ t.send_time=#sendTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isRead"><![CDATA[ t.is_read=#isRead# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isDelete"><![CDATA[ t.is_delete=#isDelete# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="senderName"><![CDATA[ u.user_name like concat('%',#senderName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="receiverName"><![CDATA[ r.user_name like concat('%',#receiverName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_messages_findByCondition" parameterClass="java.util.Map" resultMap="messagesInfoResultMap">
+		select t.*,u.user_name as senderName,r.user_name as receiverName,e.enum_name as isReadDesc from tb_messages t 
+		LEFT JOIN tb_fav_user u ON t.sender=u.id LEFT JOIN tb_fav_user r ON t.receiver=r.id
+		LEFT JOIN tb_enum e ON t.is_read=e.enum_code AND e.enum_type='messages_is_read_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="sender"><![CDATA[ t.sender=#sender# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="receiver"><![CDATA[ t.receiver=#receiver# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sendTime"><![CDATA[ t.send_time=#sendTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isRead"><![CDATA[ t.is_read=#isRead# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isDelete"><![CDATA[ t.is_delete=#isDelete# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="senderName"><![CDATA[ u.user_name like concat('%',#senderName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="receiverName"><![CDATA[ r.user_name like concat('%',#receiverName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_messages_save" parameterClass="com.osource.module.fav.model.MessagesInfo">
+		insert into tb_messages(id,sender,receiver,send_time,content,is_read,is_delete,use_flag,insert_date,insert_id)
+     		values (#id#,#sender#,#receiver#,#sendTime#,#content#,#isRead#,#isDelete#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_messages_update" parameterClass="com.osource.module.fav.model.MessagesInfo">
+		update tb_messages set
+	        sender = #sender#,
+	        receiver = #receiver#,
+	        send_time = #sendTime#,
+	        content = #content#,
+	        is_read = #isRead#,
+	        is_delete = #isDelete#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_messages_deleteInIds" parameterClass="java.util.List">
+		update tb_messages set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_messages_deleteById" parameterClass="String">
+		update tb_messages set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

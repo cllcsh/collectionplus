@@ -1,0 +1,8 @@
+@charset "utf-8";
+ul,li{list-style:none;margin:0; padding:0;}
+.test { position: relative; width:276px; margin-left:10px; margin-bottom: 20px; }
+.test cite{ width:250px; height:24px; line-height:24px; display:block; color:#006600; cursor:pointer; font-style:normal;border:1px solid #006600; text-align: center; }
+.test ul{ position: absolute; left: 0px; top:26px; width:250px; background-color:#006600; }
+.test ul,li{padding:0;margin:0;}
+.test ul li a{display:block; height:24px; color:#FFFFFF; text-decoration:none;text-align: center; cursor:pointer; }
+.test ul li a:hover{ background-color:#FFFFFF; color: #000000; }

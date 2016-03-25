@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="lib/swiper/swiper.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>今日鉴赏</h1>
+    </header>
+    <div class="jianshang main">
+    	<div class="inner">
+    		<div class="layer"><img src="images/layer.png" alt=""></div>
+		    <div class="swiper">
+		    	<div class="swiper-wrapper">
+		    	    #foreach($taBean in $model.taBeanList)
+		    		<div class="swiper-slide ui-flex ui-flex-pack-center ui-flex-align-center">
+		    			<div class="item">
+		    				<img src="$!{imgWebContextPath}$!{taBean.getImage()}" alt="">
+		    				<p>$!{taBean.getTitle()}</p>
+		    				<span class="ui-txt-muted">发布时间：$!{taBean.getRelease_time()}</span>
+		    			</div>
+		    		</div>
+		    		#end
+		    	</div>
+		    </div>
+	    	<div class="swiper-num">
+	    		<span class="current">1</span>/<span class="total"></span>
+	    	</div>
+	    </div>
+	</div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/swiper/swiper.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		var current = $('.current');	
+		var total = $('.total');
+		new Swiper('.swiper', {
+			onInit: function(swiper){
+				total.text(swiper.slides.length);
+			},
+			onSlideChangeStart: function(swiper){
+				current.text(swiper.activeIndex + 1);
+			}
+		});
+	</script>
+</body>
+</html>

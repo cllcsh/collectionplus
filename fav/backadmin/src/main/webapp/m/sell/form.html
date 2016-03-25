@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>下单出售</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../bower_components/swiper/dist/css/swiper.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <header class="comm-header">
+        <div class="left opt">
+            <a href="#">返回</a>
+        </div>
+        <div class="right opt">
+            <a href="#">预览</a>
+        </div>
+        <h1 class="title">下单出售</h1>
+    </header>
+
+    <div class="wrap">
+        <div class="swiper-container comm-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="../img/data/car.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="../img/data/car.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="../img/data/car.jpg" alt=""></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="comm-form">
+            <form action="">
+                <div class="form-group">
+                    <span class="label">标题：</span>
+                    <div class="input">
+                        <input type="text" placeholder="请输入标题">
+                    </div>
+                </div>
+                <div class="split"></div>
+                <div class="form-group">
+                    <span class="label">售卖车型：</span>
+                    <div class="input">
+                        <div class="comm-selector" data-single="1">
+                            <span class="value">宝马X3</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="宝马X5"></div>
+                                <div class="item" data-key="1" data-value="宝马X3"></div>
+                                <div class="item" data-key="2" data-value="宝马X6"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择年款：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择版本：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择燃油：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择排量：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择颜色：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">所在省份：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">车辆手续：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="split"></div>
+                <div class="form-group">
+                    <span class="label">首款比例：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">选择货源：</span>
+                    <div class="input">
+                        <div class="comm-selector">
+                            <span class="value">选择</span>
+                            <div class="options">
+                                <div class="item" data-key="0" data-value="2014"></div>
+                                <div class="item" data-key="1" data-value="2013"></div>
+                                <div class="item" data-key="2" data-value="2012"></div>
+                            </div>
+                            <input type="hidden" name="cartype" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">填写单台售价：</span>
+                    <div class="input">
+                        <input type="text">
+                        <span class="right comm-text-black">元</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">填写出货数量：</span>
+                    <div class="input">
+                        <div class="comm-number-selection right">
+                            <div class="sub comm-trigger">-</div>
+                            <input class="value" value="1"/>
+                            <div class="plus comm-trigger">+</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="label">特殊说明：</span>
+                    <div class="input">
+                        <textarea placeholder="请输入特殊说明（100字以内）"></textarea>
+                    </div>
+                </div>
+                <div class="split"></div>
+                <div class="action text-center">
+                    <button class="button button-primary">确定上架</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- <div class="comm-selector-overlay">
+        <div class="inner">
+            <div class="header">选择车辆手续</div>
+            <div class="item active">购车发票</div>
+            <div class="item">随车检验单</div>
+            <div class="item">车辆一致证书</div>
+        </div>
+    </div> -->
+
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../js/app.js"></script>
+
+    <script src="../bower_components/swiper/dist/js/swiper.min.js"></script>
+    <script>
+    $('.swiper-container').css({height: $(window).width()/2});
+    var mySwiper = new Swiper ('.swiper-container', {
+        loop: true,
+        pagination: '.swiper-pagination',
+        autoplay: 3000,
+        loop: true
+    });
+
+    Fache.UI.selector();
+    </script>
+
+</body>
+</html>

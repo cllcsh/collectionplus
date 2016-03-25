@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fav-backadmin:war">
+    <output-path>$PROJECT_DIR$/backadmin/target</output-path>
+    <root id="archive" name="fav-backadmin-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="fav-backadmin:war exploded" />
+    </root>
+  </artifact>
+</component>

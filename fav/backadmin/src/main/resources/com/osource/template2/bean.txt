@@ -1,0 +1,28 @@
+/**
+ * 文件名：#{Entity_Bean}.java
+ * 
+ * 版本信息：  2.0
+ * 日期：#{date}
+ * 
+ */
+package #{entity_p};
+
+import #{bean_parent_p}.#{bean_parent_name};
+import com.osource.orm.ibatis.TableNameAware;
+
+/**
+ * 项目名称：osource
+ * <p>类名称：#{Entity_Bean}
+ * <p>类描述：
+ * <p>创建人：#{author}
+ * <p>创建时间：#{date}
+ * @version 2.0
+ */
+@SuppressWarnings("serial")
+public class #{Entity_Bean} extends #{bean_parent_name} implements TableNameAware {
+	public String getDbTableName() {
+		return "#{table_name}";
+	}
+	
+	====bean====
+}

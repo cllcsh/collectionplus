@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>意见反馈</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <header class="comm-header">
+    <div class="left opt">
+        <a href="#">返回</a>
+    </div>
+    <h1 class="title">意见反馈</h1>
+</header>
+
+    <header class="comm-header">
+        <div class="left opt">
+            <a href="#">返回</a>
+        </div>
+        <div class="right opt">
+            <a id="J-Submit" href="javascript:;">提交</a>
+        </div>
+        <h1 class="title">意见反馈</h1>
+    </header>
+
+    <div class="wrap">
+        <form class="mod-user-feedform">
+            <textarea placeholder="提出您的宝贵意见，我们将会逐步完善"></textarea>
+        </form>
+    </div>
+
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../js/app.js"></script>
+
+    <script>
+    // 提交注册表单
+    $('#J-Submit').on('tap', function(){
+        $('form').submit();
+    })
+    </script>
+
+</body>
+</html>

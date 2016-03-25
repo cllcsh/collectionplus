@@ -1,0 +1,83 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.UserFansInfo" id="userFansInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="userName" column="uName" />
+		<result property="fanId" column="fan_id" />
+		<result property="fanName" column="fName" />
+		<result property="concernTime" column="concern_time" />
+	</resultMap>
+	<select id="fav_userFans_countAll" resultClass="int">
+		select count(*) from tb_user_fans
+	</select>
+
+	<select id="fav_userFans_findAll" resultMap="userFansInfoResultMap">
+		SELECT t.*,u.user_name uName,f.user_name fName FROM tb_user_fans t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.user_id=f.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_userFans_findById" parameterClass="java.lang.Integer" resultMap="userFansInfoResultMap">
+		SELECT t.*,u.user_name uName,f.user_name fName FROM tb_user_fans t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.user_id=f.id
+ 		where id = #value#
+	</select>
+	
+	<select id="fav_userFans_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_user_fans t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.user_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="fanId"><![CDATA[ t.fan_id=#fanId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="concernTime"><![CDATA[ t.concern_time=#concernTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.concern_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.concern_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="fanName"><![CDATA[ f.user_name like concat('%',#fanName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_userFans_findByCondition" parameterClass="java.util.Map" resultMap="userFansInfoResultMap">
+		SELECT t.*,u.user_name uName,f.user_name fName FROM tb_user_fans t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.user_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="fanId"><![CDATA[ t.fan_id=#fanId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="concernTime"><![CDATA[ t.concern_time=#concernTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.concern_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.concern_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="fanName"><![CDATA[ f.user_name like concat('%',#fanName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_userFans_save" parameterClass="com.osource.module.fav.model.UserFansInfo">
+		insert into tb_user_fans(id,user_id,fan_id,concern_time,use_flag,insert_date,insert_id)
+     	values (#id#,#userId#,#fanId#,#concernTime#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_userFans_update" parameterClass="com.osource.module.fav.model.UserFansInfo">
+		update tb_user_fans set
+	        user_id = #userId#,
+	        fan_id = #fanId#,
+	        concern_time = #concernTime#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_userFans_deleteInIds" parameterClass="java.util.List">
+		update tb_user_fans set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_userFans_deleteById" parameterClass="String">
+		update tb_user_fans set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

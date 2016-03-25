@@ -1,0 +1,120 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="archives_formTable_countAll" resultClass="int">
+		select count(*) from tb_table_info
+	</select>
+
+	<select id="archives_formTable_findAll" resultClass="com.osource.base.form.model.FormTable">
+		select * from tb_table_info
+	</select>
+
+	<select id="archives_formTable_findById" parameterClass="java.lang.Integer" resultClass="com.osource.base.form.model.FormTable">
+		select a.id as id ,a.module_name as moduleName,
+		a.author,a.entity_bean as entityBean,
+		a.entity,a.table_name as tableName
+		from tb_table_info a
+		where a.id = #value#
+	</select>
+
+	<select id="archives_formTable_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*)
+		from tb_table_info a
+		where a.use_flag=1 
+	</select>
+	
+	<select id="archives_formTable_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.base.form.model.FormTable">
+		select a.id as id ,a.module_name as moduleName,
+		a.author,a.entity_bean as entityBean,
+		a.entity,a.table_name as tableName
+		from tb_table_info a
+		where a.use_flag=1 
+	</select>
+	
+	<insert id="archives_formTable_save" parameterClass="com.osource.base.form.model.FormTable">
+		insert into tb_table_info
+		(id,module_name,author,entity_bean,entity,table_name,dept_id,use_flag,insert_date,insert_id)
+		values
+		(#id#,#moduleName#,#author#,#entityBean#,#entity#,#tableName#,0,'1',now(),#insertId#)
+	</insert>
+	
+	<update id="archives_formTable_update" parameterClass="com.osource.base.form.model.FormTable">
+		update tb_table_info set 
+		module_name=#moduleName#,
+		author=#author#,
+		entity_bean=#entityBean#,
+		entity = #entity#,
+		table_name=#tableName#
+		update_date=now(),
+		update_id=#updateId#,
+		where id=#id#
+	</update>
+	
+	<update id="archives_formTable_deleteInIds" parameterClass="java.util.List">
+		update tb_table_info set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="archives_formTable_deleteById" parameterClass="String">
+		update tb_table_info set use_flag = '0' where id = #value#
+	</update>
+	
+	
+	<select id="archives_formTableField_countAll" resultClass="int">
+		select count(*) from tb_table_field
+	</select>
+
+	<select id="archives_formTableField_findAll" resultClass="com.osource.base.form.model.FormTableField">
+		select * from tb_table_field
+	</select>
+
+	<select id="archives_formTableField_findById" parameterClass="java.lang.Integer" resultClass="com.osource.base.form.model.FormTableField">
+		select a.id as id ,a.display_name as displayName,
+		a.name,a.type,a.table_id as tableId
+		from tb_table_field a
+		where a.id = #value#
+	</select>
+
+	<select id="archives_formTableField_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*)
+		from tb_table_field a
+		where a.use_flag=1 
+	</select>
+	
+	<select id="archives_formTableField_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.base.form.model.FormTableField">
+		select a.id as id ,a.display_name as displayName,
+		a.name,a.type,a.table_id as tableId
+		from tb_table_field a
+		where a.use_flag=1 
+	</select>
+	
+	<insert id="archives_formTableField_save" parameterClass="com.osource.base.form.model.FormTableField">
+		insert into tb_table_field
+		(id,display_name,name,type,table_id,dept_id,use_flag,insert_date,insert_id)
+		values
+		(#id#,#displayName#,#name#,#type#,#tableId#,0,'1',now(),#insertId#)
+	</insert>
+	
+	<update id="archives_formTableField_update" parameterClass="com.osource.base.form.model.FormTableField">
+		update tb_table_field set 
+		display_name=#displayName#,
+		name=#name#,
+		type=#type#,
+		table_id = #tableId#,
+		update_date=now(),
+		update_id=#updateId#,
+		where id=#id#
+	</update>
+	
+	<update id="archives_formTableField_deleteInIds" parameterClass="java.util.List">
+		update tb_table_field set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="archives_formTableField_deleteById" parameterClass="String">
+		update tb_table_field set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sign.css"/>
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>登录账户</h1>
+    </header>
+    <div class="login main">
+	    <form id="form1" action="" class="validform myform" method="post" onsubmit="return loginVerify()">
+            <ul class="list">
+                <li class="group">
+                    <input type="tel" name="account" id="account" data-type="phone" data-null="请输入手机号码" data-error="手机号码格式错误" placeholder="手机号" class="input-text">
+                </li>
+                <li class="group">
+                    <input type="password" name="password" id="password" placeholder="密码" class="input-text" data-type="*" data-null="请输入密码">
+                    <a href="forgetPassword" class="link">忘记密码</a>
+                </li>
+            </ul>
+            <div class="mt10">
+                <input type="submit" value="登录" class="btn">
+            </div>
+            <div class="mt10">
+                <a href="goRegister" class="btn btn-border">快速注册</a>
+            </div>
+        </form>
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        new Validform($('.validform'));
+        
+        function loginVerify()
+        {
+            var options = {
+                type : "POST",
+	            url: "loginVerify",
+	            data: $("#form1").serialize(),
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    saveUserPass();
+	                    window.location.href = "home";
+	                }
+	                else
+	                {
+	                    tips(result.msg);
+	                }
+	            },
+	            error : function(error) {
+	                tips("登录失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        function getCookie(key,cookie){
+			var r=new RegExp(key+'=([^;]+)','i')
+			var m=r.exec(cookie);
+			if(m)return m[1];
+			return ''
+		}
+		
+		function saveUserPass(){
+	        if($("#password").val() != null)
+	        document.cookie="pwd="+$("#password").val();
+	        if($("#account").val()!= null)
+	        document.cookie="un="+$("#account").val();
+	    }
+
+		(function(){
+			var strCookie = document.cookie;
+			if (strCookie)
+			{
+			     var userName = getCookie('un',strCookie);
+			     $("#account").val(userName);
+			     var userPass = getCookie('pwd',strCookie);
+                 $("#password").val(userPass);
+			     if ('$model.logout' == "Y")
+			     {
+			         //$("#password").val('');
+			         //cookies中的pwd设置为空
+			         document.cookie="pwd=";
+			     }
+			     else
+			     {
+                      if (userName && $.trim(userName).length > 0 && userPass && $.trim(userPass).length > 0)
+                      {
+                          loginVerify();
+                      }
+			     }
+			}
+		})();
+		
+    </script>
+</body>
+</html>

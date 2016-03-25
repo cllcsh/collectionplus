@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>个人资料</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <header class="comm-header">
+        <div class="left opt">
+            <a href="#">返回</a>
+        </div>
+        <div class="right opt">
+            <a id="J-Submit" href="javascript:;">完成</a>
+        </div>
+        <h1 class="title">个人资料</h1>
+    </header>
+
+    <div class="wrap">
+        <div class="comm-form mod-user-info">
+            <form action="reg-3.html">
+                <div class="form-group">
+                    <label class="label">账户</label>
+                    <div class="input"><input type="text" value="" placeholder="填写账户"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">名字</label>
+                    <div class="input"><input type="text" value="" placeholder="填写名字"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">身份证</label>
+                    <div class="input"><input type="text" value="" placeholder="填写身份证"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">邮箱</label>
+                    <div class="input"><input type="text" value="" placeholder="填写邮箱"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">性别</label>
+                    <div class="input">
+                        <span class="radio">
+                            <label for="male">男</label>
+                            <input type="radio" id="male" name="gender" value="male">
+                        </span>
+                        <span class="radio">
+                            <label for="male">女</label>
+                            <input type="radio" id="female" name="gender" value="female">
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label">生日</label>
+                    <div class="input">
+                        <span class="select">
+                            <select name="" id="">
+                                <option value="">1999</option>
+                            </select>
+                        </span>年
+                        <span class="select">
+                            <select name="" id="">
+                                <option value="">12</option>
+                            </select>
+                        </span>月
+                        <span class="select">
+                            <select name="" id="">
+                                <option value="">1</option>
+                            </select>
+                        </span>日
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label">职务</label>
+                    <div class="input"><input type="text" value="" placeholder="填写职务"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">身份证照片</label>
+                    <div class="row" style="clear:both;margin-bottom: 1rem;margin-right: 0;">
+                        <div class="col col-6">
+                            <div class="comm-file-upload">
+                                <div class="comm-img camera-line"></div>
+                                <div class="title">上传身份证正面照</div>
+                                <input type="file">
+                            </div>
+                        </div>
+                        <div class="col col-6">
+                            <div class="comm-file-upload">
+                                <div class="comm-img camera-line"></div>
+                                <div class="title">上传身份证正面照</div>
+                                <input type="file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="split"></div>
+                <div class="form-group">
+                    <label class="label">公司地址</label>
+                    <div class="input"><input type="text" value="" placeholder="填写公司地址"></div>
+                </div>
+                <div class="form-group">
+                    <div class="label">详细地址</div>
+                    <div class="input"><input type="text" value="" placeholder="填写详细地址"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">公司名称</label>
+                    <div class="input"><input type="text" value="" placeholder="填写公司名称"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">工商注册号</label>
+                    <div class="input"><input type="text" value="" placeholder="填写工商注册号"></div>
+                </div>
+                <div class="form-group">
+                    <label class="label">营业执照</label>
+                    <div class="input">
+                        <div class="comm-file-upload" style="width: 50%;display:inline-block;margin-top: 1rem;">
+                            <div class="comm-img camera-line"></div>
+                            <div class="title">上传营业执照</div>
+                            <input type="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label">经营品牌：</label>
+                    <div id="J-InputItems" class="comm-brands-mgr">
+                        <div class="plus item" onclick="modal.show();"><i class="comm-img white-cross"></i></div>
+                        <div class="item">品牌一<i class="comm-img angle-close"></i></div>
+                        <div class="item">品牌二<i class="comm-img angle-close"></i></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="J-BrandModal" class="comm-modal none">
+        <div class="modal">
+            <div class="close j-close">&times;</div>
+            <div class="title">选择汽车品牌</div>
+            <div class="module-auth-selcarbrands">
+                <div class="title">按品牌<span class="comm-text-red">拼音</span>首字母查找</div>
+                <div class="words strong">
+                    <span class="active">A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                </div>
+                <div class="brands">
+                    <span class="active">劳斯兰斯</span><span>大众</span><span>奥迪</span><span>劳斯兰斯</span><span>大众</span><span>奥迪</span>
+                    <span>劳斯兰斯</span><span>大众</span><span>奥迪</span>
+                </div>
+            </div>
+            <div class="button button-primary j-close">确定</div>
+        </div>
+    </div>
+
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../js/app.js"></script>
+
+    <script>
+    // 选择品牌
+    var brands = $('#J-InputItems');
+    var modal = new Fache.UI.Modal({
+        id : 'J-BrandModal',
+        close : function(obj) {
+            var brand = this.modal.find('.brands').find('.active').html();
+            brands.append('<div class="item">'+ brand +'<i class="comm-img angle-close"></i></div>');
+        }
+    });
+    // 删除品牌
+    brands.on('tap','.item',function(){
+        var _this = $(this);
+        if (_this.hasClass('plus')) {
+            return;
+        }
+        _this.remove();
+    });
+
+    // 提交注册表单
+    $('#J-Submit').on('tap', function(){
+        $('form').submit();
+    })
+    </script>
+
+</body>
+</html>

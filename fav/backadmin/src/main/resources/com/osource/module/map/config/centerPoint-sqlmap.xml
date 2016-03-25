@@ -1,0 +1,83 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<update id="map_deleteCenterPointInfoById" parameterClass="java.util.Map">
+		update tb_center_point set use_flag = '0', update_id = #updateId#, 
+		update_date = now() where id = #id#
+	</update>
+	
+	<select id="map_findCenterPointInfoById" parameterClass="java.lang.Integer" 
+			resultClass="com.osource.module.map.model.CenterPointBean">
+		select id, longitude, latitude, zoom_lv as zoomLevel, dept_id as deptId, 
+		use_flag as useFlag, insert_date as insertDate, insert_id as insertId, 
+		update_date as updateDate, update_id as updateId from tb_center_point 
+		where use_flag = '1' and id = #value#
+	</select>
+	
+	<select id="map_findCenterPointInfoByUserId" parameterClass="java.lang.Integer" 
+			resultClass="com.osource.module.map.model.CenterPointBean">
+		select id, longitude, latitude, zoom_lv as zoomLevel, dept_id as deptId, 
+		use_flag as useFlag, insert_date as insertDate, insert_id as insertId, 
+		update_date as updateDate, update_id as updateId from tb_center_point 
+		where use_flag = '1' and insert_id = #value#
+	</select>
+	
+	<insert id="map_saveCenterPointInfo" parameterClass="com.osource.module.map.model.CenterPointBean">
+		insert into tb_center_point (id, longitude, latitude, zoom_lv, dept_id, use_flag, insert_date, insert_id)
+		values(#id#, #longitude#, #latitude#, #zoomLevel#, 0, '1',now(), #insertId#)
+	</insert>
+	
+	<!-- 
+	<insert id="map_saveCenterPointInfo" parameterClass="com.osource.module.map.model.CenterPointBean">
+		insert into tb_center_point (id, longitude, latitude, zoom_lv, dept_id, 
+		use_flag, insert_date, insert_id
+		<dynamic prepend=",">
+			<isGreaterThan prepend="," property="updateId" compareValue="0">
+				update_id
+			</isGreaterThan>
+			<isNotEmpty prepend="," property="updateDate">
+				update_date
+			</isNotEmpty>
+		</dynamic>
+		) values(#id#, #longitude#, #latitude#, #zoomLevel#, 0, 
+		<isNotEmpty property="useFlag">
+			#useFlag#
+		</isNotEmpty>
+		<isEmpty property="useFlag">
+			'1'
+		</isEmpty>
+		,
+		<isNotEmpty property="insertDate">
+			#insertDate#
+		</isNotEmpty>
+		<isEmpty property="insertDate">
+			now()
+		</isEmpty>
+		, #insertId#
+		<dynamic prepend=",">
+			<isGreaterThan prepend="," property="updateId" compareValue="0">
+				#updateId#
+			</isGreaterThan>
+			<isNotEmpty prepend="," property="updateDate">
+				#updateDate#
+			</isNotEmpty>
+		</dynamic>
+		)
+	</insert> -->
+	
+	<update id="map_updateCenterPointInfo" parameterClass="com.osource.module.map.model.CenterPointBean">
+		update tb_center_point set update_date = now(), longitude = #longitude#, latitude = #latitude#, zoom_lv = #zoomLevel# 
+		
+		<dynamic prepend=",">
+			<isNotEmpty prepend="," property="useFlag">
+				use_flag = #useFlag#
+			</isNotEmpty>
+			<isGreaterThan prepend="," property="updateId" compareValue="0">
+				update_id = #updateId#
+			</isGreaterThan>
+			<isNotEmpty prepend="," property="deptId">
+				 dept_id = 0
+			</isNotEmpty>
+		</dynamic>
+		where id = #id#
+	</update>
+</sqlMap>

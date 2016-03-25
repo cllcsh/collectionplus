@@ -1,0 +1,74 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DynamicCommentsInfo" id="dynamicCommentsInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="dynamicId" column="dynamic_id" />
+		<result property="friendId" column="friend_id" />
+		<result property="commentContent" column="comment_content" />
+		<result property="commentTime" column="comment_time" />
+		<result property="type" column="type" />
+		<result property="topSize" column="top_size" />
+	</resultMap>
+	<select id="fav_dynamicComments_countAll" resultClass="int">
+		select count(*) from tb_dynamic_comments
+	</select>
+
+	<select id="fav_dynamicComments_findAll" resultMap="dynamicCommentsInfoResultMap">
+		select * from tb_dynamic_comments
+	</select>
+
+	<select id="fav_dynamicComments_findById" parameterClass="java.lang.Integer" resultMap="dynamicCommentsInfoResultMap">
+		select * from tb_dynamic_comments where id = #value#
+	</select>
+	
+	<select id="fav_dynamicComments_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_dynamic_comments t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentContent"><![CDATA[ t.comment_content=#commentContent# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentTime"><![CDATA[ t.comment_time=#commentTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="topSize"><![CDATA[ t.top_size=#topSize# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dynamicComments_findByCondition" parameterClass="java.util.Map" resultMap="dynamicCommentsInfoResultMap">
+		select t.* from tb_dynamic_comments t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentContent"><![CDATA[ t.comment_content=#commentContent# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="commentTime"><![CDATA[ t.comment_time=#commentTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="topSize"><![CDATA[ t.top_size=#topSize# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_dynamicComments_save" parameterClass="com.osource.module.fav.model.DynamicCommentsInfo">
+		  insert into tb_dynamic_comments(id,dynamic_id,friend_id,comment_content,comment_time,type,use_flag,insert_date,insert_id,top_size)
+     		values (#id#,#dynamicId#,#friendId#,#commentContent#,#commentTime#,#type#,1,now(),#insertId#,#topSize#)
+	</insert>
+	
+	<update id="fav_dynamicComments_update" parameterClass="com.osource.module.fav.model.DynamicCommentsInfo">
+		 update tb_dynamic_comments set
+	        dynamic_id = #dynamicId#,
+	        friend_id = #friendId#,
+	        comment_content = #commentContent#,
+	        comment_time = #commentTime#,
+	        type = #type#,
+	        update_date = now(),
+	        update_id = #updateId#,
+	        top_size = #topSize#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_dynamicComments_deleteInIds" parameterClass="java.util.List">
+		update tb_dynamic_comments set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dynamicComments_deleteById" parameterClass="String">
+		update tb_dynamic_comments set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,506 @@
+/* 
+    
+    Created on : 2013-9-27, 12:44:21
+    Author     : MaYichao
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body{
+    min-width: 800px;
+    overflow-y: hidden;
+}
+
+.box{
+    margin: 2px;
+}
+.fullHeight{
+    top: 0px;
+    bottom: 0px;
+}
+.container{
+    width:100%;
+    height:800px;
+
+    /*                        margin:70px auto 10px auto;*/
+    top: 0px;
+    bottom: 0px;
+    /*    display: none;*/
+}
+.handle{
+    float:left;
+    margin:1px;
+    width:24px;
+    height:800px;
+    cursor:pointer;
+    border-image: url("../js/img/bar2.png");
+    border-image-slice: 3 3 3 3;
+    background:#E8ff9f;
+    font:bold 18px Arial, Helvetica, sans-serif;
+    text-align:center;
+    color:#00670f;
+    border-radius:0px;
+    top: 0px;
+    bottom: 0px;
+    border-width: 1;
+    border-color: rgba(0, 204, 255, 0.41);
+    border-style: solid;
+}
+.handle:hover{
+    /*    background:rgba(0, 204, 255, 0.41);*/
+    background:#d6f566;
+}
+.select{
+    /*    background:rgba(0, 204, 255, 0.41);*/
+    background:#d6f566;
+}
+
+.slide{
+    /*    background:url(images/grey.png);*/
+    float:left;
+    /*            width:80%px;*/
+    /*            height:90px;*/
+    display:none;
+    margin:1px;
+    /*            min-width: 500px;*/
+    /*            border-radius:5px;
+                border-width: 1;
+                border-style: solid;*/
+    /*    border-color: rgba(0, 204, 255, 0.41);*/
+    padding: 0 8px;
+    position: relative;
+}
+.slide.well{
+    background: transparent;
+    border: null;
+    margin:1px;
+    padding: 0px;
+
+}
+.rotate{
+    /*            height: 100%;*/
+    margin:50% auto;
+    vertical-align: middle;
+}
+
+.slide .progress{
+    vertical-align: middle;
+    margin: 10% 20% auto 20%;
+}
+
+
+
+.watch-layer{
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    /*        border: 2px #22b24c solid;*/
+
+    /*    display: none;*/
+}
+.watch{
+    position: relative;
+    /*    display: none;*/
+    width: 30%;
+    height: 99%;
+    padding: 2px;
+    margin: 1px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8);
+}
+.watch label{
+    position: absolute;
+    color: #ffffff;
+    bottom: 0px;
+    width: 30%;
+    text-align: center;
+    z-index: 500;
+    line-height: 3px;
+}
+
+.watch.large{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+/* ================== All view ===================== */
+#allViewBox{
+
+}
+
+/* ================== S view ===================== */
+#sViewBox{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    float: left;
+    top: 0;
+    left:0;
+}
+.watch.large{
+    position: relative;
+    padding: 0px;
+    /*    margin: 0px;*/
+    min-width: 33%;
+    width: 40%;
+    height: 50%;
+    float: left;
+    background-color: #E8ff9f;
+}
+#sViewBox .sv_chart{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 59%;
+    height:50%;
+}
+.sv_chart ul.breadcrumb{
+    position: absolute;
+    right: 0;
+    top: 0;
+    left:0;
+    height:10px;
+}
+.sv_chart .lineChart{
+    position: absolute;
+    top: 44px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
+.sView{
+    /*    position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left:10px;
+        right:10px;
+        padding: 20px;*/
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+.sV{
+}
+
+#s_eventTable{
+    position: absolute;
+    float:left;
+    height: 48%;
+    overflow-y: auto;
+    overflow-style: auto;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+#sViewBox .box{
+    /*    transition: width 300ms,height 300ms,transfom 300ms;
+        -moz-transition: width 300ms, height 300ms, -moz-transform 300ms;
+        -webkit-transition: width 300ms, height 300ms, -webkit-transform 300ms;
+        -o-transition: width 300ms, height 300ms,-o-transform 300ms;*/
+}
+.box.fullScreen{
+    width: 100%;
+    height: 100%;    
+}
+#sViewBox .sv_chart.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+#sViewBox .watch.large.box.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+#s_eventTable.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+
+.watch .box-content{
+    position: absolute;
+    top:0;
+    buttom:0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+text{
+    fill:#ffffff;
+}
+
+#sViewBox .box button.btn-minimize{
+    z-index: 100;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+#sViewBox [class*="span"]{
+    margin: 0px;
+}
+
+
+
+/* ================== f view ===================== */
+#fViewBox{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    float: left;
+    top: 0;
+    left:0;
+}
+#fViewBox .watch.large{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    min-width: 33%;
+    width: 40%;
+    height: 50%;
+    float: left;
+}
+#fViewBox .sv_chart{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 59%;
+    height:50%;
+
+}
+#f_eventTable{
+    position: absolute;
+    float:left;
+    top:51%;
+    /*    height: 49%;*/
+    bottom: 0;
+    overflow-y: no-content;
+    /*    overflow-style: none;*/
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+#f_eventTable .barChart{
+    background-color: gray;
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top:44px;
+    bottom: 5px;
+}
+#fViewBox .box{
+    /*    transition: width 300ms,height 300ms,transfom 300ms;
+        -moz-transition: width 300ms, height 300ms, -moz-transform 300ms;
+        -webkit-transition: width 300ms, height 300ms, -webkit-transform 300ms;
+        -o-transition: width 300ms, height 300ms,-o-transform 300ms;*/
+}
+.box.fullScreen{
+    width: 100%;
+    height: 100%;    
+}
+#fViewBox .sv_chart.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+#fViewBox .watch.large.box.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+#f_eventTable.fullScreen{
+    top: 0px;
+}
+#fViewBox .box button.btn-minimize{
+    z-index: 100;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+/* ================== u view ===================== */
+#uViewBox{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    float: left;
+    top: 0;
+    left:0;
+}
+#uViewBox .watch.large{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    min-width: 33%;
+    width: 40%;
+    height: 50%;
+    float: left;
+}
+#uViewBox .sv_chart{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 59%;
+    height:50%;
+
+}
+#u_eventTable{
+    position: absolute;
+    float:left;
+    top:51%;
+    /*    height: 49%;*/
+    bottom: 0;
+    overflow-y: no-content;
+    /*    overflow-style: none;*/
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+#u_eventTable .netChart{
+    /*    background-color: gray;*/
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top:44px;
+    bottom: 5px;
+}
+.netChart svg{
+    width: 100%;
+    height: 100%;
+}
+#u_eventTable.fullScreen{
+    top: 0px;
+}
+#uViewBox .box{
+    /*    transition: width 300ms,height 300ms,transfom 300ms;
+        -moz-transition: width 300ms, height 300ms, -moz-transform 300ms;
+        -webkit-transition: width 300ms, height 300ms, -webkit-transform 300ms;
+        -o-transition: width 300ms, height 300ms,-o-transform 300ms;*/
+}
+.box.fullScreen{
+    width: 100%;
+    height: 100%;    
+}
+#uViewBox .sv_chart.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+#uViewBox .watch.large.box.fullScreen{
+
+    width: 100%;
+    height: 100%;    
+}
+
+#uViewBox .box button.btn-minimize{
+    z-index: 100;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+#uViewBox .node {
+    stroke: #00670f;
+    stroke-width: 1.5px;
+}
+
+#uViewBox .link {
+    stroke: #999;
+    stroke-opacity: .6;
+}
+#uViewBox .routertext2 {
+    fill:#00670f;
+}
+#uViewBox .routertext2:hover{
+    font-weight: bolder;
+}
+#uViewBox .shandow {
+    fill:gray;
+}
+/* ================== p view ===================== */
+#pViewBox{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    float: left;
+    top: 0;
+    left:0;
+}
+#pViewBox .large{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    min-width: 33%;
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+/*#pViewBox .large .box-content{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    top: 44px;
+    bottom: 5px;
+    left:5px;
+    right: 5px;
+    float: left;
+}*/
+#pViewBox .large .left{
+    position: relative;
+    height: 100%;
+}
+#pViewBox .large .left .map{
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    top: 44px;
+    bottom: 5px;
+    left:5px;
+    right: 5px;
+    float: left;
+}
+
+#pViewBox .right{
+    position: relative;
+    border-color:  #00670f;
+    border-style: solid;
+    border-width: 1px;
+    height: 100%;
+}
+
+
+
+
+
+
+/*.lineChart{
+    background-color: #ffffff;
+}*/

@@ -1,0 +1,90 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.UserPointsRecordInfo" id="userPointsRecordInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="userid" column="userid" />
+		<result property="userName" column="user_name" />
+		<result property="points" column="points" />
+		<result property="comment" column="enum_name" />
+		<result property="taskid" column="taskid" />
+		<result property="day" column="day" />
+	</resultMap>
+	<select id="fav_userPointsRecord_countAll" resultClass="int">
+		select count(*) from tb_user_points_record
+	</select>
+
+	<select id="fav_userPointsRecord_findAll" resultMap="userPointsRecordInfoResultMap">
+		SELECT t.*,u.user_name,e.enum_name FROM tb_user_points_record t 
+		LEFT JOIN tb_fav_user u ON t.userid=u.id
+		LEFT JOIN tb_task_points_config c ON t.taskid=c.id
+		LEFT JOIN tb_enum e ON c.task_name=e.enum_code AND e.enum_type='task_points_config_type'
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_userPointsRecord_findById" parameterClass="java.lang.Integer" resultMap="userPointsRecordInfoResultMap">
+		SELECT t.*,u.user_name FROM tb_user_points_record t LEFT JOIN tb_fav_user u ON t.userid=u.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_userPointsRecord_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(*) FROM tb_user_points_record t LEFT JOIN tb_fav_user u ON t.userid=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userid"><![CDATA[ t.userid=#userid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="points"><![CDATA[ t.points=#points# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="comment"><![CDATA[ t.comment=#comment# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="taskid"><![CDATA[ t.taskid=#taskid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="day"><![CDATA[ t.day=#day# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startPoint"><![CDATA[t.points >= #startPoint#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endPoint"><![CDATA[t.points <= #endPoint#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_userPointsRecord_findByCondition" parameterClass="java.util.Map" resultMap="userPointsRecordInfoResultMap">
+		SELECT t.*,u.user_name,e.enum_name FROM tb_user_points_record t 
+		LEFT JOIN tb_fav_user u ON t.userid=u.id
+		LEFT JOIN tb_task_points_config c ON t.taskid=c.id
+		LEFT JOIN tb_enum e ON c.task_name=e.enum_code AND e.enum_type='task_points_config_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userid"><![CDATA[ t.userid=#userid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="points"><![CDATA[ t.points=#points# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="comment"><![CDATA[ t.comment=#comment# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="taskid"><![CDATA[ t.taskid=#taskid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="day"><![CDATA[ t.day=#day# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startPoint"><![CDATA[t.points >= #startPoint#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endPoint"><![CDATA[t.points <= #endPoint#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_userPointsRecord_save" parameterClass="com.osource.module.fav.model.UserPointsRecordInfo">
+		insert into tb_user_points_record(id,userid,points,comment,taskid,day,use_flag,insert_date,insert_id)
+     		values (#id#,#userid#,#points#,#comment#,#taskid#,#day#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_userPointsRecord_update" parameterClass="com.osource.module.fav.model.UserPointsRecordInfo">
+		update tb_user_points_record set
+	        userid = #userid#,
+	        points = #points#,
+	        comment = #comment#,
+	        taskid = #taskid#,
+	        day = #day#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_userPointsRecord_deleteInIds" parameterClass="java.util.List">
+		update tb_user_points_record set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_userPointsRecord_deleteById" parameterClass="String">
+		update tb_user_points_record set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,346 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+    <resultMap class="com.osource.module.system.model.DeptEntity" id="deptResultMap">
+        <result column="id" property="id.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="code" property="code.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="name" property="name.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="manager" property="manager.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="phone_no" property="phoneNo.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="fax_no" property="faxNo.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="address" property="address.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="postcode" property="postcode.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="rank" property="rank.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="description" property="description.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="upper_dept" property="upperDept.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="node" property="node.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="jgbm" property="jgbm.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="organization_type_id" property="organizationTypeId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="longitude" property="longitude.value" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="latitude" property="latitude.value" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="uvalue" property="uvalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<result column="fvalue" property="fvalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<result column="svalue" property="svalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<!--  <result column="dzyx" property="dzyx.value" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+        <result column="use_flag" property="useFlag.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="insert_date" property="insertDate.value" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="insert_id" property="insertId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="update_date" property="updateDate.value" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="update_id" property="updateId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="upper_dept_name" property="upperDeptName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="view_order" property="viewOrder.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <resultMap class="com.osource.module.system.model.DeptInfo" id="deptUserInfoResultMap">
+        <result column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="manager" property="manager"/>
+        <result column="phone_no" property="phoneNo"/>
+        <result column="fax_no" property="faxNo"/>
+        <result column="address" property="address"/>
+        <result column="postcode" property="postcode"/>
+        <result column="rank" property="rank"/>
+        <result column="description" property="description"/>
+        <result column="upper_dept" property="upperDept"/>
+        <result column="node" property="node"/>
+        <result column="jgbm" property="jgbm" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="organization_type_id" property="organizationTypeId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="longitude" property="longitude" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="latitude" property="latitude" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="uvalue" property="uvalue" jdbcType="FLOAT" javaType="java.lang.Float"/>
+		<result column="fvalue" property="fvalue" jdbcType="FLOAT" javaType="java.lang.Float"/>
+		<result column="svalue" property="svalue" jdbcType="FLOAT" javaType="java.lang.Float"/>
+		<!--  <result column="dzyx" property="dzyx" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+		<result column="use_flag" property="useFlag" jdbcType="DECIMAL" javaType="java.lang.String"/>
+        <result column="insert_date" property="insertDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="insert_id" property="insertId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="update_id" property="updateId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        
+        <result property="userInDept" column="id" select="map_findUserInDeptById"/>
+    </resultMap>
+
+    <resultMap class="com.osource.module.system.model.DeptInfo" id="deptCriminalInfoResultMap">
+        <result column="id" property="id.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="code" property="code.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="name" property="name.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="manager" property="manager.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="phone_no" property="phoneNo.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="fax_no" property="faxNo.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="address" property="address.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="postcode" property="postcode.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="rank" property="rank.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="description" property="description.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="upper_dept" property="upperDept.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="node" property="node.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="jgbm" property="jgbm.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="organization_type_id" property="organizationTypeId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="longitude" property="longitude.value" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="latitude" property="latitude.value" jdbcType="DECIMAL" javaType="java.lang.String"/>
+		<result column="uvalue" property="uvalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<result column="fvalue" property="fvalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<result column="svalue" property="svalue.value" jdbcType="DECIMAL" javaType="java.lang.Float"/>
+		<!--  <result column="dzyx" property="dzyx.value" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+        <result column="use_flag" property="useFlag.value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="insert_date" property="insertDate.value" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="insert_id" property="insertId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+        <result column="update_date" property="updateDate.value" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="update_id" property="updateId.value" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+    </resultMap>
+
+	<resultMap class="com.osource.base.util.Entry" id="deptOptionEntry">
+		<result property="key" column="id"/>
+		<result property="value" column="value"/>
+	</resultMap>
+
+    <sql id="system_dept_common_condition">
+        <include refid="auto_condition"/>
+        and $tableName$.use_flag = '1'
+    </sql>
+
+    <!--删除 basic-->
+    <delete id="system_dept_delete" parameterClass="com.osource.module.system.model.DeptEntity">
+        <include refid="solo_delete"/>
+        <include refid="system_dept_common_condition"/>
+    </delete>
+
+    <!--修改 basic-->
+    <update id="system_dept_update" parameterClass="com.osource.module.system.model.DeptEntity">
+        <include refid="solo_update"/>
+        <include refid="system_dept_common_condition"/>
+    </update>
+
+    <!--查询 basic-->
+    <select id="system_dept_select" parameterClass="com.osource.module.system.model.DeptEntity"
+            resultMap="deptResultMap">
+        select $tableName$.*, e.name upper_dept_name
+        from $tableName$ left join tb_dept e on $tableName$.upper_dept = e.id
+		where $tableName$.use_flag = 1
+<!--        <include refid="system_dept_common_condition"/>-->
+	<dynamic prepend="and">
+			<isNotEmpty prepend="and" property="deptId.stringValue">
+	        	<![CDATA[
+	        		$tableName$.node like concat((select node from tb_dept td where td.id = #deptId.value#),'%')
+	        	]]>
+	        </isNotEmpty>
+	        <isNotEmpty prepend="and" property="code.stringValue">
+	        	<![CDATA[
+	        		$tableName$.code like concat('%',#code.stringValue#,'%')
+	        	]]>
+	        </isNotEmpty>
+	        <!--<isNotEmpty prepend="and" property="jgbm.stringValue">
+	        	<![CDATA[
+	        		$tableName$.jgbm like concat('%',#jgbm.stringValue#,'%')
+	        	]]>
+	        </isNotEmpty>
+	        --><isNotEmpty prepend="and" property="name.stringValue">
+	        	<!--$tableName$.name like concat('%',#name.stringValue#,'%')-->
+	        	<![CDATA[
+	        		LOCATE(#name.stringValue#, $tableName$.name) >0
+	        	]]>
+	        </isNotEmpty><!--
+	        <isNotEmpty prepend="and" property="manager.stringValue">
+	        	$tableName$.manager like concat('%',#manager.stringValue#,'%')
+	        	<![CDATA[
+	        		LOCATE(#manager.stringValue#, $tableName$.manager) >0
+	        	]]>
+	        </isNotEmpty>
+	        <isNotEmpty prepend="and" property="address.stringValue">
+	        	  $tableName$.address like concat('%',#address.stringValue#,'%')
+	        	<![CDATA[
+	        		LOCATE(#address.stringValue#, $tableName$.address) >0
+	        	]]>
+	        </isNotEmpty>
+	        <isNotEmpty prepend="and" property="rank.stringValue">
+	        	<![CDATA[
+	        		$tableName$.rank = #rank.stringValue#
+	        	]]>
+	        </isNotEmpty>
+	        --><isNotEmpty prepend="and" property="upperDept.stringValue">
+	        	<![CDATA[
+	        		$tableName$.upper_dept = #upperDept.stringValue#
+	        	]]>
+	        </isNotEmpty>
+	         order by $tableName$.insert_date desc
+        </dynamic>
+       
+    </select>
+    
+    <!-- added by lifa,2010-2-2.根据Id返回DeptEntity信息 -->
+    <select id="system_dept_findDeptEntityById" parameterClass="java.lang.Integer" resultMap="deptResultMap">
+        select e.*,  e2.name upper_dept_name
+        from tb_dept e left join tb_dept e2 on e.upper_dept = e2.id 
+        where e.id = #value#
+<!--        or e.upper_dept is null limit 1-->
+    </select>
+
+    <!--根据机构id查询机构的下属机构列表(带缩进)-->
+    <select id="system_dept_getDeptSelectList" parameterClass="java.lang.Integer" resultMap="deptOptionEntry">
+        SELECT b.id
+        ,concat(lpad('', (length(b.node) - length(a.node)) / 4, '-'), b.name) AS value
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND b.node LIKE concat(a.node, '%')
+        ORDER BY b.node
+    </select>
+    
+    <!--根据机构id查询机构的下属机构(不含第5级机构)列表(带缩进)-->
+    <select id="system_dept_getDeptSelectListEx" parameterClass="java.lang.Integer" resultMap="deptOptionEntry">
+        <![CDATA[
+        SELECT b.id
+        ,concat(lpad('', (length(b.node) - length(a.node)) / 4, '-'), b.name) AS value
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND b.node LIKE concat(a.node, '%')
+        AND length(b.node) < 40
+        ORDER BY b.node
+        ]]>
+    </select>
+
+    <!--根据机构id查询机构的下属机构(不含下级机构及第5级机构)列表(带缩进)-->
+    <select id="system_dept_getDeptSelectListWithoutLower" parameterClass="java.util.Map" resultMap="deptOptionEntry">
+        <![CDATA[
+        SELECT d.id
+        ,concat(lpad('', (length(d.node) - length(p.node)) / 4, '-'), d.name) AS value
+        FROM tb_dept p, tb_dept q, tb_dept d
+        WHERE d.use_flag = '1'
+        AND p.id = #pid#
+        AND q.id = #qid#
+        AND d.node LIKE concat(p.node, '%')
+        AND d.node NOT LIKE concat(q.node, '%')
+        AND length(d.node) < 40-(select  max(length(qq.node))from tb_dept qq where qq.node LIKE concat(q.node, '%'))+length(q.node)
+        ORDER BY d.node
+        ]]>
+    </select>
+
+    <!--调节机构id及其下级机构的node
+        ifnull(p.node,'')：上级机构的node
+        lpad(a.id, 8, '0')：本级机构的node
+        trim(leading a.node from q.node)：下级机构的node
+    -->
+    <update id="system_dept_adjustNode" parameterClass="java.lang.Integer">
+        update tb_dept a left join tb_dept p on a.upper_dept = p.id, tb_dept q
+        set q.node = concat(ifnull(p.node,''),lpad(a.id, 8, '0'), trim(leading a.node from q.node))
+        where a.id = #value# and q.node LIKE concat(a.node, '%')
+    </update>
+    <!-- 根据机构id查询机构的下属机构列表 -->
+    <select id="system_dept_findDeptInfoListById" parameterClass="java.lang.Integer" resultMap="deptUserInfoResultMap">
+        <![CDATA[
+        SELECT 
+ 			b.id as id,
+			b.code as code,z
+			b.name as name,
+			b.manager as manager,
+			b.phone_no as phone_no,
+			b.fax_no as fax_no,
+			b.address as address,
+			b.postcode as postcode,
+			b.rank as rank,
+			b.description as description,
+			b.upper_dept as upper_dept,
+			b.node as node,
+			b.jgbm,
+			b.organization_type_id,
+			b.longitude,
+			b.latitude,
+			b.uvalue,
+			b.fvalue,
+			b.svalue
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND b.node LIKE concat(a.node, '%')
+        AND b.id != #value#
+        ORDER BY b.node
+        ]]>
+    </select>
+    
+    <!-- 根据机构id查询所属机构列表(包括本身id) add by bigangwang 2009-03-05 -->
+    <select id="system_dept_findDeptListById" parameterClass="java.lang.Integer" resultMap="deptUserInfoResultMap">
+        <![CDATA[
+        SELECT 
+ 			b.id as id,
+			b.code as code,
+			b.name as name,
+			b.manager as manager,
+			b.phone_no as phone_no,
+			b.fax_no as fax_no,
+			b.address as address,
+			b.postcode as postcode,
+			b.rank as rank,
+			b.description as description,
+			b.upper_dept as upper_dept,
+			b.node as node,
+			b.jgbm,
+			b.organization_type_id,
+			b.longitude,
+			b.latitude,
+			b.uvalue,
+			b.fvalue,
+			b.svalue
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND a.use_flag = 1
+        AND b.use_flag = '1'
+        AND b.node LIKE concat(a.node, '%')
+        ORDER BY b.node
+        ]]>
+    </select>
+    
+    <!-- 根据机构id查询机构的下属用户 -->
+    <select id="map_findUserInDeptById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.UserBean">
+    <![CDATA[
+    	select * 
+    	from tb_user
+    	where dept_id = #id#
+    	and use_flag = '1'
+    	order by id
+    ]]>
+    </select>
+    <!-- 根据机构id查询机构信息 -->
+	<select id="system_dept_findDeptInfoById" parameterClass="java.lang.Integer" resultMap="deptUserInfoResultMap">
+        <![CDATA[
+        SELECT b.*
+        FROM tb_dept b
+        WHERE b.id = #value#
+        AND b.use_flag = '1'
+        ]]>
+    </select>
+    <!--根据机构id查询下级机构信息-->
+    <select id="system_dept_getLowerDeptById" parameterClass="java.lang.Integer" resultMap="deptUserInfoResultMap">
+        SELECT b.*
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND b.upper_dept = a.id 
+        <!--  AND (b.upper_dept = a.id or b.id = a.id)-->
+        order by b.view_order desc, b.name
+    </select>
+    
+     <!--根据机构id查询下级机构信息(包含本身Id)-->
+    <select id="system_dept_getSelfLowerDeptById" parameterClass="java.lang.Integer" resultMap="deptUserInfoResultMap">
+        SELECT b.*
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND (b.id = a.id or b.upper_dept = a.id)
+        order by b.view_order desc, b.name
+    </select>
+    	
+    	<!--根据机构id查询上级机构信息
+    <select id="system_dept_getUpperDeptById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.DeptInfo">
+        SELECT 
+        	b.id AS id,
+        	b.name AS name,
+        	b.domain AS domain,
+        	b.upper_dept AS upperDept
+        FROM tb_dept a, tb_dept b
+        WHERE a.id = #value#
+        AND b.use_flag = '1'
+        AND b.id = a.upper_dept
+    </select>
+    	-->
+</sqlMap>

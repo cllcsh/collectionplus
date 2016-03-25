@@ -1,0 +1,79 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionDynamicPreviewInfo" id="auctionDynamicPreviewInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="auctionDynamicId" column="auction_dynamic_id" />
+		<result property="auctionDynamicTitle" column="dynamicTitle" />
+		<result property="collectionId" column="collection_id" />
+		<result property="collectionTitle" column="collectionTitle" />
+		<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_auctionDynamicPreview_countAll" resultClass="int">
+		select count(*) from tb_auction_dynamic_preview
+	</select>
+
+	<select id="fav_auctionDynamicPreview_findAll" resultMap="auctionDynamicPreviewInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_preview t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_auctionDynamicPreview_findById" parameterClass="java.lang.Integer" resultMap="auctionDynamicPreviewInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_preview t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+ 		where t.id = #value#
+	</select>
+	
+	<select id="fav_auctionDynamicPreview_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_dynamic_preview t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionDynamicPreview_findByCondition" parameterClass="java.util.Map" resultMap="auctionDynamicPreviewInfoResultMap">
+		select t.*,d.title dynamicTitle,c.title collectionTitle from tb_auction_dynamic_preview t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_auctionDynamicPreview_save" parameterClass="com.osource.module.fav.model.AuctionDynamicPreviewInfo">
+		insert into tb_auction_dynamic_preview(id,auction_dynamic_id,collection_id,display_order,use_flag,insert_date,insert_id)
+     		values (#id#,#auctionDynamicId#,#collectionId#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionDynamicPreview_update" parameterClass="com.osource.module.fav.model.AuctionDynamicPreviewInfo">
+		update tb_auction_dynamic_preview set
+	        auction_dynamic_id = #auctionDynamicId#,
+	        collection_id = #collectionId#,
+	        display_order = #displayOrder#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_auctionDynamicPreview_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_dynamic_preview set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionDynamicPreview_deleteById" parameterClass="String">
+		update tb_auction_dynamic_preview set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

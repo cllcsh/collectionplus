@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/my.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>管理黑名单</h1>
+    </header>
+    <div class="blacklist main">
+        <ul class="ui-list ui-border-b" id="list-view">
+            #foreach($blacklist in $model.userBlacklists)
+            <li class="ui-border-t">
+                <div class="ui-avatar rect">
+                    <img src="$!{imgWebContextPath}$!{blacklist.avatar}" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">$!{blacklist.user_name}</h4>
+                    <p class="ui-nowrap"><span class="ui-txt-muted">$!{blacklist.signature}</span></p>
+                </div>
+                <div class="operate">
+                    <a href="javascript:;" id="$!{blacklist.blacklistId}" class="delete">删除</a>
+                </div>
+            </li>
+            #end
+        </ul>
+        <!-- <div class="ui-loading-wrap">
+            <p class="ui-txt-info">加载中</p>
+            <i class="ui-loading"></i>
+        </div> -->
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		(function(){
+            var view = $('#list-view');
+            /*var html = view.html();
+            
+            loadMore(function(page){
+                view.append(html);
+            });*/
+
+
+            var startX, moveX = 0, startY, moveY;          
+            view.on('touchstart', 'li', function(e){
+                startX = e.touches[0].pageX;
+                startY = e.touches[0].pageY;
+            });
+            view.on('touchmove', 'li', function(e){
+                moveX = e.touches[0].pageX;
+                moveY = e.touches[0].pageY;
+
+                var offsetX = moveX - startX;  
+                var offsetY = Math.abs(moveY - startY); 
+
+                if(offsetX < -40 && offsetY < 20){
+                    if(!$(this).hasClass('more')){
+                        $(this).addClass('more');
+                    }    
+                }
+                if(offsetX > 40 && offsetY < 20){
+                    if($(this).hasClass('more')){                        
+                        $(this).removeClass('more');
+                    }
+                }
+
+            });
+			
+			$('.blacklist').on('click', '.delete', function(){
+			    //$(this).parents('li').remove();
+			    var obj = $(this);
+			    var options = {
+	                type : "POST",
+		            url: "deleteBlacklist",
+		            data: {'id' : $(this).attr("id")},
+		            dataType : "json",
+		            success : function(result) {
+		                if (result.result)
+		                {
+		                    obj.parents('li').remove();
+		                }
+		                else
+		                {
+		                    tips("删除黑名单失败");
+		                }
+		            },
+		            error : function(error) {
+		                tips("删除黑名单失败");
+		            }
+	            }
+	            $.ajax(options);
+			});
+        })();
+	</script>
+</body>
+</html>

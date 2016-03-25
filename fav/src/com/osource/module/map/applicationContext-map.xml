@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!--<bean id="centerPointDao" class="com.osource.module.map.dao.impl.CenterPointDaoImpl" />
+	<bean id="railingsDao" class="com.osource.module.map.dao.impl.RailingsDaoImpl" />
+	<bean id="railingsCoordinateDao" class="com.osource.module.map.dao.impl.RailingsCoordinateDaoImpl" />
+	
+	<bean id="centerPointService" class="com.osource.module.map.service.impl.CenterPointServiceImpl" >
+		<property name="centerPointDao"><ref local="centerPointDao"/></property>
+	</bean>
+	<bean id="railingsService" class="com.osource.module.map.service.impl.RailingsServiceImpl" >
+		<property name="railingsDao"><ref local="railingsDao"/></property>
+		<property name="coordinateDao"><ref local="railingsCoordinateDao"/></property>
+	</bean>
+	<bean id="railingsCoordinateService" class="com.osource.module.map.service.impl.RailingsCoordinateServiceImpl" >
+		<property name="coordinateDao"><ref local="railingsCoordinateDao"/></property>
+	</bean>
+	
+	<bean id="centerPointUsInitializer" class="com.osource.module.map.web.session.CenterPointUsInitializer">
+		<property name="centerPointDao"><ref local="centerPointDao"/></property>
+	</bean>
+	-->
+</beans>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<div class="ui-searchbar-wrap">
+    		<div class="title">收藏圈</div>
+            <div class="ui-searchbar ui-border-radius">
+                <i class="ui-icon-search"></i>
+                <div class="ui-searchbar-text">搜索藏品</div>
+                <form id="searchCollection" action="searchCollection" method="post">
+                  <div class="ui-searchbar-input"><input name="title" value="" type="search" placeholder="搜索藏品" autocapitalize="off"></div>
+                </form>
+            </div>
+            <button class="ui-searchbar-cancel" onclick="searchCollection('searchCollection')">确定</button>
+        </div>
+    </header>
+    <div class="dynamic main">
+	    <div class="tab-link">
+	    	<div class="ui-row-flex">
+                <div class="ui-col ui-col"><a href="collectionCircle">今日热门</a></div>
+                <div class="ui-col ui-col"><a href="allCollection">全部藏品</a></div>
+                <div class="ui-col ui-col"><a href="friendDynamic" class="active">好友动态</a></div>
+            </div>
+	    </div>
+	     <div class="liu" id="content">
+	        <div id="slideDown">
+				<div id="slideDown1">
+					<div class="ui-loading-wrap">
+						<p class="ui-txt-info">加载中</p>
+						<i class="ui-loading"></i>
+					</div>
+				</div>
+				<div id="slideDown2">
+					<div class="ui-loading-wrap">
+						<p class="ui-txt-info">加载中</p>
+						<i class="ui-loading"></i>
+					</div>
+				</div>
+			</div>
+		    <div id="list-view">
+		      #foreach($dynamic in $model.dynamicList)
+		    	<div class="item cc">
+		    		<img src="$!{imgWebContextPath}$!{dynamic.avatar}" alt="" class="avatar" data-href="userInfo?id=$!{dynamic.release_by}">
+		    		<div class="content"  id="$!{dynamic.id}">
+		    			<div class="name" data-href="userInfo?id=$!{dynamic.release_by}">$!{dynamic.user_name}</div>
+		    			<div class="desc">
+		    				$!{dynamic.dynamic_content}
+		    			</div>
+		    			<div class="image">
+		    				<ul class="cc">
+		    				    #foreach($imgUrl in $dynamic.images)
+		    					<li><figure style="background-image:url($!{imgWebContextPath}$!{imgUrl})"></figure></li>
+		    					#end
+		    				</ul>
+		    			</div>
+		    			<div class="info cc">
+		    				<span class="more no"></span>
+		    				<span class="ui-txt-muted f12 fl">$!{dynamic.release_time}</span>
+		    				<div class="operate no">
+		    					<div class="inner no">
+			    					<a href="javascript:;" class="a1 no"><i class="no"></i>赞</a>
+			    					<a href="javascript:;" class="a2 no"><i class="no"></i>评论</a>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<section class="ui-input-wrap ui-border-t">
+							<div class="ui-input ui-border-radius">
+								<input type="text" class="content-comment" name="" value="" placeholder="我也说一句...">
+							</div>
+							<button class="ui-btn submit-comment">评论</button>
+						</section>
+		    			<div class="other">
+		    				<div class="zan">
+		    					<img src="images/icon-like-active.png" alt="">
+		    					 #foreach($like in $dynamic.likes)
+		    					    #if($!{velocityCount} == 1)
+		    					    <a href="userInfo?id=$!{like.friend_id}">$!{like.user_name}</a>
+		    					    #else
+		    					    ,<a href="userInfo?id=$!{like.friend_id}">$!{like.user_name}</a>
+		    					    #end
+		    					 #end
+		    				</div>
+		    				<div class="comment">
+		    				    <input type="hidden" class="reply_comment_id">
+		    				    <input type="hidden" class="comment_source_id" value="$!{dynamic.id}">
+		    				    #foreach($comment in $dynamic.comments)
+		    				       #if($comment.type == 0)     
+		    					   <p class="reply-item" id="c_$!{comment.id}"><a href="userInfo?id=$!{comment.insert_id}">$!{comment.user_name}</a>：$!{comment.comment_content}</p>
+		    					   #else 
+		    					   <p class="reply-item" id="c_$!{comment.id}"><a href="userInfo?id=$!{comment.insert_id}">$!{comment.user_name}</a>回复<a href="userInfo?id=$!{comment.friend_id}">$!{comment.friend_name}</a>：$!{comment.comment_content}</p>
+		    					   #end
+		    					#end
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		      #end
+	       </div>
+	    </div>
+	    <div class="ui-loading-wrap" id="page_loading">
+			<p class="ui-txt-info">加载中</p>
+			<i class="ui-loading"></i>
+		</div>
+    </div>
+    <footer class="ui-footer footer">
+    	<div class="list">
+	        <div class="ui-col">
+	        	<a data-href="home">
+	        		<img src="images/nav-home.png" alt="" class="img1">
+	        		<img src="images/nav-home-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="collectionCircle" class="active">
+	        		<img src="images/nav-quan.png" alt="" class="img1">
+	        		<img src="images/nav-quan-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="faProduct">
+	        		<img src="images/nav-add.png" alt="">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="cangIndex">
+	        		<img src="images/nav-cang.png" alt="" class="img1">
+	        		<img src="images/nav-cang-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="myIndex">
+	        		<img src="images/nav-my.png" alt="" class="img1">
+	        		<img src="images/nav-my-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        </div>
+    </footer>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		$('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').tap(function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+
+        var operate = null, type = 0;
+        $(".main").on('click', '.more', function(){
+        	operate = $(this).siblings('.operate');
+        	$(this).parents('.item').siblings().find('.operate.show').removeClass('show');
+        	operate.toggleClass('show');
+        });
+        var userName = '$!{model.user_name}';
+        var id = '$!{model.user_id}';
+        $(document).click(function(e){
+        	if(operate){
+        		var target = $(e.target);
+        		if(!target.hasClass('no')){
+        			$('.operate').removeClass('show');
+        		}
+        	}
+        });
+        
+        $('.liu').on('click', function(e){
+			var target = $(e.target);
+			
+			if(target.hasClass('a1')){
+				//target.parents('.item').find('.other .zan').append(',<a href="user-info.html">张全蛋</a>');
+				//operate.removeClass('show');
+				 var isAdd = true;
+			     target.parents('.item').find('.other .zan').find("a").each(function(){
+			        if (userName == $(this).text())
+			        {
+			            isAdd = false;
+			            return;
+			        }
+			    });
+			    if (isAdd)
+			    {
+			        var html = '<a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>';
+			        if(target.parents('.item').find('.other .zan').find("a").length > 0)
+			        {
+			            html = ',<a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>';
+			        }
+			        target.parents('.item').find('.other .zan').append(html);
+			        var dynamicId = target.parents('.item').find('.other').parent().attr('id');
+			        addDynamicLike(dynamicId);
+			    }
+			    operate.removeClass('show');
+			}
+			
+			if(target.hasClass('a2')){
+				type = 0;
+				target.parents('.item').find('.ui-input-wrap').addClass('show').find('.content-comment').focus().attr('placeholder', '我也说一句...');
+				operate.removeClass('show');
+			}
+			
+			if(target.hasClass('submit-comment')){
+				var input = target.parent().find('.content-comment');
+					if($.trim(input.val()) === ''){
+					input.focus();
+					tips('请输入评论内容');
+					return false;
+				}
+				var area = target.parents('.item').find('.other .comment');
+				var source_id = area.find(".comment_source_id").val();
+				var paraJson = {source_id : source_id, content : input.val(), area : area, type : type};
+				if(type === 1){
+				    var reply_comment_id = area.find(".reply_comment_id").val();
+				    var replyUser = area.find('#' + reply_comment_id).find('a');
+				    var username = replyUser.text();
+				    var ahref = replyUser.attr("href");
+			        var reply_user_id = ahref.replace("userInfo?id=","");
+			        var reply_id = reply_comment_id.replace("c_","");
+			        paraJson.reply_user_id = reply_user_id;
+			        paraJson.reply_id = reply_id;
+			        paraJson.reply_user_name = username;
+			        addComment(paraJson);
+					//area.append('<p class="reply-item"><a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>回复<a href="userInfo?id='+ reply_user_id +'">'+ username +'</a>：'+ input.val() +'</p>');
+				}else{
+				    paraJson.reply_id = '';
+			        paraJson.reply_user_id = '';
+					addComment(paraJson);
+					//area.append('<p class="reply-item"><a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>：'+ input.val() +'</p>');
+				}
+				input.val('');
+				target.parent().removeClass('show');
+			}
+		});
+        
+        $('.liu').on('click', '.reply-item', function(){
+			type = 1;
+			var username = $(this).find('a').text();
+			$(this).parent().find(".reply_comment_id").val($(this).attr("id"));
+			$(this).parents('.item').find('.ui-input-wrap').addClass('show').find('.content-comment').focus().attr('placeholder', '回复 ' + username);
+		});
+		
+        var isLoading = true;
+        (function(){
+			
+			if ($model.last_page)
+			{
+			    $("#page_loading").hide();
+			    isLoading = false;
+			}
+			//var view = $('#list-view');
+			//var html = view.html();
+			
+			loadMore(function(page){
+				//view.append(html);
+				loadDynamic(page);
+			});
+		})();
+		
+		function loadDynamic(page)
+		{
+		    if (!isLoading)
+		    {
+		        return;
+		    }
+		    var options = {
+                type : "POST",
+	            url: "queryFriendDynamic",
+	            data: {'pageIndex' : page},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.dynamicList)
+	                {
+	                   if (result.last_page)
+					   {
+					       $("#page_loading").hide();
+					       isLoading = false;
+					   }
+	                   var view = $('#list-view');
+	                   for(var i = 0; i < result.dynamicList.length; i++)
+	                   {
+	                        var dynamic = result.dynamicList[i];
+	                        var htmlImg = '';
+	                        var images = dynamic.images;
+	                        if (images)
+	                        {
+		                        for(var j = 0; j < images.length; j++)
+		                        {
+		                            htmlImg += '<li><figure style="background-image:url($!{imgWebContextPath}'+images[j]+')"></figure></li>';
+		                        }
+	                        }
+	                        var htmlLike = '';
+	                        var likes = dynamic.likes;
+	                        if (likes)
+	                        {
+	                            for(var j = 0; j < likes.length; j++)
+		                        {
+		                            htmlLike += ',<a href="userInfo?id='+likes[j].friend_id+'">'+likes[j].user_name+'</a>';
+		                        }
+	                        }
+	                        
+	                        var htmlComment = '';
+	                        var comments = dynamic.comments;
+	                        if (comments)
+	                        {
+	                            for(var j = 0; j < comments.length; j++)
+		                        {
+		                            if (comments[j].type == 0)
+		                            {
+		                                htmlComment += '<p><a href="userInfo?id='+comments[j].insert_id+'">'+comments[j].user_name+'</a>：'+ comments[j].comment_content+'</p>';
+		                            }
+		                            else
+		                            {
+		                                htmlComment += '<p><a href="userInfo?id='+comments[j].insert_id+'">'+comments[j].user_name+'</a>回复<a href="userInfo?id='+comments[j].friend_id+'">'+comments[j].friend_name+'</a>：'+comments[j].comment_content+'</p>';
+		                            }
+		                        }
+	                        }
+	    					 
+	                        var html= '<div class="item cc">'
+							          +  '<img src="$!{imgWebContextPath}'+dynamic.avatar+'" alt="" class="avatar" data-href="userInfo?id='+dynamic.release_by+'">'
+							          +  '<div class="content" id="'+dynamic.id+'">'
+								    	  +     '<div class="name" data-href="userInfo?id='+dynamic.release_by+'">'+dynamic.user_name+'</div>'
+								    		+      '<div class="desc">'+dynamic.dynamic_content+'</div>'
+								    		+     '<div class="image"><ul class="cc">'+htmlImg+'</ul></div>'
+								    		+    '<div class="info cc">'
+								    		+		    '<span class="more no"></span>'
+								    		+		    '<span class="ui-txt-muted f12 fl">'+dynamic.release_time+'</span>'
+								    		+		    '<div class="operate no">'
+								    		+			    '<div class="inner no">'
+									    	+			    	'<a href="javascript:;" class="a1 no"><i class="no"></i>赞</a>'
+									    	+				    '<a href="javascript:;" class="a2 no"><i class="no"></i>评论</a>'
+								    		+			    '</div>'
+								    		+		    '</div>'
+								    		+	    '</div>'
+										    +       '<section class="ui-input-wrap ui-border-t">'
+								            +          '<div class="ui-input ui-border-radius">'
+									        +            '<input type="text" class="content-comment" name="" value="" placeholder="我也说一句...">'
+											+			'</div>'
+											+			'<button class="ui-btn submit-comment">评论</button>'
+											+	    '</section>'
+								    		+	    '<div class="other">'
+								    		+		    '<div class="zan">'
+								    		+			    '<img src="images/icon-like-active.png" alt="">'
+								    		+			    htmlLike
+								    		+		    '</div>'
+								    		+		    '<div class="comment">'
+											+              '<input type="hidden" class="reply_comment_id">'
+				    				        +			   '<input type="hidden" class="comment_source_id" value="'+ dynamic.id +'">'
+								    		+		    	htmlComment
+								    		+		    '</div>'
+								    		+	    '</div>'
+								    		+   '</div>'
+								    	  +'</div>';
+	                        view.append(html);
+	                   }
+	                }
+	            },
+	            error : function(error) {
+	            }
+            }
+            $.ajax(options);
+		}
+		
+		
+		function addDynamicLike(dynamicId, userId)
+        {
+            var options = {
+                type : "POST",
+	            url: "addDynamicLike",
+	            data: {'id' : dynamicId},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                   //tips("点赞成功");
+	                }
+	            },
+	            error : function(error) {
+	                //tips("点赞失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        function addComment(paraJson)
+        {
+            if (paraJson.content.length == 0)
+            {
+                tips("评论内容不能为空");
+                return false;
+            }
+            var options = {
+                type : "POST",
+	            url: "addComment",
+	            data: {id : paraJson.source_id, source_type: '$!{model.source_type}', content: paraJson.content, reply_id : paraJson.reply_id, reply_user_id : paraJson.reply_user_id},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                     if (paraJson.type === 1)
+	                     {
+	                         paraJson.area.append('<p class="reply-item" id="c_'+ result.comment_id+'"><a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>回复<a href="userInfo?id='+ paraJson.reply_user_id +'">'+ paraJson.reply_user_name +'</a>：'+ paraJson.content +'</p>');
+	                     }
+	                     else
+	                     {
+	                         paraJson.area.append('<p class="reply-item" id="c_'+ result.comment_id+'"><a href="userInfo?id=$!{model.user_id}">$!{model.user_name}</a>：'+ paraJson.content +'</p>');
+	                     }
+	                }
+	                else
+	                {
+	                    tips("发表评论失败");
+	                }
+	            },
+	            error : function(error) {
+	                tips("发表评论失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        /*var topNum = 0;
+		k_touch("list-view","y");
+	
+		$(window).on('scroll', function(){
+			topNum = $(this).scrollTop();
+		});*/
+		//第一步：下拉过程
+	function slideDownStep1(dist){  // dist 下滑的距离，用以拉长背景模拟拉伸效果
+		var slideDown1 = document.getElementById("slideDown1"),
+			slideDown2 = document.getElementById("slideDown2");
+		slideDown2.style.display = "none";
+		slideDown1.style.display = "block";
+		slideDown1.style.height = (parseInt("20px") - dist) + "px";
+	}
+	//第二步：下拉，然后松开，
+	function slideDownStep2(){ 
+		var slideDown1 = document.getElementById("slideDown1"),
+			slideDown2 = document.getElementById("slideDown2");
+		slideDown1.style.display = "none";
+		slideDown1.style.height = "20px";
+		slideDown2.style.display = "block";
+		//刷新数据
+		location.reload();
+	}
+	//第三步：刷新完成，回归之前状态
+	function slideDownStep3(){ 
+		var slideDown1 = document.getElementById("slideDown1"),
+			slideDown2 = document.getElementById("slideDown2");
+			slideDown1.style.display = "none";
+			slideDown2.style.display = "none";
+
+	}
+
+	
+	//contentId表示对其进行事件绑定，way==>x表示水平方向的操作，y表示竖直方向的操作
+	function k_touch(contentId,way){ 
+		var _start = 0,
+			_end = 0,
+			_content = document.getElementById(contentId);
+		_content.addEventListener("touchstart",touchStart,false);
+		_content.addEventListener("touchmove",touchMove,false);
+		_content.addEventListener("touchend",touchEnd,false);
+		function touchStart(event){ 
+			//var touch = event.touches[0]; //这种获取也可以，但已不推荐使用
+
+			var touch = event.targetTouches[0];
+			if(way == "x"){ 
+				_start = touch.pageX;
+			}else{ 
+				_start = touch.pageY;
+			}
+		}
+		function touchMove(event){ 
+			var touch = event.targetTouches[0];
+			if(way == "x"){ 
+				_end = (_start - touch.pageX);
+			}else{ 
+				_end = (_start - touch.pageY);
+				//下滑才执行操作
+				if(_end < 0 && topNum == 0){
+					slideDownStep1(_end);
+				}
+			}
+
+		}
+		function touchEnd(event){ 
+			if(_end >0){ 
+				
+			}else{ 
+				if(topNum == 0){
+					slideDownStep2();
+					//刷新成功则
+					//模拟刷新成功进入第三步
+					/*setTimeout(function(){ 
+						slideDownStep3();
+					},500);*/
+					slideDownStep3();
+				}
+			}
+		}
+	}
+	</script>
+</body>
+</html>

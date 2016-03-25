@@ -1,0 +1,306 @@
+@CHARSET "UTF-8";
+body {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color: #003366;
+	text-decoration: none;
+	background-color: F5FAFE;
+    SCROLLBAR-FACE-COLOR: #BFD9FF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFFFFF;
+    SCROLLBAR-SHADOW-COLOR: #FFFFFF;
+    SCROLLBAR-3DLIGHT-COLOR: #1A5ECB;
+    SCROLLBAR-ARROW-COLOR: #024BC1;
+    SCROLLBAR-TRACK-COLOR: #DEEBFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #10469D;
+}
+html { overflow-x: hidden; overflow-y: auto; }
+.probar{	/*bar条颜色*/
+background: #B40000;
+}
+a {color: #C75F3E;}
+a:link { color: #0000FF; text-decoration: none} 
+a:visited { color: #0000FF; text-decoration: none} 
+a:hover { color: #FF0000; text-decoration: underline} 
+a:active { color: #00FF00; text-decoration: underline}
+
+/* 导航条 */
+.clear{clear:both;}
+.rhead{border:#C6C6C6 1px solid;padding:3px 0px;margin-top:5px;width: 90%;margin:0 auto;}
+.rpos{margin-left:15px;float:left;padding:2px 0px 2px 20px;background:url(images/arrow.gif) center left no-repeat;}
+
+
+table {
+border-collapse: collapse;/*设置单元格的边合并在一起*/
+empty-cells : show;
+font-family: "Arial", "Helvetica", "sans-serif";
+font-size: 12px;
+color: #003366;
+text-decoration: none;
+}
+table.bg {	/*背景table*/
+background-color: #C6C6C6;
+border:0;
+padding:0;
+width:90%;
+}
+table.bg100 {	/*背景table*/
+background-color: #C6C6C6;
+border:0;
+padding:0;
+width:100%;
+}
+table.bg101 {	/*背景table*/
+background-color: #FFFFFF;
+border:0;
+padding:0;
+width:100%;
+}
+
+/* 增加表单table样式表 */
+table.tb_add {
+	width:100%;
+}
+table.tb_add tr.title,
+table.tb_add th.title,
+table.tb_add td.title,
+table.tb_add tr.tr_title,
+table.tb_add th.th_title,
+table.tb_add td.td_title{	/* 标题 */
+	color: #FFFFFF;
+	font-weight: normal;
+	background-color: #6A6A6A;
+	height: 25px;
+	text-align:center;
+}
+table.tb_add th,
+table.tb_add td.tb_lable {	/* 标签项 */
+	background-color: #F7F7F7;
+	text-align: right;
+	height: 24px;
+}
+table.tb_add td,
+table.tb_add td.tb_input {	/* 输入框 */
+	text-align: left;
+	background-color: #FFFFFF;
+	height: 24px;
+}
+table.tb_add td.bottom {	/* 底部按钮 */
+	text-align: center;
+	background-color: #F7F7F7;
+	height: 24px;
+}
+
+/* 查看详情table样式表 */
+table.tb_view {
+	width:100%;
+}
+table.tb_view tr.title,
+table.tb_view th.title,
+table.tb_view td.title,
+table.tb_view tr.tr_title,
+table.tb_view th.th_title,
+table.tb_view td.td_title{
+	color: #FFFFFF;
+	font-weight: normal;
+	background-color: #6A6A6A;
+	height: 25px;
+	text-align:center;
+}
+table.tb_view th,
+table.tb_view td.tb_lable {
+	background-color: #F7F7F7;
+	text-align: right;
+	height: 24px;
+}
+table.tb_view td,
+table.tb_view td.tb_input {
+	text-align: left;
+	background-color: #FFFFFF;
+	height: 24px;
+}
+table.tb_view td.bottom {
+	text-align: center;
+	background-color: #F7F7F7;
+	height: 24px;
+}
+
+
+/* 查询结果table样式表 */
+table.tb_result {
+	width:100%;
+}
+table.tb_result tr.tr_head{
+	font-weight: normal;
+	background-color: #F7F7F7;
+	height: 25px;
+	text-align:center;
+}
+
+table.tb_result tr.tr_even{
+	color: #003366;
+	background-color: #F0F0F0;
+	height: 24px;
+}
+table.tb_result tr.tr_even_hover,
+table.tb_result tr.tr_even:hover{
+	background-color: #FFE2DA;
+}
+
+table.tb_result tr.tr_odd{
+	color: #003366;
+	background-color: #FFFFFF;
+	height: 24px;
+}
+table.tb_result tr.tr_odd_hover,
+table.tb_result tr.tr_odd:hover{
+	background-color: #FFE2DA;
+}
+
+/* 查询条件table样式表 */
+table.tb_query {
+	width:100%;
+}
+table.tb_query tr.title,
+table.tb_query th.title,
+table.tb_query td.title,
+table.tb_query tr.tr_title,
+table.tb_query th.th_title,
+table.tb_query td.td_title{
+	color: #FFFFFF;
+	font-weight: normal;
+	background-color: #6A6A6A;
+	height: 25px;
+	text-align:center;
+}
+
+table.tb_query th {
+	background-color: #F7F7F7;
+	text-align: right;
+	height: 24px;
+}
+table.tb_query td {
+	text-align: left;
+	background-color: #FFFFFF;
+	height: 24px;
+}
+table.tb_query td.bottom {
+	text-align: center;
+	background-color: #F7F7F7;
+	height: 24px;
+}
+
+.button {
+	BORDER-RIGHT: medium none;
+	BORDER-TOP: medium none;
+	FONT-SIZE: 12px;
+	BACKGROUND-IMAGE: url(images/btn_bg.gif);
+	BORDER-LEFT: medium none;
+	WIDTH: 48px;
+	COLOR: #003399;
+	BORDER-BOTTOM: medium none;
+	HEIGHT: 21px;
+	TEXT-DECORATION: none
+}
+.buttonOver {
+	BORDER-RIGHT: medium none;
+	BORDER-TOP: medium none;
+	FONT-SIZE: 12px;
+	BACKGROUND-IMAGE: url(images/btn_bg_down.gif);
+	BORDER-LEFT: medium none;
+	WIDTH: 48px;
+	COLOR: #003399;
+	BORDER-BOTTOM: medium none;
+	HEIGHT: 21px;
+	TEXT-DECORATION: none
+}
+
+.button2 {
+	BORDER-RIGHT: medium none;
+	BORDER-TOP: medium none;
+	FONT-SIZE: 12px;
+	BACKGROUND-IMAGE: url(images/btn_bg2.gif);
+	BORDER-LEFT: medium none;
+	WIDTH: 70px;
+	COLOR: #003399;
+	BORDER-BOTTOM: medium none;
+	HEIGHT: 21px;
+	TEXT-DECORATION: none
+}
+.button2Over {
+	BORDER-RIGHT: medium none;
+	BORDER-TOP: medium none;
+	FONT-SIZE: 12px;
+	BACKGROUND-IMAGE: url(images/btn_bg_down2.gif);
+	BORDER-LEFT: medium none;
+	WIDTH: 70px;
+	COLOR: #003399;
+	BORDER-BOTTOM: medium none;
+	HEIGHT: 21px;
+	TEXT-DECORATION: none
+}
+
+div.bodymask {
+	width: 100%;
+	height: 100%;
+	background: url(images/loading.gif) no-repeat center;
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 999;
+	top:0;
+	left:0;
+	filter:alpha(opacity=70);
+	-moz-opacity:0.70;
+	opacity:.70;
+}
+
+/* 必填字段红色标志 */
+.redStar {
+	color: red;
+	font-size:15px;
+}
+input {
+	font-size: 12px;
+}
+.font_696969 {
+	font-size: 12px;
+	color: #696969;
+}
+.check{border:1 solid #003399}
+
+h1
+{
+	font-size: 13px;
+	font-weight: bolder;
+	color: #536AB4;
+	text-indent: 10px;
+	float: left;
+	vertical-align: bottom;
+	padding-top: 3px;
+}
+#cirContent
+	{
+	width:960px;
+	background-image: url(images/cir_bg.jpg);
+	background-repeat: repeat-y;
+	height: auto;
+	overflow: auto;
+	text-align: center;
+	}
+#cirHead{
+	width:960px;
+	background-image: url(images/cir_head.jpg);
+	height: 24px;
+}
+#mainContainer{
+	width:960px;
+	margin: 15px auto;
+}
+#mainContent{
+	width:960px;
+}
+#cirFoot{
+	width:960px;
+	background-image: url(images/cir_foot.jpg);
+	height: 24px;
+}
+.textCenter	{text-align: center;padding-center:6px}

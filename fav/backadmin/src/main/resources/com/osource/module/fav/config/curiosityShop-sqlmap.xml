@@ -1,0 +1,93 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CuriosityShopInfo" id="curiosityShopInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+		<result property="phone" column="phone" />
+		<result property="introduction" column="introduction" />
+		<result property="lat" column="lat" />
+		<result property="longitude" column="longitude" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="county" column="county" />
+		<result property="icon" column="icon" />
+		<result property="images" column="images" />
+	</resultMap>
+	<select id="fav_curiosityShop_countAll" resultClass="int">
+		select count(*) from tb_curiosity_shop
+	</select>
+
+	<select id="fav_curiosityShop_findAll" resultMap="curiosityShopInfoResultMap">
+		select * from tb_curiosity_shop t order by t.insert_date desc
+	</select>
+
+	<select id="fav_curiosityShop_findById" parameterClass="java.lang.Integer" resultMap="curiosityShopInfoResultMap">
+		select * from tb_curiosity_shop where id = #value#
+	</select>
+	
+	<select id="fav_curiosityShop_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_curiosity_shop t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="address"><![CDATA[ t.address like concat('%',#address#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction like concat('%',#introduction#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="lat"><![CDATA[ t.lat=#lat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="longitude"><![CDATA[ t.longitude=#longitude# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="province"><![CDATA[ t.province like concat('%',#province#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="city"><![CDATA[ t.city like concat('%',#city#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="county"><![CDATA[ t.county like concat('%',#county#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="icon"><![CDATA[ t.icon=#icon# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_curiosityShop_findByCondition" parameterClass="java.util.Map" resultMap="curiosityShopInfoResultMap">
+		select t.* from tb_curiosity_shop t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="address"><![CDATA[ t.address like concat('%',#address#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction like concat('%',#introduction#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="lat"><![CDATA[ t.lat=#lat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="longitude"><![CDATA[ t.longitude=#longitude# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="province"><![CDATA[ t.province like concat('%',#province#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="city"><![CDATA[ t.city like concat('%',#city#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="county"><![CDATA[ t.county like concat('%',#county#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="icon"><![CDATA[ t.icon=#icon# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_curiosityShop_save" parameterClass="com.osource.module.fav.model.CuriosityShopInfo">
+		 insert into tb_curiosity_shop(id,name,address,phone,introduction,lat,longitude,province,city,county,icon,images,use_flag,insert_date,insert_id)
+     		values (#id#,#name#,#address#,#phone#,#introduction#,#lat#,#longitude#,#province#,#city#,#county#,#icon#,#images#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_curiosityShop_update" parameterClass="com.osource.module.fav.model.CuriosityShopInfo">
+		update tb_curiosity_shop set
+	        name = #name#,
+	        address = #address#,
+	        phone = #phone#,
+	        introduction = #introduction#,
+	        lat = #lat#,
+	        longitude = #longitude#,
+	        province = #province#,
+	        city = #city#,
+	        county = #county#,
+	        icon = #icon#,
+	        images = #images#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_curiosityShop_deleteInIds" parameterClass="java.util.List">
+		update tb_curiosity_shop set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_curiosityShop_deleteById" parameterClass="String">
+		update tb_curiosity_shop set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

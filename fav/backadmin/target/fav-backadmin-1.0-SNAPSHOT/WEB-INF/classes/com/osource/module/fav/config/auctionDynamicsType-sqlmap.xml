@@ -1,0 +1,54 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionDynamicsTypeInfo" id="auctionDynamicsTypeInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="name" column="name" />
+	</resultMap>
+	<select id="fav_auctionDynamicsType_countAll" resultClass="int">
+		select count(*) from tb_auction_dynamics_type
+	</select>
+
+	<select id="fav_auctionDynamicsType_findAll" resultMap="auctionDynamicsTypeInfoResultMap">
+		select * from tb_auction_dynamics_type
+	</select>
+
+	<select id="fav_auctionDynamicsType_findById" parameterClass="java.lang.Integer" resultMap="auctionDynamicsTypeInfoResultMap">
+		select * from tb_auction_dynamics_type where id = #value#
+	</select>
+	
+	<select id="fav_auctionDynamicsType_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_dynamics_type t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionDynamicsType_findByCondition" parameterClass="java.util.Map" resultMap="auctionDynamicsTypeInfoResultMap">
+		select t.* from tb_auction_dynamics_type t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_auctionDynamicsType_save" parameterClass="com.osource.module.fav.model.AuctionDynamicsTypeInfo">
+    insert into tb_auction_dynamics_type(id,name,use_flag,insert_date,insert_id)
+     values (#id#,#name#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionDynamicsType_update" parameterClass="com.osource.module.fav.model.AuctionDynamicsTypeInfo">
+    update tb_auction_dynamics_type set
+        name = #name#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_auctionDynamicsType_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_dynamics_type set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionDynamicsType_deleteById" parameterClass="String">
+		update tb_auction_dynamics_type set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

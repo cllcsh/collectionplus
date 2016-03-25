@@ -1,0 +1,25 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="LoginInfo_findUserInfoByUserName" parameterClass="String" resultClass="com.osource.base.model.LoginInfo">
+	<![CDATA[
+    select tb_user.id, 
+    	tb_user.login_name as loginName, 
+    	tb_user.password,
+    	tb_user.name as userName,
+	    tb_user.e_mail as email,
+	    tb_user.phone_no as phoneNo,
+	    tb_user.dept_id as deptId,
+	    tb_user.use_flag as useFlag,
+		tb_user.insert_date as insertDate,
+		tb_user.insert_id as insertId,
+		tb_user.update_date as updateDate, 
+		tb_user.update_id as updateId 
+	from tb_user
+		where tb_user.login_name = #value# and tb_user.use_flag = '1'
+    ]]>
+    </select>
+	<insert id="loginLog_insertLog" parameterClass="java.util.Map" >
+	insert into ts_login_log(id, login_name, login_date, login_ip, login_addr,
+		login_result,dept_id) values (#id#,#loginName#, #loginDate#, #loginIp#, #loginAddr#, #loginResult#,0)
+	</insert>
+</sqlMap>

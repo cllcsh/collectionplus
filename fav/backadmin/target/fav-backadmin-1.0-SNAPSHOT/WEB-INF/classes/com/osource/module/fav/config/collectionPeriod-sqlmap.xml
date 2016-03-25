@@ -1,0 +1,63 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CollectionPeriodInfo" id="collectionPeriodInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="name" column="name" />
+<result property="displayOrder" column="display_order" />
+<result property="imageUrl" column="image_url" />
+	</resultMap>
+	<select id="fav_collectionPeriod_countAll" resultClass="int">
+		select count(*) from tb_collection_period where use_flag = 1
+	</select>
+
+	<select id="fav_collectionPeriod_findAll" resultMap="collectionPeriodInfoResultMap">
+		select * from tb_collection_period where use_flag = 1 order by display_order
+	</select>
+
+	<select id="fav_collectionPeriod_findById" parameterClass="java.lang.Integer" resultMap="collectionPeriodInfoResultMap">
+		select * from tb_collection_period where id = #value#
+	</select>
+	
+	<select id="fav_collectionPeriod_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_collection_period t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="imageUrl"><![CDATA[ t.image_url=#imageUrl# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_collectionPeriod_findByCondition" parameterClass="java.util.Map" resultMap="collectionPeriodInfoResultMap">
+		select t.* from tb_collection_period t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name like concat('%',#name#,'%') ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="imageUrl"><![CDATA[ t.image_url=#imageUrl# ]]></isNotEmpty>
+		order by display_order
+	</select>
+	
+	<insert id="fav_collectionPeriod_save" parameterClass="com.osource.module.fav.model.CollectionPeriodInfo">
+    insert into tb_collection_period(id,name,display_order,use_flag,insert_date,insert_id,image_url)
+     values (#id#,#name#,#displayOrder#,1,now(),#insertId#,#imageUrl#)
+	</insert>
+	
+	<update id="fav_collectionPeriod_update" parameterClass="com.osource.module.fav.model.CollectionPeriodInfo">
+    update tb_collection_period set
+        name = #name#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#,
+        image_url = #imageUrl#
+    where id = #id#
+	</update>
+	
+	<update id="fav_collectionPeriod_deleteInIds" parameterClass="java.util.List">
+		update tb_collection_period set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_collectionPeriod_deleteById" parameterClass="String">
+		update tb_collection_period set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

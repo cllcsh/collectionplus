@@ -1,0 +1,72 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CollectionImagesInfo" id="collectionImagesInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="collectionId" column="collection_id" />
+<result property="collectionTitle" column="title" />
+<result property="imageUrl" column="image_url" />
+<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_collectionImages_countAll" resultClass="int">
+		select count(*) from tb_collection_images
+	</select>
+
+	<select id="fav_collectionImages_findAll" resultMap="collectionImagesInfoResultMap">
+		select * from tb_collection_images order by collection_id,display_order
+	</select>
+
+	<select id="fav_collectionImages_findById" parameterClass="java.lang.Integer" resultMap="collectionImagesInfoResultMap">
+		select t.*,c.title from tb_collection_images t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		 where t.id = #value#
+		 order by t.collection_id, t.display_order
+	</select>
+	
+	<select id="fav_collectionImages_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_collection_images t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="imageUrl"><![CDATA[ t.image_url=#imageUrl# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_collectionImages_findByCondition" parameterClass="java.util.Map" resultMap="collectionImagesInfoResultMap">
+		select t.*,c.title from tb_collection_images t LEFT JOIN tb_collection c ON t.collection_id=c.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="imageUrl"><![CDATA[ t.image_url=#imageUrl# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		order by t.collection_id, t.display_order
+	</select>
+	
+	<insert id="fav_collectionImages_save" parameterClass="com.osource.module.fav.model.CollectionImagesInfo">
+    insert into tb_collection_images(id,collection_id,image_url,display_order,use_flag,insert_date,insert_id)
+     values (#id#,#collectionId#,#imageUrl#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_collectionImages_update" parameterClass="com.osource.module.fav.model.CollectionImagesInfo">
+    update tb_collection_images set
+        collection_id = #collectionId#,
+        image_url = #imageUrl#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_collectionImages_deleteInIds" parameterClass="java.util.List">
+		update tb_collection_images set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_collectionImages_deleteById" parameterClass="String">
+		update tb_collection_images set use_flag = '0' where id = #value#
+	</update>
+	
+	<update id="fav_collectionImages_deleteByCollectionId" parameterClass="Integer">
+		update tb_collection_images set use_flag = '0' where collection_id = #value#
+	</update>
+</sqlMap>

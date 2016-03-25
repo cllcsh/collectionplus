@@ -1,0 +1,70 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionDynamicImagesInfo" id="auctionDynamicImagesInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="auctionDynamicId" column="auction_dynamic_id" />
+		<result property="auctionDynamicTitle" column="title" />
+		<result property="content" column="content" />
+		<result property="images" column="images" />
+	</resultMap>
+	<select id="fav_auctionDynamicImages_countAll" resultClass="int">
+		select count(*) from tb_auction_dynamic_images
+	</select>
+
+	<select id="fav_auctionDynamicImages_findAll" resultMap="auctionDynamicImagesInfoResultMap">
+		select t.*,d.title from tb_auction_dynamic_images t
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_auctionDynamicImages_findById" parameterClass="java.lang.Integer" resultMap="auctionDynamicImagesInfoResultMap">
+		select t.*,d.title from tb_auction_dynamic_images t
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_auctionDynamicImages_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_dynamic_images t
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionDynamicImages_findByCondition" parameterClass="java.util.Map" resultMap="auctionDynamicImagesInfoResultMap">
+		select t.*,d.title from tb_auction_dynamic_images t
+		LEFT JOIN tb_auction_dynamics d ON t.auction_dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="auctionDynamicId"><![CDATA[ t.auction_dynamic_id=#auctionDynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionDynamicTitle"><![CDATA[ d.title like concat('%',#auctionDynamicTitle#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_auctionDynamicImages_save" parameterClass="com.osource.module.fav.model.AuctionDynamicImagesInfo">
+		 insert into tb_auction_dynamic_images(id,auction_dynamic_id,content,images,use_flag,insert_date,insert_id)
+     		values (#id#,#auctionDynamicId#,#content#,#images#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionDynamicImages_update" parameterClass="com.osource.module.fav.model.AuctionDynamicImagesInfo">
+		update tb_auction_dynamic_images set
+	        auction_dynamic_id = #auctionDynamicId#,
+	        content = #content#,
+	        images = #images#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_auctionDynamicImages_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_dynamic_images set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionDynamicImages_deleteById" parameterClass="String">
+		update tb_auction_dynamic_images set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

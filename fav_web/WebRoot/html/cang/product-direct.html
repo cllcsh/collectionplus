@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+    <link rel="stylesheet" href="lib/swiper/swiper.css">
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/cang.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>文字直播</h1>
+    </header>
+    <div class="products main">
+        <div id="list-view">
+            <div class="item">
+        	    <div class="swiper">
+                    <div class="swiper-wrapper">
+                        #foreach($image in $model.live.images)
+                        <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{image}-canglist" alt=""></div>
+                        #end
+                    </div>   
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="descr">
+                    藏品简介：$!{model.live.introduction}
+                </div>
+            </div>
+            <div class="txt-list">
+                <ul class="ui-list ui-border-tb ui-list-text">
+                    #foreach($bid  in  $model.live.bidList)
+                    <li class="ui-border-t">$!{bid.bid_date} ---- <span class="ui-txt-warning">$!{bid.price}$!{bid.price_unit}</span> 价格 <span class="ui-txt-warning">$!{bid.username}</span> <!--竞拍成功  --></li>
+                    #end
+                </ul>
+            </div>   
+        </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+    <script src="lib/swiper/swiper.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+        (function(){
+            var view = $('#list-view');
+              
+            function slider(){
+                view.find('.swiper').each(function(){
+                    var that = $(this);  
+                    if(that.hasClass('swiper-container-horizontal')){
+                        return;
+                    }
+                    that.swiper({
+                        pagination : that.find('.swiper-pagination')
+                    });
+                });
+            }
+            slider();
+        })();  
+	</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text-html; charset=utf-8" />
+<script type="text/javascript" src="jquery-1.4.2.js"></script>
+    <script src="scripts/SuperMap.IS.Include.js" type="text/javascript"></script>
+    <script type="text/javascript" src="SuperMap.IS.CustomMark.js"></script>
+	<script type="text/javascript" src="SuperMap.IS.ToolbarControl.js"></script>
+	<script type="text/javascript" src="SuperMap.ictmap.Overlay.js"></script>
+	<script type="text/javascript" src="jquery.ictmap.js"></script>
+<script type="text/javascript">
+jQuery(function(){
+	var map = jQuery('#myMap').ictmap({mapHandler:'http://202.102.112.26:8089/'},function(){
+		$('#MapControl_workLayer').width('100%').height('100%');
+	});
+	$('#paneltoggle').toggle(function(){
+			$(this).attr('title','显示面板');
+			$("#panelarrow").removeClass("collapse-right").addClass("collapse-left");
+			$('.wrap_r').css('margin-left', '-24px').css('width', '24px');
+			$('.wrap_m').css('margin-right', '24px');
+		},function(){
+			$(this).attr('title','隐藏面板');
+			$("#panelarrow").removeClass("collapse-left").addClass("collapse-right");
+			$('.wrap_r').css('margin-left', '-240px').css('width', '240px');
+			$('.wrap_m').css('margin-right', '240px');
+	});
+
+	$('#test1').click(function(){
+		map.addOverlay(new SuperMap.ictmap.Marker({x:118.769464113121,	y:32.0534903971}, {img:"images/personal.png",minZoomLevel:12}));
+		map.addOverlay(new SuperMap.ictmap.Marker({x:118.7794641131,	y:32.04349039}, {img:"images/tag_red2.png",minZoomLevel:13}));
+		map.addOverlay(new SuperMap.ictmap.Marker({x:118.7694643121,	y:32.06343971}, {img:"images/personal.png",minZoomLevel:6}));
+		map.addOverlay(new SuperMap.ictmap.Marker({x:118.7464113121,	y:32.044903971}, {minZoomLevel:11}));
+		map.addOverlay(new SuperMap.ictmap.Marker({x:118.769464121,	y:32.04349971}, {img:"images/walk4.gif"}));
+	})
+	$('#level').click(function(){
+		alert(map.getMapControl().GetMapScale());
+	})
+})
+</script>
+<style type="text/css">
+<!--
+* {
+margin:0px;
+padding:0px;
+}
+html, body {
+height:100%;
+overflow:hidden;
+}
+#wrap{margin:0 auto;text-align:left;height: auto}
+/*中间栏，自适应宽度*/
+.wrap_m{width:auto;margin-right:140px;border:0}
+.wrap_m2{margin:0 0 0 150px}
+/*右边栏，固定宽度*/
+.wrap_r{float:right;margin-left:-140px;width:140px;border:0;}
+
+.collapse-left {
+	WIDTH: 22px; BACKGROUND: url(http://maps.gstatic.com/mapfiles/hpimgs15.png) no-repeat -51px -61px; HEIGHT: 27px;border:0
+}
+.collapse-right {
+	WIDTH: 22px; BACKGROUND: url(http://maps.gstatic.com/mapfiles/hpimgs15.png) no-repeat -43px -104px; HEIGHT: 27px;border:0
+}
+-->
+</style>
+</HEAD>
+
+<BODY>
+<div id="wrap">
+<div class="wrap_r">
+<A id="paneltoggle" href="javascript:void(0)" log="paneltgl"><IMG id="panelarrow" class="collapse-right" title="隐藏面板" src="transparent.png"></A>
+<input id="test1" type="button" value="打点"/>
+<input id="level" type="button" value="层级"/>
+</div>
+</div>
+
+<div class="wrap_m">
+<div id="myMap" class="map"  style="position: relative; margin: 0px auto; overflow: hidden; width: 100%;min-height: 500px; height: 100%"></div>
+</div>
+
+</div>
+</BODY>
+</HTML>

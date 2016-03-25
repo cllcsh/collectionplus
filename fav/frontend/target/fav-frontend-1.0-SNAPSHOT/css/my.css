@@ -1,0 +1,11 @@
+.message .ui-list img {width: 20px;margin-right: 10px;margin-top: 15px;display: none;}
+.message .ui-list li.checked img {display: inline-block;}
+
+.blacklist {overflow: hidden;}
+.blacklist li {position: relative;-webkit-transition:all 0.5s 0.2s;}
+.blacklist li .operate {position: absolute;right:0px;top:0px;height: 100%;width: 65px;}
+.blacklist li .operate .delete {display: block;width: 65px;background: #af0000;height: 69px;color:#fff;text-align: center;line-height: 69px;font-size: 18px;}
+.blacklist li.more {-webkit-transform:translateX(-65px);}
+
+.apply ul {margin:0px 10px;}
+.apply ul li {padding:10px;background: #fff;color:#818181;margin-top: 10px;}

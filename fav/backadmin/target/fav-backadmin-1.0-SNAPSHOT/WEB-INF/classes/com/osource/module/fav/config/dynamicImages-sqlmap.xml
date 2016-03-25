@@ -1,0 +1,68 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DynamicImagesInfo" id="dynamicImagesInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="dynamicId" column="dynamic_id" />
+<result property="dynamicContent" column="dynamic_content" />
+<result property="image" column="image" />
+<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_dynamicImages_countAll" resultClass="int">
+		select count(*) from tb_dynamic_images
+	</select>
+
+	<select id="fav_dynamicImages_findAll" resultMap="dynamicImagesInfoResultMap">
+		select t.*,d.dynamic_content from tb_dynamic_images t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_dynamicImages_findById" parameterClass="java.lang.Integer" resultMap="dynamicImagesInfoResultMap">
+		select t.*,d.dynamic_content from tb_dynamic_images t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_dynamicImages_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_dynamic_images t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ d.dynamic_content like concat('%',#dynamicContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="image"><![CDATA[ t.image=#image# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dynamicImages_findByCondition" parameterClass="java.util.Map" resultMap="dynamicImagesInfoResultMap">
+		select t.*,d.dynamic_content from tb_dynamic_images t LEFT JOIN tb_dynamic d ON t.dynamic_id=d.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dynamicContent"><![CDATA[ d.dynamic_content like concat('%',#dynamicContent#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dynamicId"><![CDATA[ t.dynamic_id=#dynamicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="image"><![CDATA[ t.image=#image# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_dynamicImages_save" parameterClass="com.osource.module.fav.model.DynamicImagesInfo">
+    insert into tb_dynamic_images(id,dynamic_id,image,display_order,use_flag,insert_date,insert_id)
+     values (#id#,#dynamicId#,#image#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_dynamicImages_update" parameterClass="com.osource.module.fav.model.DynamicImagesInfo">
+    update tb_dynamic_images set
+        dynamic_id = #dynamicId#,
+        image = #image#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_dynamicImages_deleteInIds" parameterClass="java.util.List">
+		update tb_dynamic_images set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dynamicImages_deleteById" parameterClass="String">
+		update tb_dynamic_images set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

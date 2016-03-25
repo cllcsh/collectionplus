@@ -1,0 +1,26 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="Sequence_getCurValueByName" parameterClass="String" resultClass="Integer">
+        SELECT current_value AS currentvalue
+        FROM ts_sequence
+        WHERE name = #name#
+    </select>
+
+    <select id="Sequence_getMaxValueByName" parameterClass="String" resultClass="Integer">
+        SELECT IFNULL(MAX(id), 0) AS currentvalue
+        FROM $name$
+    </select>
+
+    <insert id="Sequence_iniCurValueByName" parameterClass="java.util.Map">
+         INSERT INTO ts_sequence
+             (name, current_value)
+         VALUES
+             (#name#, #currentValue#)
+    </insert>
+
+    <update id="Sequence_updateCurValueByName" parameterClass="java.util.Map">
+         UPDATE ts_sequence
+           SET current_value = #currentValue#
+         WHERE name = #name#
+    </update>
+</sqlMap>

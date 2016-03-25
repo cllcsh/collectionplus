@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>消息详情</h1>
+    </header>
+    <div class="message main">
+	    <ul class="ui-list">
+            <li class="ui-border-t">
+                <div class="ui-avatar">
+                    <img src="$!{model.sender.getAvatar()}" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">$!{model.sender.getUser_name()} <button class="ui-btn" data-href="replyMessage?id=$!{model.sender.getId()}">回复</button></h4>
+                </div>
+            </li>
+            #foreach($message in $model.messageList)
+            <li class="ui-border-t">
+                <div class="content">
+                    <div class="time f12">$!{message.send_time}</div>
+                    <div class="text">$!{message.content}</div>
+                </div>
+            </li>
+            #end
+        </ul>
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

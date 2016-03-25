@@ -1,0 +1,131 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<insert id="attachment_addAttachment" parameterClass="com.osource.base.model.Attachment" >
+	insert into tb_attachment(
+							id, 
+							name, 
+							file_name, 
+							file_path, 
+							file_size,
+							relevance_id,
+							type,
+							dept_id,
+							insert_id							
+							) 
+						values (
+							#id#,
+							#name#, 
+							#fileName#, 
+							#filePath#, 
+							#fileSize#,
+							#relevanceId#,
+							#type#,
+							0,
+							#insertId#
+							)
+	</insert>
+
+	<update id="attachment_updateAttachment" parameterClass="com.osource.base.model.Attachment">
+		update tb_attachment set update_date = now()
+		
+		<isNotEmpty prepend="," property="updateId">
+			update_id = #updateId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="description">
+			description = #description#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="relevanceId">
+			relevance_id = #relevanceId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			type = #type#
+		</isNotEmpty>
+		where id = #id#
+	</update>
+	
+	<delete id="attachment_deleteAttachmentById" parameterClass="java.lang.Integer">
+		update tb_attachment set use_flag=0 where id = #value#
+	</delete>	
+	<select id="attachment_findAttachmentById" parameterClass="java.lang.Integer" resultClass="com.osource.base.model.Attachment">
+		select 	a.id as id,
+				a.name as name, 
+				a.file_name as fileName,
+				a.file_path as filePath,
+				a.file_size as fileSize,
+				a.relevance_id as relevanceId,
+				a.description as description,
+				a.type as type,
+				a.dept_id as deptid
+				from tb_attachment a where a.id = #value# and a.use_flag = 1
+	</select>
+	
+	<select id="attachment_findAttachmentByReleId" parameterClass="java.util.Map" resultClass="com.osource.base.model.Attachment">
+		select 	a.id as id,
+				a.name as name, 
+				a.file_name as fileName,
+				a.file_path as filePath,
+				a.file_size as fileSize,
+				a.relevance_id as relevanceId,
+				a.description as description,
+				a.type as type,
+				a.dept_id as deptid
+				from tb_attachment a where  a.use_flag = 1
+				<isNotEmpty prepend="AND" property="relevanceId">
+				   a.relevance_id =#relevanceId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="type">
+					a.type=#type#
+				</isNotEmpty>
+				order by a.insert_date
+	</select>
+	<select id="attachment_countByCondition" parameterClass="java.util.Map" resultClass="long">
+		select 	count(*)
+				from tb_attachment a where  a.use_flag = 1
+				<isNotEmpty prepend="AND" property="relevanceId">
+				   a.relevance_id =#relevanceId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="type">
+					a.type=#type#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="descriptionTrue">
+					(description is not null or description !='')
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="description">
+					a.description like  concat('%',#description#,'%')
+				</isNotEmpty>
+				order by a.update_date desc 
+	</select>
+	<select id="attachment_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.base.model.Attachment">
+		select 	a.id as id,
+				a.name as name, 
+				a.file_name as fileName,
+				a.file_path as filePath,
+				a.file_size as fileSize,
+				a.relevance_id as relevanceId,
+				a.description as description,
+				a.type as type,
+				a.dept_id as deptid,
+				update_date as updateDate
+				<isEqual  prepend="," property="type" compareValue="4">
+					(select order_id from tb_order_flow f where f.id=a.relevance_id) as orderId
+				</isEqual>
+				<isNotEqual  prepend="," property="type" compareValue="4">
+					0 as orderId
+				</isNotEqual>
+				from tb_attachment a where  a.use_flag = 1
+				<isNotEmpty prepend="AND" property="relevanceId">
+				   a.relevance_id =#relevanceId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="type">
+					a.type=#type#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="descriptionTrue">
+					(description is not null or description !='')
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="description">
+					a.description like  concat('%',#description#,'%')
+				</isNotEmpty>
+				order by a.update_date desc
+	 </select>
+</sqlMap>

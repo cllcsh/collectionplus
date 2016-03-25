@@ -1,0 +1,75 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.UserBlackInfo" id="userBlackInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="userName" column="userName" />
+		<result property="blacklistUserId" column="blacklist_user_id" />
+		<result property="blacklistUserName" column="blacklistUserName" />
+	</resultMap>
+	<select id="fav_userBlack_countAll" resultClass="int">
+		select count(*) from tb_user_blacklist
+	</select>
+
+	<select id="fav_userBlack_findAll" resultMap="userBlackInfoResultMap">
+		select t.*,u.user_name userName,f.user_name blacklistUserName from tb_user_blacklist t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.blacklist_user_id=f.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_userBlack_findById" parameterClass="java.lang.Integer" resultMap="userBlackInfoResultMap">
+		select t.*,u.user_name userName,f.user_name blacklistUserName from tb_user_blacklist t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.blacklist_user_id=f.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_userBlack_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_user_blacklist t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.blacklist_user_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blacklistUserId"><![CDATA[ t.blacklist_user_id=#blacklistUserId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blacklistUserName"><![CDATA[ f.user_name like concat('%',#blacklistUserName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_userBlack_findByCondition" parameterClass="java.util.Map" resultMap="userBlackInfoResultMap">
+		select t.*,u.user_name userName,f.user_name blacklistUserName from tb_user_blacklist t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.blacklist_user_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blacklistUserId"><![CDATA[ t.blacklist_user_id=#blacklistUserId# ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blacklistUserName"><![CDATA[ f.user_name like concat('%',#blacklistUserName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_userBlack_save" parameterClass="com.osource.module.fav.model.UserBlackInfo">
+		insert into tb_user_blacklist(id,user_id,blacklist_user_id,use_flag,insert_date,insert_id)
+     values (#id#,#userId#,#blacklistUserId#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_userBlack_update" parameterClass="com.osource.module.fav.model.UserBlackInfo">
+		update tb_user_blacklist set
+	        user_id = #userId#,
+	        blacklist_user_id = #blacklistUserId#,
+	        update_date = now(),
+	        update_id = #updateId#
+   	    where id = #id#
+	</update>
+	
+	<update id="fav_userBlack_deleteInIds" parameterClass="java.util.List">
+		update tb_user_blacklist set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_userBlack_deleteById" parameterClass="String">
+		update tb_user_blacklist set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

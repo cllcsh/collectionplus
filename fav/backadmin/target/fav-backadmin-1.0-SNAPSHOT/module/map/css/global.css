@@ -1,0 +1,290 @@
+/*----------------------------------------
+Name: global.css
+Developed by:zhangxin
+Date Created:2008-11-03
+Last Updated:2008-11-04
+Copyright:Desing
+----------------------------------------*/
+
+/* Imports
+----------------------------------------*/
+@import url("reset.css");
+@import url("grid.css");
+
+
+/* Elements
+----------------------------------------*/
+body
+{
+	background-color:#FFFFFF;
+}
+
+body, p, td, th, li
+{
+	font-family: ËÎÌו;
+	font-size:9pt;
+	line-height:150%;
+	color:#333333;
+}
+
+#mainContainer
+{
+	width:960px;
+	margin: 15px auto;
+}
+
+p
+{
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 1px;
+	margin-left: 0;
+}
+
+/*--- Link Styles ---*/
+a:link, a:visited
+{
+	color:#536AB4;
+	text-decoration: none;
+}
+
+a:hover, a:active
+{
+	color: #FFFFFF;
+	background-color: #536AB4;	
+}
+h1
+{
+	font-size: 13px;
+	font-weight: bolder;
+	color: #536AB4;
+	text-indent: 10px;
+	float: left;
+	vertical-align: bottom;
+	padding-top: 3px;
+}
+
+h2
+{
+	color:#5C8127;
+	margin:.825em 0 .5em 0;
+	font-size:1.75em;
+}
+
+h7
+{
+	font-size: 12px;
+	font-weight: bolder;
+	color: #FFFFFF;
+	position: relative;
+	left: 35px;
+	top: 3px;
+	width: 100%;
+}
+
+h3{
+background:url("../images/bg_h2.gif") no-repeat left top;
+color:#057;
+font-size:x-large;;
+margin:10px;
+border-bottom:1px solid #6CF;
+padding:5px 0 0 30px;
+height:30px;
+text-align:left;
+text-valign:top;
+}
+
+h4
+{
+	color:#5C8127;
+	margin:.825em 0 .5em 0;
+	font-size:1.25em;
+}
+
+h5
+{
+	color:#5C8127;
+	margin:.825em 0 .5em 0;
+	font-size:1.125em;
+}
+
+h6
+{
+	color:#5C8127;
+	margin:.825em 0 .5em 0;
+	font-size:1em;
+}
+
+ul
+{
+	/*margin-left:25px;*/
+	list-style-type:none;
+}
+
+ol
+{
+	margin-left:25px;
+	
+}
+
+blockquote	{margin: 0 0 18px 18px; color:#666666; font-style: italic;}
+strong		{font-weight:bold;}
+em		{font-style:italic;}
+
+/* Standard Definitions
+----------------------------------------*/
+.errMessage{color:#0000FF;text-align:left;font-family:ËÎÌו;font-size:9pt;line-height:16px;}
+.actionMessage{color:#0000FF;text-align:left;font-family:ËÎÌו;font-size:9pt;line-height:16px;}
+.left 		{float:left;}
+.right 		{float:right;}
+.center 	{margin:0 auto;width: 960px;text-align: center;}
+.textLeft	{text-align: left;padding-left: 4px;}
+.textRight	{text-align: right;padding-right: 5px;}
+.textCenter	{text-align: center;padding-center:6px}
+.clearThis 	{clear:both;}
+.small		{font-size:8pt;text-align: center;}
+.large		{font-size:1em;}
+.soft		{color:#D3D3D3;}
+.hide		{display:none;}
+p.last		{margin-bottom:0px;}
+
+/* Header
+----------------------------------------*/
+#header
+{
+	width:960px;
+	height:52px;
+	background-image: url(../images/head_bg.jpg);
+	background-repeat: repeat-x;
+	border: 1px solid #C6CDD8;	
+}
+	/* Logo
+	----------------------------------------*/
+	ul#logo
+	{
+	padding-top: 17px;
+	padding-left: 21px;
+	padding-right: 24px;
+	float:left;
+	}
+	
+	/* Nav
+	----------------------------------------*/
+	ul#nav{}
+	ul#nav li {float:left;list-style-type:none;}
+	ul#nav li a 
+	{
+		width: 116px;
+		height:32px;
+		color: #7C7C7C;
+		font-size: 14px;
+		font-weight: bold;
+		background-image: url(../images/head_menu_bg.jpg);
+		background-repeat: no-repeat;
+		text-align: center;
+		display:block;
+		outline:none;
+		text-decoration: none;
+		padding-top: 20px;
+	}
+	ul#nav li#navLink a:link {color: #536AB4;}
+	ul#nav li#navLink a:hover, ul#nav li#navLink a:active{
+	color:#536AB4;
+	background-image: url(../images/nav_hover.jpg);
+	font-size: 12px;
+	font-weight: bolder;
+	}
+
+/* Banner
+----------------------------------------*/
+#banner
+{
+	margin-top: 10px;
+}
+	#banner #map{
+	font-weight: bolder;
+	color: #993333;
+	position: relative;
+	top: -38px;
+	font-size: 14px;
+	padding-left: 38px;
+	font-family: Arial, Helvetica, sans-serif;
+	}
+/* Main Content
+----------------------------------------*/
+#mainContent
+{
+	width:960px;
+}
+	#mainContent img{
+	vertical-align: text-bottom;
+	text-align: center;
+}
+	#cirHead
+	{
+		width:960px;
+		background-image: url(../images/cir_head.jpg);
+		height: 24px;
+	}
+	#cirContent
+	{
+	width:960px;
+	background-image: url(../images/cir_bg.jpg);
+	background-repeat: repeat-y;
+	height: auto;
+	overflow: auto;
+	text-align: center;
+	}
+	#cirFoot
+	{
+		width:960px;
+		background-image: url(../images/cir_foot.jpg);
+		height: 24px;
+	}
+	#leftMargin{float: left;margin-left: 21px;}
+	#rightMargin{
+	float: right;
+	margin-right: 16px;
+	text-align: center;
+}
+	
+/* Footer
+----------------------------------------*/
+#footer
+{
+	width:960px;
+	height:30px;
+	clear: both;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #E5E9ED;
+	margin-top: 16px;
+}
+#line
+{
+	width:960px;
+	height:5px;
+	clear: both;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #E5E9ED;
+	margin-top: 5px;
+}
+	ul#copyRight
+	{
+	padding-top: 45px;
+	padding-left: 21px;
+	float:left;
+	}
+	ul#company
+	{
+	padding-top: 17px;
+	padding-left: 21px;
+	padding-right: 24px;
+	float:right;
+	}
+
+.breakRow {
+    word-break: break-all;
+    word-wrap: break-word
+}

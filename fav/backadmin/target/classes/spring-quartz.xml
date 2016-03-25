@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	>
+	
+	<!-- 首款确认  -->
+	<bean id="sureFirstPayJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject" ref="gxfcTimerImpl" />  
+	    <property name="targetMethod" value="sureFirstPay" />  
+		<!-- 将并发设置为false -->
+	    <property name="concurrent" value="false" />  
+	</bean>
+  
+	<bean id="sureFirstPayTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+    	<property name="jobDetail" ref="sureFirstPayJob" />  
+		<!-- 表达式，每天2点执行   -->
+        <property name="cronExpression" value="0 53 23 * * ?" />  
+	</bean>
+	
+	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序     -->
+	<bean id="startQuertz" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
+	    <property name="triggers">  
+	    	<list>  
+				<!-- 作业调度器,list下可加入其他的调度器   -->
+	           	<ref bean="sureFirstPayTrigger" />  
+	        </list>  
+	    </property>  
+	</bean>
+
+</beans>

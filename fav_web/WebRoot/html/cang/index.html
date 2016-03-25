@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/cang.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<h1>藏+</h1>
+    </header>
+    <div class="index main">
+	    <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='cangDynamic'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/icon-cang-1.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">拍卖行动态</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='cangSearch'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/icon-cang-2.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">拍卖行信息库</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='famous'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/icon-cang-3.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">名人堂</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='cangShop'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/icon-cang-4.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">附近古玩店</h4>
+                </div>
+            </li>
+        </ul>
+        
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" onclick="pointshop()">
+                <div class="ui-list-thumb-s">
+                    <img src="images/icon-cang-2.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">积分商城</h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer class="ui-footer footer">
+    	<div class="list">
+	        <div class="ui-col">
+	        	<a data-href="home">
+	        		<img src="images/nav-home.png" alt="" class="img1">
+	        		<img src="images/nav-home-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="collectionCircle">
+	        		<img src="images/nav-quan.png" alt="" class="img1">
+	        		<img src="images/nav-quan-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="faProduct">
+	        		<img src="images/nav-add.png" alt="">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="cangIndex" class="active">
+	        		<img src="images/nav-cang.png" alt="" class="img1">
+	        		<img src="images/nav-cang-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="myIndex">
+	        		<img src="images/nav-my.png" alt="" class="img1">
+	        		<img src="images/nav-my-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        </div>
+    </footer>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		function pointshop()
+		{
+		    tips('积分商城暂未开放');
+		}
+	</script>
+</body>
+</html>

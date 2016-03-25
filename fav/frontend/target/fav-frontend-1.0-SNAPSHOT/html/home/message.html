@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>消息</h1>
+    </header>
+    <div class="message main">
+	    <ul class="ui-list ui-border-b" id="list-view">
+	        #foreach($message in $model.messageList)
+	        #if($!{velocityCount} <= ${pageSize})
+			<li class="ui-border-t" data-href="showMessage?id=$!{message.sender}">
+				<div class="ui-avatar">
+					<img src="$!{imgWebContextPath}$!{message.avatar}" alt="">
+					<div class="ui-badge">$!{message.unreadNum}</div>
+				</div>
+				<div class="ui-list-info">
+					<h4 class="ui-nowrap">$!{message.user_name} <span class="ui-txt-muted fr f12">$!{message.send_time}</span></h4>
+					<p class="ui-nowrap"><span class="ui-txt-muted">$!{message.content}</span></p>     
+				</div>
+			</li>
+			#end
+			#end
+        </ul>
+		<div class="ui-loading-wrap">
+			<p class="ui-txt-info">加载中</p>
+			<i class="ui-loading"></i>
+		</div>
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+    <script src="js/script.js"></script>
+	<script>
+	    var list = [];
+        var listSize = 0;
+        var pageSize = $!{pageSize};
+		(function(){
+			try{
+                list = $model.messageList;
+            }catch(e){
+            }
+     	    listSize = list.length;
+	    	if (listSize <= pageSize)
+	    	{
+	    	    $(".ui-loading-wrap").remove();
+	    	}
+			var view = $('#list-view');
+			loadMore(function(page){
+			    var idx = (page-1)* pageSize;
+			    if (idx < listSize)
+			    {
+			        for (var i = idx; i < idx + pageSize; i++)
+			        {
+			            if (list[i])
+			            {
+				            var html = '<li class="ui-border-t" data-href="showMessage?id='+list[i].sender+'">' +
+				                       '<div class="ui-avatar">' + 
+		    			               '<img src="$!{imgWebContextPath}'+list[i].avatar+'" alt="">'+
+		    				           '<div class="ui-badge">'+list[i].unreadNum+'</div>'+
+		    				           '</div>'+
+		    					       '<div class="ui-list-info">'+
+		    					       '<h4 class="ui-nowrap">'+list[i].user_name+'<span class="ui-txt-muted fr f12">'+list[i].send_time+'</span></h4>' +
+		    				           '<p class="ui-nowrap"><span class="ui-txt-muted">'+list[i].content+'</span></p> '+
+		    				           '</div>'+
+		    				           '</li>';
+				            view.append(html);
+			            }
+			        }
+			    }
+			    else
+			    {
+			         $(".ui-loading-wrap").remove();
+			    }
+			});
+		})();
+	</script>
+</body>
+</html>

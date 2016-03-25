@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<div class="ui-searchbar-wrap focus">
+    		<div class="title">收藏圈</div>
+            <div class="ui-searchbar ui-border-radius">
+                <i class="ui-icon-search"></i>
+                <div class="ui-searchbar-text">搜索藏品</div>
+                <form id="searchCollection" action="searchCollection" method="post">
+                <div class="ui-searchbar-input"><input name="title" value="$!{model.title}" type="search" placeholder="搜索藏品" autocapitalize="off"></div>
+                </form>
+            </div>
+            <button class="ui-searchbar-cancel" onclick="searchCollection('searchCollection')">确定</button>
+        </div>
+    </header>
+    <div class="list main">
+	    <div class="plist">
+	    	<ul id="list-view">
+	    	    #foreach($collection in $model.collectionList)
+	    	    #if($!{velocityCount} <= ${pageSize})
+	    		<li data-href="collectionDetail?id=$!{collection.id}">
+	    			<div class="img" style="background-image:url($!{imgWebContextPath}$!{collection.image_url})"></div>
+	    			<div class="txt">
+	    				<div class="title">$!{collection.title}</div>
+	    				<div class="info">
+	    					<span class="fr time">$!{collection.insert_date}</span>
+	    					<span class="fl">$!{collection.category} - $!{collection.collection_period}</span>
+	    				</div>
+	    				<div class="tags">
+	    					#if($collection.lable == '拍卖品')
+	    					<span class="tag tag-warning">$!{collection.lable}</span>
+	    					#elseif($collection.lable == '展品' || $collection.lable == '展 品')
+	    					<span class="tag tag-primary">$!{collection.lable}</span>
+	    					#elseif($collection.lable == '热门' || $collection.lable == '热 门')
+	    					<span class="tag tag-danger">$!{collection.lable}</span>
+	    					#elseif($collection.lable == '已鉴定')
+	    					<span class="tag tag-success">$!{collection.lable}</span>
+	    					#elseif($collection.lable == '')
+	    					<span class="blank_tag"></span>
+	    					#else
+	    					<span class="tag tag-danger">$!{collection.lable}</span>
+	    					#end
+	    				</div>
+	    				<div class="info">
+	    					<span class="fr comment">$!{collection.comment_num} 评论</span>
+	    					<span class="fl star">
+	    						热度: $!{collection.heat}
+	    						<!-- #foreach($i in [1..${collection.max_star}])
+	    						    #if($i < ${collection.heat_star})
+	    						    <i class="active"></i>
+	    						    #else
+	    						        <i></i>
+	    						    #end
+	    						#end -->
+	    					</span>
+	    				</div>
+	    			</div>
+	    		</li>
+	    		#end
+	    		#end
+	    	</ul>
+	    	<div class="ui-loading-wrap">
+				<p class="ui-txt-info">加载中</p>
+				<i class="ui-loading"></i>
+			</div>
+	    </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		$('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        var list = [];
+        var listSize = 0;
+        var pageSize = $!{pageSize};
+
+        (function(){
+			try{
+                list = $model.collectionList;
+            }catch(e){
+            }
+     	    listSize = list.length;
+	    	if (listSize <= pageSize)
+	    	{
+	    	    $(".ui-loading-wrap").remove();
+	    	}
+			var view = $('#list-view');
+			/*var html = view.html();*/
+			
+			loadMore(function(page){
+			    var idx = (page-1)* pageSize;
+			    if (idx < listSize)
+			    {
+			        for (var i = idx; i < idx + pageSize; i++)
+			        {
+			            if (list[i])
+			            {
+			                var lable = '';
+				            if (typeof(list[i].lable) != 'undefined')
+				            {
+					            lable = matchLable(list[i].lable);
+				            }
+				            var html = '<li data-href="collectionDetail?id=' + list[i].id + '">' +
+				                       '<div class="img" style="background-image:url($!{imgWebContextPath}'+list[i].image_url+')"></div>' + 
+		    			               '<div class="txt">'+
+		    				           '<div class="title">'+list[i].title+'</div>'+
+		    				           '<div class="info">'+
+		    					       '<span class="fr time">'+list[i].insert_date+'</span>'+
+		    					       '<span class="fl">'+list[i].category+' - '+list[i].collection_period+'</span>' +
+		    				           '</div>'+
+		    				           '<div class="tags">'+lable+
+		    				           '</div>'+
+		    				           '<div class="info">'+
+		    					       '<span class="fr comment">'+list[i].comment_num +'评论</span>'+
+		    					       '<span class="fl star">'+
+		    						   '热度:'+ list[i].heat+
+		    						   '</span>'+
+		    				           '</div>'+
+		    			               '</div>'+
+		    		                   '</li>';
+				            view.append(html);
+			            }
+			        }
+			    }
+			    else
+			    {
+			         $(".ui-loading-wrap").remove();
+			    }
+			});
+		})();	
+	</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<insert id="system_rpType_insert" parameterClass="com.osource.module.system.model.RpTypeBean">
+		insert into tb_rp_type (id, name, rp, def_score, dept_id, use_flag, insert_date, insert_id)
+		            values (#id#, #rpName#, #rp#, #defScore#,0, 1, current_timestamp, #insertId#)
+	</insert>  
+	
+	<update id="system_rpType_deleteById" parameterClass="java.lang.String">
+		update tb_rp_type set use_flag = 0 where id = $value$
+	</update>
+	
+	<update id="system_rpType_deleteByIds" parameterClass="java.lang.String">
+		update tb_rp_type set use_flag = 0 where id in $value$
+	</update>
+	
+	<update id="system_rpType_update" parameterClass="com.osource.module.system.model.RpTypeBean">
+		update tb_rp_type set name = #rpName#,
+                              rp = #rp#, 
+                              def_score = #defScore#, 
+		                      update_date = current_timestamp 
+		<isNotEmpty prepend="," property="deptId"><![CDATA[dept_id =0]]></isNotEmpty>
+		<isNotEmpty prepend="," property="updateId"><![CDATA[update_id =#updateId#]]></isNotEmpty>
+		     where id = #id#
+	</update> 
+	
+	<select id="system_rpType_findById" parameterClass="java.lang.String" resultClass="com.osource.module.system.model.RpTypeBean">
+		select id         as  id,
+		       dept_id    as  deptId,
+               name       as  rpName, 
+			   rp         as  rp,
+			   def_score  as  defScore 
+		from tb_rp_type   where id = $value$  and  use_flag = 1  
+	</select>
+	
+	<select id="system_rpType_findList" parameterClass="com.osource.module.system.model.RpTypeBean" resultClass="com.osource.module.system.model.RpTypeBean">
+		select rp.id         as  id,
+		       rp.dept_id    as  deptId,
+               rp.name       as  rpName, 
+			   rp.rp         as  rp,
+			   rp.def_score  as  defScore 
+		from tb_rp_type rp
+		where rp.use_flag = '1' 
+		and rp.dept_id in 
+            (select id  from tb_dept where use_flag = 1
+            and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%'))
+			
+			<isNotEmpty prepend="AND" property="rpName">
+				<!--  name like concat("%",#rpName#,"%") -->
+				<![CDATA[ 
+					LOCATE(#rpName#, rp.name) >0
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="defScore"><![CDATA[ rp.def_score = #defScore# ]]></isNotEmpty>
+			<isNotEmpty prepend="AND" property="rp"><![CDATA[ rp.rp = #rp# ]]></isNotEmpty>
+			order by rp.id desc
+	</select>
+	
+	<select id="system_rpType_getCount" resultClass="java.lang.Integer">
+		select count(*) 
+		from tb_rp_type rp
+		where rp.use_flag = '1' 
+		and rp.dept_id in 
+            (select id  from tb_dept where use_flag = 1
+             and tb_dept.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%'))
+		
+		<isNotEmpty prepend="and" property="rp"><![CDATA[ rp.rp = #rp# ]]></isNotEmpty>
+		<isNotEmpty prepend="AND" property="rpName">
+				<!--  name like concat("%",#rpName#,"%") -->
+				<![CDATA[ 
+					LOCATE(#rpName#, rp.name) >0
+				]]>
+			</isNotEmpty>
+		<isNotEmpty prepend="AND" property="defScore"><![CDATA[ rp.def_score = #defScore# ]]></isNotEmpty>
+	</select>
+	
+	<resultMap class="com.osource.base.util.Entry" id="entryMap">
+		<result property="key" column="id"/>
+		<result property="value" column="name"/>
+	</resultMap>
+	
+	<select id="system_rpType_selectTagList" parameterClass="java.lang.Integer" 
+		resultMap="entryMap">
+		select 
+		r.id, 
+		r.name 
+		from tb_rp_type r, 
+		tb_dept d 
+		where r.dept_id = d.id and r.use_flag = 1
+		and (d.node like concat((select node from tb_dept where use_flag = '1' and id = #value#), '%') or d.id = 1)
+		
+	</select>
+	
+	<select id="system_rpType_selectTagValue" parameterClass="java.lang.String" 
+		resultClass="java.lang.String">
+		select name from tb_rp_type where id = #value# and use_flag = '1'
+	</select>
+	
+</sqlMap>
+

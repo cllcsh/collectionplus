@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<package name="form" extends="ictmap-default" namespace="/module/form">
+		<action name="formTable_*" class="com.osource.form.web.action.FormTableAction" method="{1}" >
+		 	<result name="init">/module/form/jsp/formTableMgr.jsp</result>
+		 	<result name="list">/module/form/jsp/formTableList.jsp</result>
+		 	<result name="view">/module/form/jsp/formTableView.jsp</result>
+		    <result name="set">/module/form/jsp/formTableSet.jsp</result>
+		    <result name="default" type="redirectAction">
+				<param name="actionName">formTable_init</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<action name="formTableField_*" class="com.osource.form.web.action.FormTableFieldAction" method="{1}" >
+		 	<result name="init">/module/form/jsp/formTableFieldMgr.jsp</result>
+		 	<result name="list">/module/form/jsp/formTableFieldList.jsp</result>
+		    <result name="set">/module/form/jsp/formTableFieldSet.jsp</result>
+		    <result name="default" type="redirectAction">
+				<param name="actionName">formTableField_init</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+</struts>

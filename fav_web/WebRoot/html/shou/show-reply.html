@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>全部回复</h1>
+    </header>
+    <div class="reply main">
+        <div id="list-view">
+            #foreach($comment in $model.commentList)
+            #if($!{velocityCount} <= ${pageSize})
+            <ul class="ui-list ui-border-tb" data-href="replyDetail?id=$!{comment.id}&source_type=$!{comment.source_type}">
+                <li class="ui-border-t">
+                    <div class="ui-list-icon">
+                        <img src="$!{imgWebContextPath}$!{comment.avatar}" alt="">
+                    </div>
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap">$!{comment.user_name}<div class="time fr f12 ui-txt-muted mt5">$!{comment.comment_time}</div></h4>
+                    </div>
+                </li>
+                <li class="ui-border-t text">
+                   <p>$!{comment.content}</p>
+                </li>
+                <li class="ui-border-t zan">
+                    <span>$!{comment.like_size}</span>个赞
+                </li>
+            </ul>
+            #end
+            #end
+        </div>
+        <div class="ui-loading-wrap">
+            <p class="ui-txt-info">加载中</p>
+            <i class="ui-loading"></i>
+        </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		var list = [];
+        var listSize = 0;
+        var pageSize = $!{pageSize};
+		(function(){
+            var view = $('#list-view');
+            try{
+                list = $model.commentList;
+            }catch(e){
+            }
+     	    listSize = list.length;
+	    	if (listSize <= pageSize)
+	    	{
+	    	    $(".ui-loading-wrap").remove();
+	    	}
+			loadMore(function(page){
+			    var idx = (page-1)* pageSize;
+			    if (idx < listSize)
+			    {
+			        for (var i = idx; i < idx + pageSize; i++)
+			        {
+			            if (list[i])
+			            {
+				            var html = '<ul class="ui-list ui-border-tb" data-href="replyDetail?id='+list[i].id+'&source_type='+list[i].source_type+'">'+
+									'<li class="ui-border-t">'+
+									'<div class="ui-list-icon">'+
+									'<img src="$!{imgWebContextPath}'+list[i].avatar+'" alt="">'+
+									'</div>'+
+									'<div class="ui-list-info">'+
+									'<h4 class="ui-nowrap">'+list[i].user_name+'<div class="time fr f12 ui-txt-muted mt5">'+list[i].comment_time+'</div></h4>'+
+									'</div>'+
+									'</li>'+
+									'<li class="ui-border-t text">'+
+									'<p>'+list[i].content+'</p>'+
+									'</li>'+
+									'<li class="ui-border-t zan">'+
+									'<span>'+list[i].like_size+'</span>个赞'+
+									'</li>'+
+									'</ul>';
+				            view.append(html);
+			            }
+			        }
+			    }
+			    else
+			    {
+			         $(".ui-loading-wrap").remove();
+			    }
+			});
+        })();
+	</script>
+</body>
+</html>

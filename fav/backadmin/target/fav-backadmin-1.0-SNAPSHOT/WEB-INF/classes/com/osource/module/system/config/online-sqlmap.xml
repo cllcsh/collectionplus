@@ -1,0 +1,20 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.system.model.OnlineUserInfo" id="onlineUserInfoResultMap">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="deptId" column="dept_id"/>
+		<result property="deptName" column="dept_name"/>
+	</resultMap>
+	<select id="system_online_findByCondition" parameterClass="java.util.List" resultMap="onlineUserInfoResultMap">
+		select t.id, 
+			t.name, 
+			t.dept_id, 
+			dept.name dept_name
+		from tb_user ttb_dept dept
+		where  t.id in
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</select>
+</sqlMap>

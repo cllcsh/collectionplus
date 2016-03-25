@@ -1,0 +1,138 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.map.model.ActualBean" id="actualBeanResultMap" extends="baseResultMapNew">
+		
+	</resultMap>
+	<select id="map_actual_countAll" resultClass="int">
+		select count(*) from tb_rectify_remove
+	</select>
+
+	<select id="map_actual_findAll" resultMap="actualBeanResultMap">
+		select * from tb_rectify_remove
+	</select>
+
+	<select id="map_actual_findById" parameterClass="java.lang.Integer" resultMap="actualBeanResultMap">
+		select * from tb_rectify_remove where id = #value#
+	</select>
+	
+	<select id="map_actual_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*)
+		from tb_criminal c
+		left join tb_user b on c.staff_id= b.id
+		left join tb_dept d on c.dept_id = d.id
+		left join (select * from
+					(SELECT terminal_id, id,loc_date,loc_code,placename
+										FROM tb_location 
+										where use_flag = 1
+					order by loc_date desc) t1
+					GROUP BY t1.terminal_id) v 
+		on c.id = v.terminal_id
+		where c.use_flag =1
+		<isNotEmpty prepend="AND" property="deptId">
+			d.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%') 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="criminalName">
+	   		<![CDATA[ c.name like concat("%",#criminalName#,"%") ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sex">
+	   		c.sex=#sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locCode">
+	   		v.loc_code=#locCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locFailCode">
+	   		v.loc_code != '0'
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="status">
+			<isEqual prepend="and" property="status" compareValue="1">
+				c.status=#status#
+			</isEqual>
+			<isEqual prepend="and" property="status" compareValue="2">
+				c.status=#status#
+			</isEqual>
+			<isEqual prepend="and" property="status" compareValue="3">
+				<![CDATA[ c.status <> 1 and c.status <> 2 ]]>
+			</isEqual>
+		</isNotEmpty>
+	</select>
+	
+	<select id="map_actual_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.map.model.ActualBean">
+		select c.id,
+		c.name as criminalName,
+		c.charge_detail as chargeDetail,
+		d.name as deptName,
+		b.name as staffName,
+		c.sex,
+		c.loc_no as locNo,
+		v.loc_date as locDate,
+		v.placename as placeName,
+		v.loc_code as locCode,
+		v.id as lastLocationId,
+		date_format(v.loc_date, '%Y-%m-%d %H:%i:%s') as locDateStr
+		from tb_criminal c
+		left join tb_user b on c.staff_id= b.id
+		left join tb_dept d on c.dept_id = d.id
+		left join (select * from
+					(SELECT terminal_id, id,loc_date,loc_code,placename
+										FROM tb_location 
+										where use_flag = 1
+					order by loc_date desc) t1
+					GROUP BY t1.terminal_id) v 
+		on c.id = v.terminal_id
+		where c.use_flag =1
+		<isNotEmpty prepend="AND" property="deptId">
+			d.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%') 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="criminalName">
+	   		<![CDATA[ c.name like concat("%",#criminalName#,"%") ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sex">
+	   		c.sex=#sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locCode">
+	   		v.loc_code=#locCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="locFailCode">
+	   		v.loc_code != '0'
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="status">
+			<isEqual prepend="and" property="status" compareValue="1">
+				c.status=#status#
+			</isEqual>
+			<isEqual prepend="and" property="status" compareValue="2">
+				c.status=#status#
+			</isEqual>
+			<isEqual prepend="and" property="status" compareValue="3">
+				<![CDATA[ c.status <> 1 and c.status <> 2 ]]>
+			</isEqual>
+		</isNotEmpty>
+		order by c.insert_date desc
+	</select>
+	
+	<insert id="map_actual_save" parameterClass="com.osource.module.map.model.ActualBean">
+		insert into tb_rectify_remove(id,
+			 
+			dept_id, use_flag, insert_date, insert_id)
+		values (#id#,
+			
+			0, 1, now(), #insertId#)
+	</insert>
+	
+	<update id="map_actual_update" parameterClass="com.osource.module.map.model.ActualBean">
+		update tb_rectify_remove set
+			update_date = now(),
+			update_id = #updateId#
+		where id = #id#
+	</update>
+	
+	<update id="map_actual_deleteInIds" parameterClass="java.util.List">
+		update tb_rectify_remove set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="map_actual_deleteById" parameterClass="String">
+		update tb_rectify_remove set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

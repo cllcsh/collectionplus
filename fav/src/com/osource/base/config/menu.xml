@@ -1,0 +1,15 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="menu_findAllMenuNodes" resultClass="com.osource.base.common.menu.MenuNode">
+		select nav.id,
+		nav.name,
+		nav.target,
+		func.url as link,
+		nav.upper_id as upperId,
+		func.user_type as userType
+		from ts_navigation nav, ts_func func
+		where nav.func_id = func.id
+		and nav.use_flag = 1
+		and func.use_flag = 1
+	</select>
+</sqlMap>

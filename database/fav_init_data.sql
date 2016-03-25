@@ -1,0 +1,95 @@
+INSERT INTO `tb_auction_dynamics_type` VALUES (1, '拍品征集', 1, '2015-11-23 15:40:03', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_auction_dynamics_type` VALUES (2, '拍卖预展', 1, '2015-11-23 15:40:29', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_auction_dynamics_type` VALUES (3, '文字直播', 1, '2015-11-23 15:40:47', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_auction_dynamics_type` VALUES (4, '成交记录', 1, '2015-11-23 15:41:08', 0, '0000-0-0 00:00:00', 0);
+
+INSERT INTO `tb_collection_category` VALUES (1, '陶瓷', 0, 1, '2015-11-5 14:39:12', 1, '0000-0-0 00:00:00', 1);
+INSERT INTO `tb_collection_category` VALUES (2, '瓷器', 1, 1, '2015-11-5 14:40:28', 2, '0000-0-0 00:00:00', 2);
+INSERT INTO `tb_collection_category` VALUES (3, '玉器', 2, 1, '2015-11-5 14:40:28', 3, '0000-0-0 00:00:00', 3);
+INSERT INTO `tb_collection_category` VALUES (4, '钱币', 3, 1, '2015-11-5 14:40:28', 4, '0000-0-0 00:00:00', 4);
+INSERT INTO `tb_collection_category` VALUES (5, '珠宝', 4, 1, '2015-11-5 14:40:28', 5, '0000-0-0 00:00:00', 5);
+INSERT INTO `tb_collection_category` VALUES (6, '铜器', 5, 1, '2015-11-5 14:40:28', 6, '0000-0-0 00:00:00', 6);
+INSERT INTO `tb_collection_category` VALUES (7, '书画', 6, 1, '2015-11-5 14:40:28', 7, '0000-0-0 00:00:00', 7);
+INSERT INTO `tb_collection_category` VALUES (8, '碑帖', 7, 1, '2015-11-5 14:40:28', 8, '0000-0-0 00:00:00', 8);
+INSERT INTO `tb_collection_category` VALUES (9, '印章', 8, 1, '2015-11-5 14:40:28', 9, '0000-0-0 00:00:00', 9);
+INSERT INTO `tb_collection_category` VALUES (10, '古墨', 9, 1, '2015-11-5 14:40:28', 10, '0000-0-0 00:00:00', 10);
+INSERT INTO `tb_collection_category` VALUES (11, '木雕', 10, 1, '2015-11-5 14:40:28', 11, '0000-0-0 00:00:00', 11);
+INSERT INTO `tb_collection_category` VALUES (12, '丝绣', 11, 1, '2015-11-5 14:40:28', 12, '0000-0-0 00:00:00', 12);
+INSERT INTO `tb_collection_category` VALUES (13, '古书', 12, 1, '2015-11-5 14:40:28', 13, '0000-0-0 00:00:00', 13);
+INSERT INTO `tb_collection_category` VALUES (14, '金银器', 13, 1, '2015-11-5 14:40:28', 14, '0000-0-0 00:00:00', 14);
+
+INSERT INTO `tb_collection_lable` VALUES (1, '热门', NULL, 1, 1, '2015-11-11 15:17:08', 1, '0000-0-0 00:00:00', 1);
+INSERT INTO `tb_collection_lable` VALUES (2, '拍卖品', NULL, 2, 1, '2015-11-11 15:16:03', 1, '0000-0-0 00:00:00', 1);
+INSERT INTO `tb_collection_lable` VALUES (3, '展品', NULL, 3, 1, '2015-11-11 15:16:21', 1, '0000-0-0 00:00:00', 1);
+INSERT INTO `tb_collection_lable` VALUES (4, '鉴定品', NULL, 4, 1, '2015-11-11 15:16:42', 1, '0000-0-0 00:00:00', 1);
+
+INSERT INTO `tb_collection_period` VALUES (1, '民国', 'images/p1.png', 0, 1, '2015-11-5 15:19:09', 1, '0000-0-0 00:00:00', 1);
+INSERT INTO `tb_collection_period` VALUES (2, '明清', 'images/p1.png', 1, 1, '2015-11-5 15:19:09', 2, '0000-0-0 00:00:00', 2);
+INSERT INTO `tb_collection_period` VALUES (3, '唐宋', 'images/p1.png', 2, 1, '2015-11-5 15:19:09', 3, '0000-0-0 00:00:00', 3);
+INSERT INTO `tb_collection_period` VALUES (4, '大汉', 'images/p1.png', 3, 1, '2015-11-5 15:19:09', 4, '0000-0-0 00:00:00', 4);
+INSERT INTO `tb_collection_period` VALUES (5, '战国', 'images/p1.png', 4, 1, '2015-11-5 15:19:09', 5, '0000-0-0 00:00:00', 5);
+INSERT INTO `tb_collection_period` VALUES (6, '春秋', 'images/p1.png', 5, 1, '2015-11-5 15:19:09', 6, '0000-0-0 00:00:00', 6);
+
+INSERT INTO `tb_heat` VALUES (1, 'user_fans', 10, 1, '2015-11-17 21:37:19', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_heat` VALUES (2, 'collection_oppose', 10, 1, '2015-11-17 23:12:02', 0, '2015-11-27 22:50:26', 1);
+INSERT INTO `tb_heat` VALUES (7, 'collection_like', 10, 1, '2015-11-17 22:00:49', 1, '2015-11-17 22:01:01', 1);
+INSERT INTO `tb_heat` VALUES (12, 'user_like', 10, 1, '2015-11-27 22:50:14', 1, '0000-0-0 00:00:00', 0);
+
+INSERT INTO `tb_special` VALUES (1, '名画鉴赏', 1, '2015-11-15 20:22:25', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_special` VALUES (2, '玉器研究', 1, '2015-11-15 20:22:53', 0, '0000-0-0 00:00:00', 0);
+
+INSERT INTO `tb_task_points_config` VALUES (1, 'release_collection', 10, 1, '2015-11-7 11:01:02', 1, '2015-11-27 00:07:41', 1);
+INSERT INTO `tb_task_points_config` VALUES (2, 'release_dynamic', 10, 1, '2015-11-7 23:42:39', 1, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_task_points_config` VALUES (3, 'get_like', 10, 1, '2015-11-7 23:42:48', 1, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_task_points_config` VALUES (4, 'change_avatar', 5, 1, '2015-11-7 23:42:53', 1, '0000-0-0 00:00:00', 0);
+
+INSERT INTO `tb_user_title` VALUES (1000, '已认证', 1, 1, '2015-11-18 19:40:36', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_user_title` VALUES (1001, '专家组', 2, 1, '2015-11-18 19:42:57', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_user_title` VALUES (1002, '达人', 3, 1, '2015-11-18 19:43:08', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_user_title` VALUES (1003, 'VIP', 4, 1, '2015-11-18 19:43:16', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_user_title` VALUES (1004, '拍卖行', 5, 1, '2015-11-18 19:43:54', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_user_title` VALUES (1005, '商铺', 6, 1, '2015-11-18 19:44:07', 0, '0000-0-0 00:00:00', 0);
+
+INSERT INTO `tb_enum` VALUES (1, 'whether_type', '是否', 'Y', '是', 1, 1, '2015-11-13 00:13:16', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (2, 'whether_type', '是否', 'N', '否', 2, 1, '2015-11-13 00:13:36', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (3, 'collection_status_type', '藏品状态', 'collection_status_show', '展示', 1, 1, '2015-11-13 00:16:58', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (4, 'collection_status_type', '藏品状态', 'collection_status_send_racket', '送拍', 2, 1, '2015-11-13 00:17:06', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (5, 'collection_status_type', '藏品状态', 'collection_status_applying', '审核中', 3, 1, '2015-11-13 00:17:52', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (6, 'collection_status_type', '藏品状态', 'collection_status_pass_apply', '审核通过', 4, 1, '2015-11-13 00:18:20', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (7, 'collection_status_type', '藏品状态', 'collection_status_fail_apply', '审核不通过', 5, 1, '2015-11-13 00:18:43', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (8, 'collection_status_type', '藏品状态', 'collection_status_appraisal', '估价', 6, 1, '2015-11-13 00:19:25', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (9, 'collection_status_type', '藏品状态', 'collection_status_auction', '拍卖中', 7, 1, '2015-11-13 00:19:30', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (10, 'collection_status_type', '藏品状态', 'collection_status_solded', '已卖', 8, 1, '2015-11-13 00:19:34', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (11, 'collection_status_type', '藏品状态', 'collection_status_invalid', '流拍', 9, 1, '2015-11-13 00:19:35', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (12, 'money_type', '价钱单位', 'yuan', '元', 1, 1, '2015-11-13 00:13:16', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (13, 'money_type', '价钱单位', 'millionyuan', '万元', 2, 1, '2015-11-13 00:13:36', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (14, 'famous_home_status_type', '是否入驻', '1', '已入驻', 1, 1, '2015-11-15 20:38:16', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (15, 'famous_home_status_type', '是否入驻', '0', '待入驻', 2, 1, '2015-11-15 20:38:57', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (16, 'famous_home_type_type', '名人类型', '0', '专家组', 1, 1, '2015-11-15 20:40:13', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (17, 'famous_home_type_type', '名人类型', '1', '收藏大咖', 2, 1, '2015-11-15 20:40:26', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (18, 'messages_is_read_type', '是否已读', 'Y', '已读', 1, 1, '2015-11-15 23:36:38', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (19, 'messages_is_read_type', '是否已读', 'N', '未读', 2, 1, '2015-11-15 23:36:46', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (20, 'comments_type', '评论类型', '0', '评论', 1, 1, '2015-11-16 22:25:55', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (21, 'comments_type', '评论类型', '1', '回复', 2, 1, '2015-11-16 22:26:33', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (22, 'daily_polemic_vote_type', '投票类型', '0', '赞成', 1, 1, '2015-11-17 00:14:51', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (23, 'daily_polemic_vote_type', '投票类型', '1', '反对', 2, 1, '2015-11-17 00:14:54', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (24, 'today_appreciation_is_show_type', '是否显示', 'Y', '显示', 1, 1, '2015-11-17 00:43:08', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (25, 'today_appreciation_is_show_type', '是否显示', 'N', '隐藏', 2, 1, '2015-11-17 00:43:11', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (26, 'comment_like_type', '评论赞同反对', '0', '赞成', 1, 1, '2015-11-17 21:02:58', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (27, 'comment_like_type', '评论赞同反对', '1', '反对', 2, 1, '2015-11-17 21:03:22', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (28, 'heat_name_type', '热度标示类型', 'collection_like', '藏品赞同值', 1, 1, '2015-11-17 21:28:09', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (29, 'heat_name_type', '热度标示类型', 'collection_oppose', '藏品反对值', 2, 1, '2015-11-17 21:30:34', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (30, 'heat_name_type', '热度标示类型', 'user_like', '用户获得的赞同值', 3, 1, '2015-11-17 21:31:25', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (31, 'heat_name_type', '热度标示类型', 'user_fans', '用户的粉丝数量', 4, 1, '2015-11-17 21:31:35', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (32, 'fav_user_personal_msg_set_type', '个人私信设置', 'received_msg_all', '全部接收', 1, 1, '2015-11-22 20:18:03', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (33, 'fav_user_personal_msg_set_type', '个人私信设置', 'received_msg_attention', '只接收我关注的用户', 2, 1, '2015-11-22 20:18:51', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (34, 'fav_user_personal_msg_set_type', '个人私信设置', 'reject_msg_all', '拒绝所有私信', 3, 1, '2015-11-22 20:18:55', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (35, 'fav_user_set_block_type', '用户设置类型', '1', '屏蔽', 1, 1, '2015-11-23 00:14:29', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (36, 'fav_user_set_block_type', '用户设置类型', '0', '开放', 0, 1, '2015-11-23 00:15:59', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (37, 'collection_status_type', '藏品状态', 'collection_status_wait_apply', '待审核', 2, 1, '2015-11-23 14:00:08', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (38, 'sex_nick_type', '性别昵称', 'man', '先生', 1, 1, '2015-11-25 00:20:36', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (39, 'sex_nick_type', '性别昵称', 'woman', '女士', 2, 1, '2015-11-25 00:21:56', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (40, 'task_points_config_type', '任务积分设置类型', 'release_collection', '发藏品', 1, 1, '2015-11-26 23:49:13', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (41, 'task_points_config_type', '任务积分设置类型', 'release_dynamic', '发个人动态', 2, 1, '2015-11-26 23:50:13', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (42, 'task_points_config_type', '任务积分设置类型', 'get_like', '获赞', 3, 1, '2015-11-26 23:50:15', 0, '0000-0-0 00:00:00', 0);
+INSERT INTO `tb_enum` VALUES (43, 'task_points_config_type', '任务积分设置类型', 'change_avatar', '更换头像', 4, 1, '2015-11-26 23:50:21', 0, '0000-0-0 00:00:00', 0);

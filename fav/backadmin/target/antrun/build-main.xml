@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy file="F:\Worlk\Java\fav\backadmin\target/fav-backadmin-1.0-SNAPSHOT.war" tofile="F:\Worlk\Java\fav\backadmin\target/fav-backadmin.war"/>
+</target>
+</project>

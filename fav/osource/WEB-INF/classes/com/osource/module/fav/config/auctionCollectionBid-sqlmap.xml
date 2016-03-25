@@ -1,0 +1,101 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.AuctionCollectionBidInfo" id="auctionCollectionBidInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="collectionId" column="collection_id" />
+		<result property="collectionTitle" column="title" />
+		<result property="userid" column="userid" />
+		<result property="username" column="username" />
+		<result property="usernameDesc" column="usernameDesc" />
+		<result property="sexNick" column="sex_nick" />
+		<result property="sexNickDesc" column="sexNickDesc" />
+		<result property="price" column="price" />
+		<result property="priceUnit" column="price_unit" />
+		<result property="priceDesc" column="priceDesc" />
+		<result property="bidDate" column="bid_date" />
+	</resultMap>
+	<select id="fav_auctionCollectionBid_countAll" resultClass="int">
+		select count(*) from tb_auction_collection_bid
+	</select>
+
+	<select id="fav_auctionCollectionBid_findAll" resultMap="auctionCollectionBidInfoResultMap">
+		select t.*,c.title,n.enum_name sexNickDesc, concat(t.username,n.enum_name) usernameDesc,concat(t.price,p.enum_name) priceDesc from tb_auction_collection_bid t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_enum n ON t.sex_nick=n.enum_code and n.enum_type='sex_nick_type'
+		LEFT JOIN tb_enum p ON t.price_unit=p.enum_code and p.enum_type='money_type'
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_auctionCollectionBid_findById" parameterClass="java.lang.Integer" resultMap="auctionCollectionBidInfoResultMap">
+		select t.*,c.title,n.enum_name sexNickDesc, concat(t.username,n.enum_name) usernameDesc,concat(t.price,p.enum_name) priceDesc from tb_auction_collection_bid t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_enum n ON t.sex_nick=n.enum_code and n.enum_type='sex_nick_type'
+		LEFT JOIN tb_enum p ON t.price_unit=p.enum_code and p.enum_type='money_type'
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_auctionCollectionBid_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_auction_collection_bid t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_enum n ON t.sex_nick=n.enum_code and n.enum_type='sex_nick_type'
+		LEFT JOIN tb_enum p ON t.price_unit=p.enum_code and p.enum_type='money_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userid"><![CDATA[ t.userid=#userid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="username"><![CDATA[ t.username like concat('%',#username#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="price"><![CDATA[ t.price=#price# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="priceUnit"><![CDATA[ t.price_unit=#priceUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sexNick"><![CDATA[ t.sex_nick=#sexNick# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.bid_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.bid_date <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_auctionCollectionBid_findByCondition" parameterClass="java.util.Map" resultMap="auctionCollectionBidInfoResultMap">
+		select t.*,c.title,n.enum_name sexNickDesc, concat(t.username,n.enum_name) usernameDesc,concat(t.price,p.enum_name) priceDesc from tb_auction_collection_bid t 
+		LEFT JOIN tb_collection c ON t.collection_id=c.id
+		LEFT JOIN tb_enum n ON t.sex_nick=n.enum_code and n.enum_type='sex_nick_type'
+		LEFT JOIN tb_enum p ON t.price_unit=p.enum_code and p.enum_type='money_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="collectionId"><![CDATA[ t.collection_id=#collectionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userid"><![CDATA[ t.userid=#userid# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="username"><![CDATA[ t.username like concat('%',#username#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="price"><![CDATA[ t.price=#price# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="priceUnit"><![CDATA[ t.price_unit=#priceUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="sexNick"><![CDATA[ t.sex_nick=#sexNick# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionTitle"><![CDATA[ c.title like concat('%',#collectionTitle#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.bid_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.bid_date <= #endDate#]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_auctionCollectionBid_save" parameterClass="com.osource.module.fav.model.AuctionCollectionBidInfo">
+		insert into tb_auction_collection_bid(id,collection_id,userid,username,sex_nick,price,price_unit,bid_date,use_flag,insert_date,insert_id)
+     		values (#id#,#collectionId#,#userid#,#username#,#sexNick#,#price#,#priceUnit#,#bidDate#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_auctionCollectionBid_update" parameterClass="com.osource.module.fav.model.AuctionCollectionBidInfo">
+		update tb_auction_collection_bid set
+	        collection_id = #collectionId#,
+	        userid = #userid#,
+	        username = #username#,
+	        sex_nick = #sexNick#,
+	        price = #price#,
+	        price_unit = #priceUnit#,
+	        bid_date = #bidDate#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_auctionCollectionBid_deleteInIds" parameterClass="java.util.List">
+		update tb_auction_collection_bid set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_auctionCollectionBid_deleteById" parameterClass="String">
+		update tb_auction_collection_bid set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

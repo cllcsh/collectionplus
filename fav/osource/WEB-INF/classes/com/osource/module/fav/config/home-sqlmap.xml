@@ -1,0 +1,112 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.HomeInfo" id="homeInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="adImages1" column="ad_images1" />
+		<result property="adImages2" column="ad_images2" />
+		<result property="adImages3" column="ad_images3" />
+		<result property="adImages4" column="ad_images4" />
+		<result property="adImages5" column="ad_images5" />
+		<result property="adImages6" column="ad_images6" />
+		<result property="adImages7" column="ad_images7" />
+		<result property="adImages8" column="ad_images8" />
+		<result property="adImages9" column="ad_images9" />
+		<result property="adPath1" column="ad_path1" />
+		<result property="adPath2" column="ad_path2" />
+		<result property="adPath3" column="ad_path3" />
+		<result property="adPath4" column="ad_path4" />
+		<result property="adPath5" column="ad_path5" />
+		<result property="adPath6" column="ad_path6" />
+		<result property="adPath7" column="ad_path7" />
+		<result property="adPath8" column="ad_path8" />
+		<result property="adPath9" column="ad_path9" />
+		<result property="recommendCollectionShowNum" column="recommend_collection_show_num" />
+		<result property="topCollectorsShowNum" column="top_collectors_show_num" />
+	</resultMap>
+	<select id="fav_home_countAll" resultClass="int">
+		select count(*) from tb_home
+	</select>
+
+	<select id="fav_home_findAll" resultMap="homeInfoResultMap">
+		select * from tb_home
+	</select>
+
+	<select id="fav_home_findById" parameterClass="java.lang.Integer" resultMap="homeInfoResultMap">
+		select * from tb_home where id = #value#
+	</select>
+	
+	<select id="fav_home_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_home t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="adImages1"><![CDATA[ t.ad_images1=#adImages1# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages2"><![CDATA[ t.ad_images2=#adImages2# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages3"><![CDATA[ t.ad_images3=#adImages3# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages4"><![CDATA[ t.ad_images4=#adImages4# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages5"><![CDATA[ t.ad_images5=#adImages5# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages6"><![CDATA[ t.ad_images6=#adImages6# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages7"><![CDATA[ t.ad_images7=#adImages7# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages8"><![CDATA[ t.ad_images8=#adImages8# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages9"><![CDATA[ t.ad_images9=#adImages9# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="recommendCollectionShowNum"><![CDATA[ t.recommend_collection_show_num=#recommendCollectionShowNum# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="topCollectorsShowNum"><![CDATA[ t.top_collectors_show_num=#topCollectorsShowNum# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_home_findByCondition" parameterClass="java.util.Map" resultMap="homeInfoResultMap">
+		select t.* from tb_home t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="adImages1"><![CDATA[ t.ad_images1=#adImages1# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages2"><![CDATA[ t.ad_images2=#adImages2# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages3"><![CDATA[ t.ad_images3=#adImages3# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages4"><![CDATA[ t.ad_images4=#adImages4# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages5"><![CDATA[ t.ad_images5=#adImages5# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages6"><![CDATA[ t.ad_images6=#adImages6# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages7"><![CDATA[ t.ad_images7=#adImages7# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages8"><![CDATA[ t.ad_images8=#adImages8# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="adImages9"><![CDATA[ t.ad_images9=#adImages9# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="recommendCollectionShowNum"><![CDATA[ t.recommend_collection_show_num=#recommendCollectionShowNum# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="topCollectorsShowNum"><![CDATA[ t.top_collectors_show_num=#topCollectorsShowNum# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_home_save" parameterClass="com.osource.module.fav.model.HomeInfo">
+		insert into tb_home(id,ad_images1,ad_images2,ad_images3,ad_images4,ad_images5,ad_images6,ad_images7,ad_images8,ad_images9,ad_path1,ad_path2,ad_path3,ad_path4,ad_path5,ad_path6,ad_path7,ad_path8,ad_path9,recommend_collection_show_num,top_collectors_show_num,use_flag,insert_date,insert_id)
+     		values (#id#,#adImages1#,#adImages2#,#adImages3#,#adImages4#,#adImages5#,#adImages6#,#adImages7#,#adImages8#,#adImages9#,#adPath1#,#adPath2#,#adPath3#,#adPath4#,#adPath5#,#adPath6#,#adPath7#,#adPath8#,#adPath9#,#recommendCollectionShowNum#,#topCollectorsShowNum#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_home_update" parameterClass="com.osource.module.fav.model.HomeInfo">
+		update tb_home set
+	        ad_images1 = #adImages1#,
+	        ad_images2 = #adImages2#,
+	        ad_images3 = #adImages3#,
+	        ad_images4 = #adImages4#,
+	        ad_images5 = #adImages5#,
+	        ad_images6 = #adImages6#,
+	        ad_images7 = #adImages7#,
+	        ad_images8 = #adImages8#,
+	        ad_images9 = #adImages9#,
+	        ad_path1 = #adPath1#,
+	        ad_path2 = #adPath2#,
+	        ad_path3 = #adPath3#,
+	        ad_path4 = #adPath4#,
+	        ad_path5 = #adPath5#,
+	        ad_path6 = #adPath6#,
+	        ad_path7 = #adPath7#,
+	        ad_path8 = #adPath8#,
+	        ad_path9 = #adPath9#,
+	        recommend_collection_show_num = #recommendCollectionShowNum#,
+	        top_collectors_show_num = #topCollectorsShowNum#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_home_deleteInIds" parameterClass="java.util.List">
+		update tb_home set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_home_deleteById" parameterClass="String">
+		update tb_home set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

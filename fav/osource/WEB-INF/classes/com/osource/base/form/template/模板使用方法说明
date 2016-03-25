@@ -1,0 +1,59 @@
+1.config_comment：模块功能描述
+用途：主要用在需描述模块功能的地方，如弹出页面标题，配置文件struts-*.xml文件中的描述等。
+
+2.self_module_name：  功能对应实体名，如“矫正专家登记”中的“专家”，“监督人反馈记录”中的“反馈记录”
+用途：主要用于提示信息以及方法功能描述，如提示“修改self_module_name成功”，功能描述“打开添加self_module_name页面”等。
+
+3.author： 作者
+用途：用在类或方法注释中，说明写作类或方法的作者。
+
+4.Entity_Bean： 实体JavaBean名称
+用途：主要用于类中涉及到JavaBean的地方，如定义JavaBean对象时。
+推荐的命名方法：self_module_name对应英文+Info/Bean/Entity。
+例如：“监督人反馈记录”模块，Entity_Bean可命名为Feedback/FeedbackNote + Info/Bean/Entity。
+
+5.Entity 实体名称
+用途：主要用于类名中，如action,service,dao,form类以及config包中xml文件的命名，如“EntityAction”，“EntityService”等。
+该名称使用较广泛，在命名时要注意尽量简明扼要。推荐的命名方法：self_module_name对应英文。
+例如：“监督人反馈记录”模块，Entity可命名为Feedback。
+
+6.config_p：config包名
+7.entity_p：model包名
+8.form_p：form包名
+9.action_p：action包名
+10.dao_p：dao包名
+11.dao_impl_p：dao实现包名
+12.service_p：service包名
+13.service_impl_p：service实现包名
+
+14.parent_module_name：当前功能父模块名称
+15.module_name：子模块名；module_path：jsp文件所在模块路径
+16.table_name：功能对应数据库中表名
+
+17.spring_file：spring配置文件，用到spring时使用
+18.struts_file：struts配置文件，用到struts时使用
+
+19.form_parent_p：form基类所在包名
+20.form_parent_name：form基类名
+21.bean_parent_p：bean基类所在包名
+22.bean_parent_name：bean基类名
+23.action_parent_p：action基类所在包名
+24.action_parent_name：action基类名
+25.dao_parent_p：dao基类所在包名
+26.dao_parent_name：dao基类名
+27.service_parent_p：service基类所在包名
+28.service_parent_name：service基类名
+
+30.template_dir：模板所在包名
+
+31.is_spring：是否使用spring，默认false
+32.is_struts：是否使用struts，默认true
+33.is_form：是否生成form，默认true
+34.is_bean：是否生成bean，默认true
+35.is_action：是否生成action，默认true
+36.is_service：是否生成service，默认true
+37.is_dao：是否生成dao，默认true
+38.is_config：是否生成config文件，默认true
+39.is_js：是否生成js文件，默认true
+40.is_page：是否生成jsp页面，默认true
+41.is_validate：是否使用spring验证，默认false

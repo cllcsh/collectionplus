@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="/attachments"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+
+ <service name="SmsNotification" provider="java:RPC" style="wrapped" use="literal">
+  <parameter name="sendMultiRefs" value="false"/>
+  <parameter name="wsdlServicePort" value="SmsNotification"/>
+  <parameter name="schemaQualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/notification/v2_1/local"/>
+  <parameter name="className" value="com.osource.sms.soap.ctcc.sms.notification.v2_1.service.SmsNotificationBindingSkeleton"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="wsdlPortType" value="SmsNotification"/>
+  <parameter name="wsdlServiceElement" value="SmsNotificationService"/>
+  <parameter name="wsdlTargetNamespace" value="http://www.chinatelecom.com.cn/wsdl/ctcc/sms/notification/v2_1/service"/>
+  <parameter name="sendXsiTypes" value="false"/>
+  <parameter name="schemaUnqualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1,http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns3:DeliveryStatus" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.DeliveryStatus" xmlns:ns3="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns4:SmsMessage" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.SmsMessage" xmlns:ns4="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns5:DeliveryInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.DeliveryInformation" xmlns:ns5="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+ </service>
+ <service name="SendSms" provider="java:RPC" style="wrapped" use="literal">
+  <parameter name="sendMultiRefs" value="false"/>
+  <parameter name="wsdlServicePort" value="SendSms"/>
+  <parameter name="schemaQualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/send/v2_1/local"/>
+  <parameter name="className" value="com.osource.sms.soap.ctcc.sms.send.v2_1.service.SendSmsBindingSkeleton"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="wsdlPortType" value="SendSms"/>
+  <parameter name="wsdlServiceElement" value="SendSmsService"/>
+  <parameter name="wsdlTargetNamespace" value="http://www.chinatelecom.com.cn/wsdl/ctcc/sms/send/v2_1/service"/>
+  <parameter name="sendXsiTypes" value="false"/>
+  <parameter name="schemaUnqualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1,http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns6:DeliveryStatus" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.DeliveryStatus" xmlns:ns6="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns7:ServiceException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.common.v2_1.ServiceException" xmlns:ns7="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns8:ChargingInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.common.v2_1.ChargingInformation" xmlns:ns8="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns9:SmsFormat" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.SmsFormat" xmlns:ns9="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns10:DeliveryInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.sms.v2_1.DeliveryInformation" xmlns:ns10="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns11:PolicyException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.common.v2_1.PolicyException" xmlns:ns11="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns12:SimpleReference" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.osource.sms.soap.ctcc.common.v2_1.SimpleReference" xmlns:ns12="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+ </service>
+  <service name="VoiceNotification" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://localhost:8080/axis/services/VoiceNotification"/>
+      <parameter name="wsdlServiceElement" value="VoiceNotificationService"/>
+      <parameter name="wsdlServicePort" value="VoiceNotification"/>
+      <parameter name="className" value="com.osource.base.ws.voice.notify.VoiceNotificationImpl"/>
+      <parameter name="wsdlPortType" value="VoiceNotification"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="notifyChecksResult" qname="operNS:notifyChecksResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyChecksResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceRegResult" qname="operNS:notifyVoiceRegResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceRegResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceModifyResult" qname="operNS:notifyVoiceModifyResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceModifyResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceDeleteResult" qname="operNS:notifyVoiceDeleteResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceDeleteResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <parameter name="allowedMethods" value="notifyVoiceModifyResult notifyVoiceDeleteResult notifyVoiceRegResult notifyChecksResult"/>
+
+  </service>
+  <!-- 
+    <service name="Service1Soap12" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServiceElement" value="Service1"/>
+      <parameter name="schemaQualified" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServicePort" value="Service1Soap12"/>
+      <parameter name="className" value="com.osource.base.ws.voice.check.Service1Impl"/>
+      <parameter name="wsdlPortType" value="Service1Soap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="registerVoice" qname="operNS:registerVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/registerVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="checkVoice" qname="operNS:checkVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/checkVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="modifyVoice" qname="operNS:modifyVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/modifyVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteVoice" qname="operNS:deleteVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/deleteVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="modifyVoice deleteVoice checkVoice registerVoice"/>
+
+  </service>
+   -->
+  <service name="VoiceNotification" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://localhost:8080/axis/services/VoiceNotification"/>
+      <parameter name="wsdlServiceElement" value="VoiceNotificationService"/>
+      <parameter name="wsdlServicePort" value="VoiceNotification"/>
+      <parameter name="className" value="com.osource.base.ws.voice.notify.VoiceNotificationImpl"/>
+      <parameter name="wsdlPortType" value="VoiceNotification"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="notifyChecksResult" qname="operNS:notifyChecksResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyChecksResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceRegResult" qname="operNS:notifyVoiceRegResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceRegResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceModifyResult" qname="operNS:notifyVoiceModifyResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceModifyResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="notifyVoiceDeleteResult" qname="operNS:notifyVoiceDeleteResult" xmlns:operNS="http://localhost:8080/axis/services/VoiceNotification" returnQName="notifyVoiceDeleteResultReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="req" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <parameter name="allowedMethods" value="notifyVoiceModifyResult notifyVoiceDeleteResult notifyVoiceRegResult notifyChecksResult"/>
+
+  </service>
+  
+    <service name="DataSynService" provider="java:RPC" style="document" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://localhost:8080/axis/services/DataSynService"/>
+      <parameter name="wsdlServiceElement" value="DataSynServicePortTypeService"/>
+      <parameter name="schemaQualified" value="http://localhost:8080/axis/services/DataSynService"/>
+      <parameter name="wsdlServicePort" value="DataSynService"/>
+      <parameter name="className" value="com.osource.base.ws.DataSynImpl"/>
+      <parameter name="wsdlPortType" value="DataSynServicePortType"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="synEvent" qname="synEvent" returnQName="retNS:synEventReturn" xmlns:retNS="http://localhost:8080/axis/services/DataSynService" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="http://localhost:8080/axis/services/DataSynService" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="synRisk" qname="synRisk" returnQName="retNS:synRiskReturn" xmlns:retNS="http://localhost:8080/axis/services/DataSynService" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in1" xmlns:pns="http://localhost:8080/axis/services/DataSynService" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="synRisk synEvent"/>
+
+  </service>
+  <!-- 
+   <service name="Service1Soap12" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServiceElement" value="Service1"/>
+      <parameter name="schemaQualified" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServicePort" value="Service1Soap12"/>
+      <parameter name="className" value="com.osource.base.ws.voice.check.Service1Impl"/>
+      <parameter name="wsdlPortType" value="Service1Soap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="registerVoice" qname="operNS:registerVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/registerVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="checkVoice" qname="operNS:checkVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/checkVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="modifyVoice" qname="operNS:modifyVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/modifyVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteVoice" qname="operNS:deleteVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/deleteVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="modifyVoice deleteVoice checkVoice registerVoice"/>
+
+  </service>
+
+  <service name="Service1Soap" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServiceElement" value="Service1"/>
+      <parameter name="schemaQualified" value="http://www.gohigh.com.cn/"/>
+      <parameter name="wsdlServicePort" value="Service1Soap"/>
+      <parameter name="className" value="com.osource.base.ws.voice.check.Service1Impl"/>
+      <parameter name="wsdlPortType" value="Service1Soap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="registerVoice" qname="operNS:registerVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/registerVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="checkVoice" qname="operNS:checkVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/checkVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="modifyVoice" qname="operNS:modifyVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/modifyVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteVoice" qname="operNS:deleteVoice" xmlns:operNS="http://www.gohigh.com.cn/" soapAction="http://www.gohigh.com.cn/deleteVoice" >
+        <parameter qname="pns:StreamNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:Msdn" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:VoiceNo" xmlns:pns="http://www.gohigh.com.cn/" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="modifyVoice deleteVoice checkVoice registerVoice"/>
+
+  </service>
+     -->
+ <!-- <service name="LocationService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://localhost:8080/axis/services/LocationService"/>
+      <parameter name="wsdlServiceElement" value="LocationServiceService"/>
+      <parameter name="schemaUnqualified" value="http://entity.osource.com"/>
+      <parameter name="wsdlServicePort" value="LocationService"/>
+      <parameter name="className" value="com.osource.base.ws.locserver.client.Location"/>
+      <parameter name="wsdlPortType" value="LocationService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="sendLocation" qname="operNS:sendLocation" xmlns:operNS="http://localhost:8080/axis/services/LocationService" returnQName="sendLocationReturn" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="in0" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in1" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in2" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in3" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in4" type="tns:int" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in5" type="tns:int" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in6" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <operation name="getLocationInfo" qname="operNS:getLocationInfo" xmlns:operNS="http://localhost:8080/axis/services/LocationService" returnQName="getLocationInfoReturn" returnType="rtns:LocationInfo" xmlns:rtns="http://entity.osource.com" soapAction="" >
+        <parameter qname="in0" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in1" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in2" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <parameter qname="in3" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <parameter name="allowedMethods" value="sendLocation getLocationInfo"/>
+
+      <typeMapping
+        xmlns:ns="http://entity.osource.com"
+        qname="ns:LocationInfo"
+        type="java:com.osource.base.ws.locserver.client.LocationInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+  --> 
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

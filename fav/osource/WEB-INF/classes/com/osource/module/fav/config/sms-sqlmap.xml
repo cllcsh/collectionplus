@@ -1,0 +1,63 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.SmsInfo" id="smsInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="phone" column="phone" />
+		<result property="content" column="content" />
+	</resultMap>
+	<select id="fav_sms_countAll" resultClass="int">
+		select count(*) from tb_sms
+	</select>
+
+	<select id="fav_sms_findAll" resultMap="smsInfoResultMap">
+		select * from tb_sms order by insert_date desc
+	</select>
+
+	<select id="fav_sms_findById" parameterClass="java.lang.Integer" resultMap="smsInfoResultMap">
+		select * from tb_sms where id = #value#
+	</select>
+	
+	<select id="fav_sms_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_sms t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_sms_findByCondition" parameterClass="java.util.Map" resultMap="smsInfoResultMap">
+		select t.* from tb_sms t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_sms_save" parameterClass="com.osource.module.fav.model.SmsInfo">
+		insert into tb_sms(id,phone,content,use_flag,insert_date,insert_id)
+    	 values (#id#,#phone#,#content#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_sms_update" parameterClass="com.osource.module.fav.model.SmsInfo">
+		update tb_sms set
+	        phone = #phone#,
+	        content = #content#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_sms_deleteInIds" parameterClass="java.util.List">
+		update tb_sms set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_sms_deleteById" parameterClass="String">
+		update tb_sms set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

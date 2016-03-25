@@ -1,0 +1,84 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<insert id="system_role_saveRole" parameterClass="com.osource.module.system.model.RoleBean">
+		insert into tb_role (ID, NAME, share_flag, DEPT_ID, USE_FLAG, INSERT_DATE, INSERT_ID)
+		 values (#roleId#, #roleName#, #shareFlag#, #departmentId#, 1, current_timestamp, #insertId#)
+	</insert>
+	<update id="system_role_updateRole" parameterClass="com.osource.module.system.model.RoleBean">
+		update tb_role set NAME = #roleName#, update_date = current_timestamp
+		<isNotEmpty prepend="," property="shareFlag">share_flag = #shareFlag#</isNotEmpty>
+		<isNotEmpty prepend="," property="updateId">update_id = #updateId#</isNotEmpty>
+		<isNotEmpty prepend="," property="departmentId">dept_id = #departmentId#</isNotEmpty>
+		where id = #roleId#
+	</update>
+	<update id="system_role_deleteRoleById" parameterClass="String">
+		update tb_role set use_flag = 0 where id = #value#
+	</update>
+	<update id="system_role_deleteRoleInIds" parameterClass="String">
+		update tb_role set use_flag = 0 where id in $value$
+	</update>
+	<select id="system_role_findRoleById" parameterClass="java.lang.String" resultClass="com.osource.module.system.model.RoleBean">
+		select r.id as roleId,
+			r.name as RoleName,
+			r.share_flag as shareFlag,
+			r.dept_id as departmentId
+			from tb_role r where r.id = #value# and r.use_flag = 1 
+	</select>
+	<select id="system_role_findRoleInfoList" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.RoleBean">
+		select r.id as roleId, r.name as roleName 
+		from tb_role r
+		where r.use_flag = 1		
+		<isNotEmpty prepend="AND" property="deptId">r.dept_id = 0</isNotEmpty>
+	</select>
+	<select id="system_role_getAllRoleNum" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_role where use_flag = 1 
+	</select>
+<!-- 	<select id="system_role_findAllRole" resultClass="com.osource.module.system.model.RoleBean">
+		select r.id as roleId,
+			r.name as RoleName, 
+			d.id as departmentId,
+			d.name as departmentName 
+			from tb_role r,tb_dept d where  r.use_flag = 1 and r.dept_id = d.id
+			order by r.id
+	</select>
+ -->	<select id="system_role_getAllRoleNumByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) 
+		from tb_role r
+		where  r.use_flag = 1 
+		<isNotEmpty prepend="AND" property="roleName">
+			LOCATE(#roleName#, r.name) &gt;0
+		</isNotEmpty>
+	</select>
+	<select id="system_role_findRoleByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.RoleBean">
+		select r.id as roleId,
+			r.name as RoleName,
+			r.dept_id as departmentId
+			from tb_role r  
+			where  r.use_flag = 1 
+		<dynamic prepend="and">
+			<isNotEmpty prepend="AND" property="roleName">
+				LOCATE(#roleName#, r.name) &gt;0
+			</isNotEmpty>
+		</dynamic>
+		order by r.id desc
+	</select>
+	<insert id="system_role_saveRoleFunction" parameterClass="com.osource.module.system.model.RoleFunction">
+		insert into tb_role_func (ID, FUNC_ID, ROLE_ID, USE_FLAG, INSERT_DATE, INSERT_ID)
+		 values (#id#, #functionId#, #roleId#,1, current_timestamp, #insertId#)
+	</insert>
+	<delete id="system_role_deleteRoleFunctionById" parameterClass="java.lang.String">
+		delete from tb_role_func where role_id = #value#
+	</delete>
+	<delete id="system_role_deleteRoleFunctionByIds" parameterClass="java.lang.String">
+		delete from tb_role_func where role_id in $value$
+	</delete>
+	<select id="system_role_findRoleFunctionList" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.RoleFunction">
+		select role_id as roleId,
+			   func_id as functionId
+			from tb_role_func where role_id = #value#
+	</select>
+	<select id="system_role_findRolesByDepartmentId" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.RoleBean">
+		select r.id as roleId, r.name as roleName, r.dept_id as departmentId,d.id as departmentId, d.name as departmentName 
+		from tb_role r
+	</select>
+</sqlMap>

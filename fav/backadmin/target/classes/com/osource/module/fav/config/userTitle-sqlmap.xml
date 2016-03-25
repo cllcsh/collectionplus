@@ -1,0 +1,60 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.UserTitleInfo" id="userTitleInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="name" column="name" />
+<result property="imgPath" column="img_path" />
+<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_userTitle_countAll" resultClass="int">
+		select count(*) from tb_user_title where use_flag = 1
+	</select>
+
+	<select id="fav_userTitle_findAll" resultMap="userTitleInfoResultMap">
+		select * from tb_user_title where use_flag = 1 order by display_order
+	</select>
+
+	<select id="fav_userTitle_findById" parameterClass="java.lang.Integer" resultMap="userTitleInfoResultMap">
+		select * from tb_user_title where id = #value#
+	</select>
+	
+	<select id="fav_userTitle_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_user_title t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.displayOrder=#displayOrder# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_userTitle_findByCondition" parameterClass="java.util.Map" resultMap="userTitleInfoResultMap">
+		select t.* from tb_user_title t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.displayOrder=#displayOrder# ]]></isNotEmpty>
+	order by displayOrder
+	</select>
+	
+	<insert id="fav_userTitle_save" parameterClass="com.osource.module.fav.model.UserTitleInfo">
+    insert into tb_user_title(id,name,display_order,use_flag,insert_date,insert_id)
+     values (#id#,#name#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_userTitle_update" parameterClass="com.osource.module.fav.model.UserTitleInfo">
+    update tb_user_title set
+        name = #name#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_userTitle_deleteInIds" parameterClass="java.util.List">
+		update tb_user_title set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_userTitle_deleteById" parameterClass="String">
+		update tb_user_title set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

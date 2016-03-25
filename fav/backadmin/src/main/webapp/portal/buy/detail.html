@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>恭喜发车</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!--[if lte IE 8]>
+        <script src="../vendor/chartjs/excanvas.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="comm-header">
+    <div class="comm-fixed-bar">
+        <div class="container clearfix">
+            <div class="left">
+                <a href="#">网站首页</a>
+                <span class="split">|</span>
+                <a href="#">收藏本站</a>
+                <span class="split">|</span>
+                咨询电话：<i><a href="#"><span class="comm-img phone"></span> 400 - 123 - 4567</a></i>
+            </div>
+            <div class="right">
+                <div id="J-HeaderMenu" class="menu">
+                    <!-- 王小波，您好 <span class="bubble">5</span> -->
+                    <!-- 如果用户通过授权，就给 J-HeaderMenu 添加 menu-active 类 -->
+                    王小波 <span class="comm-text-red">(审核中)</span>
+                    <span class="anchor"></span>
+                    <div class="submenu">
+                        <a href="#" class="item"><i class="comm-img lock"></i> 修改密码</a>
+                        <a href="#" class="item"><i class="comm-img mobile"></i>更换手机</a>
+                        <a href="#" class="item"><i class="comm-img set"></i>修改资料</a>
+                        <a href="#" class="item"><i class="comm-img msg"></i>通知消息 <span class="bubble">5</span></a>
+                    </div>
+                </div>
+                <span class="split">|</span>
+                <a href="auth/login.html" class="danger">退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="comm-header-ctn">
+        <div class="container clearfix">
+            <a href="/index.html" class="logo left">LOGO</a>
+            <div class="searcher">
+                <div class="text">今日共有<span class="comm-text-red">10</span>个品牌，<span class="comm-text-red">3900</span>款型号车上线</div>
+                <form action="index.html" class="search-form">
+                    <div class="input"><span class="placeholder"><i class="comm-img search"></i>搜索您想找的汽车型号</span><input id="J-SearchIpt" type="text" placeholder=""></div>
+                    <button class="do-search">搜索</button>
+                </form>
+                <div class="brands">
+                    <a href="#">路虎</a><a href="#">兰博基尼</a><a href="#">雷克萨斯</a><a href="#">林肯</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comm-header-nav">
+        <div class="container clearfix">
+            <a href="../index.html" class="item @@index">首页</a>
+            <span class="split">|</span>
+            <a href="../buy/alphabet.html" class="item active">买车</a>
+            <span class="split">|</span>
+            <a href="../sell/" class="item @@sell">卖车</a>
+            <span class="split">|</span>
+            <a href="../order/buy.html" class="item @@order">订单</a>
+            <span class="split">|</span>
+            <a href="javascript:;" class="item">下载APP</a>
+        </div>
+    </div>
+</div>
+
+
+    <div class="comm-index-brands">
+        <div class="container">
+            <div class="title">
+                <h1>热门品牌 <small>HOT BRAND</small></h1>
+                <div class="comm-img angle-right"></div>
+            </div>
+            <ul class="brand-list list-unstyled">
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="comm-white-ctn">
+        <div class="container">
+            <div class="comm-breadcrumbs">
+                当前位置：
+                <a href="#">买车</a>&gt;<a href="#">路虎</a>&gt;<span class="current">综述</span>
+            </div>
+
+            <!-- 基本信息 -->
+            <div class="mod-buy-baseinfo clearfix">
+                <div class="left-info">
+                    <h1>2015款宝马</h1>
+                    <div class="comm-imgs-viewer">
+                        <div class="big-img img"><img src="../img/data/car.jpg" alt=""></div>
+                        <div class="small-imgs">
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                            <div class="item img"><img src="../img/data/car.jpg" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="special-desc">
+                        <div class="title"><i class="ico-help"></i> 特殊说明：</div>
+                        <div class="body">大大声的哭就是肯定是复活节岛是分阶段实施的积极的精神枯萎的开始宽度温暖。声的哭就是肯定是复活</div>
+                    </div>
+                </div>
+                <div class="right-info">
+                    <div class="price-info">
+                        <div class="info-group">
+                            发车价：<span class="comm-text-red comm-price">&yen; <strong>400万</strong></span>
+                            <div class="right">库存：<span class="comm-text-red">20辆</span></div>
+                        </div>
+                        <div class="info-group comm-text-lightgray">市场指导价：428万，为您节省：28万</div>
+                        <div class="info-group">
+                            汽车状态：<span class="comm-text-huge">期货</span>
+                        </div>
+                    </div>
+                    <div class="config-info">
+                        <div class="info-group row">
+                            <div class="col col-6">
+                                <span class="label">选择燃油：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">汽油</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="col col-6">
+                                <span class="label">选择排量：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">3.0T</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-12">
+                                <span class="label">选择颜色：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">外黑/内棕</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-12">
+                                <span class="label">可选车型：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">2015款宝马X5</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-12">
+                                <span class="label">所在省份：</span>
+                                <span class="text">江苏南京</span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-6">
+                                <span class="label">首款比例：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">20%</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="col col-6">
+                                <span class="label">提货周期：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">任意</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-12">
+                                <span class="label">物流方式：</span>
+                                <span class="select">
+                                    <select name="" id="">
+                                        <option value="">买家自提</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group row">
+                            <div class="col col-12">
+                                <span class="label">购买数量：</span>
+                                <div class="text">
+                                    <div class="comm-number-selection inline-block">
+                                        <div class="sub comm-trigger">-</div>
+                                        <input class="value" value="1"/>
+                                        <div class="plus comm-trigger">+</div>
+                                    </div>&nbsp;&nbsp;
+                                    <span class="inline-block vertical-top">库存：20辆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="info-group">
+                            <span class="comm-price comm-text-red">&yen; <strong>100万元</strong></span>
+                            <small>库存：20辆</small>
+                            <div class="comm-number-selection">
+                                <div class="sub comm-trigger">-</div>
+                                <input class="value" value="1"/>
+                                <div class="plus comm-trigger">+</div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <span class="comm-price comm-text-red">&yen; <strong>200万元</strong></span>
+                            <small>库存：20辆</small>
+                            <div class="comm-number-selection">
+                                <div class="sub comm-trigger">-</div>
+                                <input class="value" value="1"/>
+                                <div class="plus comm-trigger">+</div>
+                            </div>
+                        </div> -->
+                        <div class="info-group action">
+                            <div onclick="modal.show()" class="button button-primary">立即购买</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./基本信息 -->
+
+            <!-- 图表 -->
+            <div class="mod-buy-chartinfo">
+                <div class="tabs">
+                    <a href="#" class="item active">实时</a>
+                    <a href="#" class="item">日线</a>
+                    <a href="#" class="item">周线</a>
+                </div>
+                <div class="chart">
+                    <div class="title">低价走势（万元）</div>
+                    <canvas id="J-Canvas" width="600" height="300"></canvas>
+                    <p class="body text-center">
+                        市场解读：<span class="line green"></span>走势平稳，可放心购买
+                    </p>
+                </div>
+            </div>
+            <!-- ./图表 -->
+
+            <!-- 步骤 -->
+            <div class="mod-buy-process">
+                <div class="title">购车流程：</div>
+                <div class="step">挑选爱车</div>
+                <span class="split">&gt;</span>
+                <div class="step">在线预约</div>
+                <span class="split">&gt;</span>
+                <div class="step">到店体验</div>
+                <span class="split">&gt;</span>
+                <div class="step step-two">支付车款<br>三包手续</div>
+                <span class="split">&gt;</span>
+                <div class="step step-two">提车回家<br>当地上牌</div>
+            </div>
+            <!-- ./步骤 -->
+
+            <!-- Tab页签 -->
+            <div class="mod-buy-tabs">
+                <a href="#tab0" class="active">配置详情</a>
+                <a href="#tab1">车辆手续</a>
+                <a href="#tab2">购车需知</a>
+                <a href="#tab3">免责声明</a>
+            </div>
+            <!-- ./Tab页签 -->
+
+            <!-- 一车一说 -->
+            <!-- <div class="mod-buy-tab0">
+                <div class="mod-buy-tab-title">
+                    <h2>一车一说</h2>
+                </div>
+                <div class="body">
+                    <p>一直在默默筹划本地的技术交流活动，从之前刚开始都是一些很入门的话题，到后来也会有团队建设、沟通等小规模讨论会，到现在已经有一些</p>
+                    <p>烂摊子不代表大家都只需要看着他烂，多少<strong>做点什么永远优于整体抱</strong>怨或者嘲笑别人努力无果的人。</p>
+                </div>
+                <div class="img"></div>
+            </div> -->
+            <!-- ./一车一说 -->
+
+            <!-- 配置详情 -->
+            <div id="tab0" class="mod-buy-tab0 mod-buy-tab">
+                <div class="mod-buy-tab-title">
+                    <h2>配置详情</h2>
+                </div>
+                <div class="inner">
+                    <h3 class="title">基础参数</h3>
+                    <div class="row">
+                        <div class="col col-6">
+                            <table>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col col-6">
+                            <table>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                                <tr>
+                                    <td class="strong">功率</td>
+                                    <td class="text-right">340马力</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <h3 class="title">标准配置</h3>
+                    <ul class="list-unstyled">
+                        <li><strong>都是一些很入：</strong>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                        <li><strong>都是一些很入：</strong>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                        <li><strong>都是一些很入：</strong>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                        <li><strong>都是一些很入：</strong>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                    </ul>
+                    <h3 class="title">亮点套件</h3>
+                    <p><img src="../img/data/car.jpg" alt=""></p>
+                    <p>从之前刚开始都是一些很入门的话题，到后来也会有团从之前刚开始都是一些很入门的话题，到后来也会有团</p>
+                    <p>做点什么永</p>
+                </div>
+            </div>
+            <!-- ./亮点配置 -->
+
+            <!-- 实拍图片 -->
+            <!-- <div class="mod-buy-tab1">
+                <div class="mod-buy-tab-title">
+                    <h2>实拍图片</h2>
+                </div>
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="big"></div>
+                        <div class="group">
+                            <div class="item"></div>
+                            <div class="item"></div>
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="group">
+                            <div class="item"></div>
+                            <div class="item"></div>
+                        </div>
+                        <div class="big"></div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- ./实拍图片 -->
+
+            <!-- 车辆手续 -->
+            <div id="tab1" class="mod-buy-tab1 mod-buy-tab">
+                <div class="mod-buy-tab-title">
+                    <h2>车辆手续</h2>
+                </div>
+                <div class="inner">
+                    <div class="row">
+                        <div class="col col-6">
+                            <div class="item">
+                                <div class="img"></div>
+                                <div class="desc">
+                                    <h3>根据国家法律法规要求，手续为:</h3>
+                                    <ol>
+                                        <li>到后来也会有团从之前刚开始都是一些很入门的话</li>
+                                        <li>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                                        <li>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                                        <li>从之前刚开始都是一些很入门的话题，到后来也会有团</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-6">
+                            <div class="item">
+                                <div class="img"></div>
+                                <div class="desc">
+                                    <h3>根据国家法律法规要求，手续为:</h3>
+                                    <p>到后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题，到后来也会有团门的话从之前刚开始都是一些很入</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./车辆手续 -->
+
+            <!-- 购车需知 -->
+            <div class="mod-buy-tab2 mod-buy-tab">
+                <div class="mod-buy-tab-title">
+                    <h2>购车需知</h2>
+                </div>
+                <div class="inner">
+                    <div class="group">
+                        <div class="icon"><i class="comm-img mod-buy-phone"></i></div>
+                        <div class="text">
+                            <h3 class="title">预约说明</h3>
+                            <p>后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="icon"><i class="comm-img mod-buy-car"></i></div>
+                        <div class="text">
+                            <h3 class="title">提车点</h3>
+                            <p>后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="icon"><i class="comm-img mod-buy-calendar"></i></div>
+                        <div class="text">
+                            <h3 class="title">需知细则</h3>
+                            <p>
+                                后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题刚开始都是一些很入门的话从之前刚一些很入门的话题刚开始都是一些很入门的话从之前刚
+                                <br>
+                                1.来也会有团从之前刚开始都 <br>
+                                2.来也会有团从之前刚开始都 <br>
+                                3.从之前刚开始都是一些很入门 <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./购车需知 -->
+
+            <!-- 免责声明 -->
+            <div class="mod-buy-tab3 mod-buy-tab">
+                <div class="mod-buy-tab-title">
+                    <h2>免责声明</h2>
+                </div>
+                <div class="inner">
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题
+                    后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题
+                后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题
+                    后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题
+                    后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                    <p>1. 后来也会有团从之前刚开始都是一些很入门的话从之前刚开始都是一些很入门的话题</p>
+                </div>
+            </div>
+            <!-- ./免责声明 -->
+
+            <!-- 购车承诺 -->
+            <div class="mod-buy-promise">
+                <h3 class="title text-center">购车承诺</h3>
+                <div class="row">
+                    <div class="col col-3">
+                        <div class="img"><i class="comm-img mod-buy-red-car"></i></div>
+                        <h4 class="item-title">真实车源</h4>
+                        <p class="item-body">后来也会有团从之前刚开</p>
+                    </div>
+                    <div class="col col-3">
+                        <div class="img"><i class="comm-img mod-buy-red-user"></i></div>
+                        <h4 class="item-title">认证商家</h4>
+                        <p class="item-body">后来也会有团从之前刚开</p>
+                    </div>
+                    <div class="col col-3">
+                        <div class="img"><i class="comm-img mod-buy-red-note"></i></div>
+                        <h4 class="item-title">手续齐备</h4>
+                        <p class="item-body">后来也会有团从之前刚开</p>
+                    </div>
+                    <div class="col col-3">
+                        <div class="img"><i class="comm-img mod-buy-red-tools"></i></div>
+                        <h4 class="item-title">售后三包</h4>
+                        <p class="item-body">后来也会有团从之前刚开</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ./购车承诺 -->
+        </div>
+    </div>
+
+    <div id="J-Modal" class="comm-modal none">
+        <div class="modal">
+            <div class="close j-close">&times;</div>
+            <div class="title">订单详情</div>
+            <div class="mod-buy-modal">
+                <div class="title">2015款宝马</div>
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="img"></div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="info-item">
+                            <span class="label">总价：</span>
+                            <div class="input comm-text-red comm-price">&yen;<strong>2400万</strong></div>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">车辆状态：</span>
+                            <div class="input"><strong class="comm-text-huge">期货</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="info-item">
+                            <span class="label">燃油：</span>
+                            <div class="input">汽油</div>
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="info-item">
+                            <span class="label">排量：</span>
+                            <div class="input">3.0T</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="info-item">
+                            <span class="label">颜色：</span>
+                            <div class="input">2015款宝马</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="info-item">
+                            <span class="label">车型：</span>
+                            <div class="input">2015款宝马</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="info-item">
+                            <span class="label">订金：</span>
+                            <div class="input">100元</div>
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="info-item">
+                            <span class="label">提货周期：</span>
+                            <div class="input">3.0T</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="info-item">
+                            <span class="label">物流：</span>
+                            <div class="input">2015款宝马</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="info-item">
+                            <span class="label">数量：</span>
+                            <div class="input text-right"><span class="comm-text-red">6</span>辆</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="info-item">
+                            <span class="label">总价：</span>
+                            <div class="input text-right comm-text-red"><span class="comm-price">&yen;<strong>2400万</strong></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action text-center">
+                    <div class="button button-primary">确认提交</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comm-footer">
+    <div class="container">
+        <div class="contact right">
+            <div class="text">购车时间：周一至周日（09:30-20:00）</div>
+            <div class="phone"><i class="comm-img red-phone"></i> 400-123-4567</div>
+        </div>
+        <div class="link">
+            <a href="index.html">网站首页</a>
+            <span class="split">|</span>
+            <a href="#">意见反馈</a>
+            <span class="split">|</span>
+            <a href="#">联系我们</a>
+        </div>
+        <div class="clearfix text-center">&copy;2015 Gongxifache.com All Rights Reserved.  恭喜发车 版权所有</div>
+    </div>
+</div>
+
+    <script src="../js/vendor/jquery.js"></script>
+<script src="../js/app.js"></script>
+
+    <script src="../vendor/chartjs/Chart.min.js"></script>
+    <script src="../js/detail.js"></script>
+    <script>
+    $(function(){
+        modal = new FACHE.UI.Modal({
+            id : 'J-Modal'
+        });
+        new FACHE.UI.Btp();
+    });
+    </script>
+</body>
+</html>

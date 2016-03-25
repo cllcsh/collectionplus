@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="fav"
+  id="myeclipse.1365643837818"
+  context-root="/fav"
+  j2ee-spec="5.0"
+  archive="fav.war">
+  <attributes>
+    <attribute name="webrootdir" value="osource" />
+  </attributes>
+</project-module>
+

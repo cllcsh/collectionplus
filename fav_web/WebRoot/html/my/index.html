@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<h1>我的</h1>
+    	<a href="mySet" class="link setting"></a>
+    </header>
+    <div class="user-info main">
+	    <div class="user cc">
+	    	<img id="avatarImg" src="$!{imgWebContextPath}$!{model.user.avatar}-canglist" alt="" onclick="changeAvatar('uploadAvatar')">
+	    	<input type="file" id="uploadAvatar" name="uploadAvatar" accept="image/*" class="upload-file" multiple="multiple" style="display: none">
+	    	<div class="txt">
+	    		<div class="name"><input id="userNameId" type="text" style="background:transparent;border:0; min-width: 40%" value="$!{model.user.user_name}" onchange="modifyUserName(this.value)"><input type="submit" value="修改" class="min-btn" onclick="focusName();"></div>
+	    		<div class="label">个性签名:</div>
+	    		<div class="intro"><input type="text" style="background:transparent;border:0" value="$!{model.user.signature}" onchange="modifySignature(this.value)"></div>
+	    	</div>
+	    </div>
+	    <ul class="ui-list ui-list-pure ui-border-tb info">
+            <li class="ui-border-t">
+            	<div class="ui-row-flex">
+            		<div class="ui-col"><span class="label">用户等级：</span>Lv <span class="ui-txt-warning">$!{model.user.user_level}级</span></div>
+            		<div class="ui-col"><span class="label">用户积分：</span><span class="ui-txt-warning">$!{model.user.user_points}分</span></div>
+            	</div>
+              	
+            </li>
+            <li class="ui-border-t">
+              	<span class="label">用户称号：</span>
+				<!-- <span class="ui-txt-success">已认证</span>
+				<span class="line">/</span>
+				<span class="ui-txt-primary">专家组</span>
+				<span class="line">/</span>
+				<span class="ui-txt-zise">达人</span>
+				<span class="line">/</span>
+				<span class="ui-txt-warning">VIP</span>
+				<span class="line">/</span>
+				<span class="ui-txt-highlight">拍卖行</span>
+				<span class="line">/</span>
+				<span class="ui-txt-lanse">商铺</span> -->
+				#foreach($title in $model.user.titles)
+				    <!-- <span class="ui-txt-success">$!{title}</span>
+				    <span class="line">/</span> -->
+				    <img alt="" src="$!{imgWebContextPath}$!{title}-canglist">
+				#end
+            </li>
+        </ul>
+        <div class="nums">
+        	<div class="ui-row-flex">
+        		<div class="ui-col">$!{model.user.heat} <br> 热度 </div>
+        		<div class="ui-col" data-href='userFans?id=$!{model.user.id}'>$!{model.user.fans} <br> 粉丝 </div>
+        		<div class="ui-col" data-href='userAttentions?id=$!{model.user.id}'>$!{model.user.attentions} <br> 关注 </div>
+        	</div>
+        </div>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='seeTask'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/my-1.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">每日任务</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='privateCollection'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/my-2.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">私人藏馆</h4>
+                </div>
+            </li>
+        </ul>
+	    <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='myReply'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/my-3.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">发表回复</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='myFavorites'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/my-4.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">收藏夹</h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-link ui-border-tb mt10">
+            <li class="ui-border-t" data-href='applyRecord'>
+                <div class="ui-list-thumb-s">
+                    <img src="images/my-5.png" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">申请记录</h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer class="ui-footer footer">
+    	<div class="list">
+	        <div class="ui-col">
+	        	<a data-href="home">
+	        		<img src="images/nav-home.png" alt="" class="img1">
+	        		<img src="images/nav-home-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="collectionCircle">
+	        		<img src="images/nav-quan.png" alt="" class="img1">
+	        		<img src="images/nav-quan-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="faProduct">
+	        		<img src="images/nav-add.png" alt="">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="cangIndex">
+	        		<img src="images/nav-cang.png" alt="" class="img1">
+	        		<img src="images/nav-cang-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="myIndex" class="active">
+	        		<img src="images/nav-my.png" alt="" class="img1">
+	        		<img src="images/nav-my-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        </div>
+    </footer>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script src="lib/upload/lrz.bundle.js"></script>
+	<script>
+	
+	    function modifyUserName(val)
+	    {
+	        if (!val && val.length == 0)
+	        {
+	              tips("昵称不能为空");
+	              return false;
+	        }
+	        var options = {
+                type : "POST",
+	            url: "modifyUserName",
+	            data: {'name' : val},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    
+	                }
+	                else
+	                {
+	                    //tips("个性签名失败");
+	                }
+	            },
+	            error : function(error) {
+	                //tips("个性签名失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+	    }
+	    
+	    function modifySignature(val)
+	    {
+	        var options = {
+                type : "POST",
+	            url: "modifySignature",
+	            data: {'signature' : val},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    
+	                }
+	                else
+	                {
+	                    //tips("个性签名失败");
+	                }
+	            },
+	            error : function(error) {
+	                //tips("个性签名失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+	    }
+	    
+	    function changeAvatar(id)
+	    {
+	         $("#" + id).click();
+	    }
+	    
+	    var upload = $('.upload-file');
+        upload.on('change', function(){
+            for(var i = 0; i < this.files.length; i ++){
+                var files = this.files;
+                (function(n){
+                    lrz(files[n]).then(function(result){
+                        $("#avatarImg").attr("src", result.base64);
+                        uploadFile();
+                    }).catch(function(error){
+                        console.log(error);  
+                    });
+                })(i);
+            }
+        });
+        
+        
+        function uploadFile()
+	    {
+	         var fd = new FormData();
+	         fd.append("uploadAvatar", $("#uploadAvatar").get(0).files[0]);
+	         var options = {
+                type : "POST",
+	            url: "changeAvatar",
+	            processData: false,
+		        contentType: false,
+	            data: fd,
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    
+	                }
+	                else
+	                {
+	                    //tips("个性签名失败");
+	                }
+	            },
+	            error : function(error) {
+	                //tips("个性签名失败");
+	            }
+            }
+            $.ajax(options);
+	    }
+	    
+	    function focusName()
+	    {
+	        $("#userNameId").focus();
+	    }
+	</script>
+</body>
+</html>

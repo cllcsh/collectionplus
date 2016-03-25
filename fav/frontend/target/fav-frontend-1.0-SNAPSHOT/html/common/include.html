@@ -1,0 +1,9 @@
+#set($contextPath = ${request.contextPath})
+#set($PathUtil = ${pathUtil})
+#set($imgWebContextPath = ${PathUtil.imgWebContextPath})
+#set($pageSize = ${pageSize})
+<script type="text/javascript">
+	var basePath = "${contextPath}";
+	var baseAddress = window.location.protocol +"//" +window.location.host;
+	var imgWebContextPath = "${imgWebContextPath}";
+</script>

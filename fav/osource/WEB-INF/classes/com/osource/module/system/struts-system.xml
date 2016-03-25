@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<package name="system" extends="ictmap-default" namespace="/module/system">
+		<default-interceptor-ref name="noPermissionUserAuthInterceptorStack"></default-interceptor-ref>
+		<action name="role_*"
+		    class="com.osource.module.system.web.action.RoleAction"
+		    method="{1}">
+		    <result name="init">/module/system/jsp/roleMgr.jsp</result>
+		    <result name="list">/module/system/jsp/roleList.jsp</result>
+		    <result name="view">/module/system/jsp/roleView.jsp</result>
+		    <result name="set">/module/system/jsp/roleSet.jsp</result>
+		    <result name="tree">/module/system/jsp/roleTree.jsp</result>
+		</action>
+		
+		<action name="volunteer_*" 
+			class="com.osource.module.system.web.action.VolunteerAction" 
+			method="{1}">
+			<result name="init">/module/system/jsp/volunteerMgr.jsp</result>
+			<result name="list">/module/system/jsp/volunteerList.jsp</result>
+			<result name="edit">/module/system/jsp/volunteerSet.jsp</result>
+			<result name="view">/module/system/jsp/volunteerView.jsp</result>
+			<result name="add">/module/system/jsp/volunteerSet.jsp</result>
+			<result name="volunteerUpload">/module/system/jsp/volunteerUpload.jsp</result>
+			<result name="menu">/module/system/jsp/memberIndex.jsp</result>
+		</action>
+
+		
+		<action name="rpType_*" 
+			class="com.osource.module.system.web.action.RpTypeAction" 
+			method="{1}">
+			<result name="init">/module/system/jsp/rpTypeMgr.jsp</result>
+			<result name="list">/module/system/jsp/rpTypeList.jsp</result>
+			<result name="view">/module/system/jsp/rpTypeView.jsp</result>
+		    <result name="set">/module/system/jsp/rpTypeSet.jsp</result>
+		</action>
+		
+		
+		<action name="specialist_*"
+		    class="com.osource.module.system.web.action.SpecialistAction"
+		    method="{1}">
+		    <result name="init">/module/system/jsp/specialistMgr.jsp</result>
+		    <result name="list">/module/system/jsp/specialistList.jsp</result>
+		    <result name="view">/module/system/jsp/specialistView.jsp</result>
+		    <result name="set">/module/system/jsp/specialistSet.jsp</result>
+		    <result name="default" type="redirectAction">
+				<param name="actionName">specialist_init</param>
+			</result>
+		</action>
+        
+        <action name="user_*"
+                class="com.osource.module.system.web.action.UserAction"
+                method="{1}">
+            <result name="init">/module/system/jsp/userMgr.jsp</result>
+            <result name="list">/module/system/jsp/userList.jsp</result>
+            <result name="view">/module/system/jsp/userView.jsp</result>
+	    	<result name="set">/module/system/jsp/userSet.jsp</result>
+            <result name="approve">/module/system/jsp/userApprove.jsp</result>
+            <result name="modifyPasswordInit">/module/system/jsp/modifyPassword.jsp</result>
+        </action>
+
+        <action name="dept_*"
+                class="com.osource.module.system.web.action.DeptAction"
+                method="{1}">
+            <result name="init">/module/system/jsp/deptTree.jsp</result>
+            <!--  <result name="init">/module/system/jsp/deptMgr.jsp</result>-->
+            <result name="list">/module/system/jsp/deptList.jsp</result>
+            <result name="view">/module/system/jsp/deptView.jsp</result>
+        </action>
+	
+		<action name="online_*" class="com.osource.module.system.web.action.OnlineAction" method="{1}">
+		    <result name="init">/module/system/jsp/onlineMgr.jsp</result>
+		    <result name="list">/module/system/jsp/onlineList.jsp</result>
+		    <result name="view">/module/system/jsp/onlineView.jsp</result>
+		    <result name="set">/module/system/jsp/onlineSet.jsp</result>
+		    <result name="default" type="redirectAction">
+				<param name="actionName">online_init</param>
+			</result>
+		</action>
+	
+		<action name="userPermission_*" class="com.osource.module.system.web.action.UserPermissionAction" method="{1}">
+		    <result name="init">/module/system/jsp/userPermissionMgr.jsp</result>
+		    <result name="list">/module/system/jsp/userPermissionList.jsp</result>
+		    <result name="view">/module/system/jsp/userPermissionView.jsp</result>
+		    <result name="set">/module/system/jsp/userPermissionSet.jsp</result>
+		    <result name="default" type="redirectAction">
+				<param name="actionName">userPermission_init</param>
+			</result>
+		</action>
+		<action name="config_*" class="com.osource.module.system.web.action.ConfigAction" method="{1}">
+			<result name="init">/module/system/jsp/configMgr.jsp</result>
+			<result name="list">/module/system/jsp/configList.jsp</result>
+			<result name="view">/module/system/jsp/configView.jsp</result>
+			<result name="set">/module/system/jsp/configSet.jsp</result>
+			<result name="default" type="redirectAction">
+				<param name="actionName">config_init</param>
+			</result>
+		</action>
+	<action name="attachment_*" class="com.osource.module.system.web.action.AttachmentAction" method="{1}">
+	    <result name="init">/module/system/jsp/attachmentMgr.jsp</result>
+	    <result name="list">/module/system/jsp/attachmentList.jsp</result>
+	    <result name="view">/module/system/jsp/attachmentView.jsp</result>
+	    <result name="set">/module/system/jsp/attachmentSet.jsp</result>
+	    <result name="download" type="stream">  
+		    <param name="contentType">application/octet-stream;charset=ISO8859-1</param>    
+	        <param name="inputName">inputStream</param>    
+	        <!-- 使用经过转码的文件名作为下载文件名，downloadFileName属性对应action类中的方法 getDownloadFileName() -->    
+	        <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>    
+	        <param name="bufferSize">4096</param>    
+	    </result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">attachment_init</param>
+		</result>
+	</action>
+	
+	<action name="user_*" class="com.osource.module.system.web.action.UserAction" method="{1}">
+	    <result name="init">/module/system/jsp/userMgr.jsp</result>
+	    <result name="list">/module/system/jsp/userList.jsp</result>
+	    <result name="view">/module/system/jsp/userView.jsp</result>
+	    <result name="set">/module/system/jsp/userSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">user_init</param>
+		</result>
+	</action>
+	
+	<action name="notice_*" class="com.osource.module.system.web.action.NoticeAction" method="{1}">
+	    <result name="init">/module/system/jsp/noticeMgr.jsp</result>
+	    <result name="list">/module/system/jsp/noticeList.jsp</result>
+	    <result name="view">/module/system/jsp/noticeView.jsp</result>
+	    <result name="set">/module/system/jsp/noticeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">notice_init</param>
+		</result>
+	</action>
+	
+</package>
+<package name="uploadAttachment" extends="struts-default" namespace="">
+	<interceptors>
+		<interceptor name="fileUploadosource" class="com.osource.base.web.interceptor.FileUploadInterceptor" >
+		</interceptor>
+	</interceptors>
+	<action name="uploads_*" class="com.osource.base.web.action.UploadsAction" method="{1}">
+		<interceptor-ref name="fileUploadosource">
+		</interceptor-ref>  
+		<interceptor-ref name="defaultStack" /> 
+		<result>/jsp/upload/succ.jsp</result>
+		<result name="uploadError">/jsp/upload/error.jsp</result>
+	</action>	
+	<action name="user_*" class="com.osource.module.system.web.action.UserAction" method="{1}">
+	    <result name="init">/module/system/jsp/userMgr.jsp</result>
+	    <result name="list">/module/system/jsp/userList.jsp</result>
+	    <result name="view">/module/system/jsp/userView.jsp</result>
+	    <result name="set">/module/system/jsp/userSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">user_init</param>
+		</result>
+	</action>
+	
+	<action name="notice_*" class="com.osource.module.system.web.action.NoticeAction" method="{1}">
+	    <result name="init">/module/system/jsp/noticeMgr.jsp</result>
+	    <result name="list">/module/system/jsp/noticeList.jsp</result>
+	    <result name="view">/module/system/jsp/noticeView.jsp</result>
+	    <result name="set">/module/system/jsp/noticeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">notice_init</param>
+		</result>
+	</action>
+	
+</package>
+</struts>

@@ -1,0 +1,17 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+    <resultMap class="com.osource.base.util.Entry" id="domainOptionEntry">
+        <result property="key" column="id"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <!--根据区域id查询区域的下属区域列表(带缩进)-->
+    <select id="system_domain_getDomainSelectList" parameterClass="java.lang.Integer" resultMap="domainOptionEntry">
+        SELECT a.id
+        ,a.name AS value
+        FROM tb_domain a
+        WHERE a.use_flag = '1'
+    </select>
+
+</sqlMap>

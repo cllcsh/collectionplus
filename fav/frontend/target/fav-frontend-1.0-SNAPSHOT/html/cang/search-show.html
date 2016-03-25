@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="lib/swiper/swiper.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>藏品详情</h1>
+    	#if($model.isShowFav)
+    	    #if($model.isFaved)
+    	    <a id="favorites" href="javascript:deleteFavorites('$!{model.collectionDetail.detail.id}');" class="link activelove"></a>
+    	    #else
+    	    <a id="favorites" href="javascript:addFavorites('$!{model.collectionDetail.detail.id}');" class="link love"></a>
+    	    #end
+    	#end
+    	<a href="javascript:;" class="link share"></a>
+    </header>
+    <div class="show main">
+	    <div class="swiper">
+	    	<div class="swiper-wrapper">
+	    	   #foreach($imageUrl in $model.collectionDetail.images)
+	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}" alt=""></div>
+	    	   #end
+	    	</div>
+	    	<div class="swiper-pagination"></div>
+	    </div>
+	    <div class="title">$!{model.collectionDetail.detail.title}</div>
+	    <div class="user">
+		    <ul class="ui-list ui-border-tb">
+	            <li>
+	                <div class="ui-avatar rect">
+	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}" alt="">
+	                </div>
+	                <div class="ui-list-info">
+	                    <h4 class="ui-nowrap">$!{model.collectionDetail.detail.user_name} <span class="ui-txt-muted fr f12">$!{model.collectionDetail.detail.time}</span></h4>
+	                    <p class="ui-nowrap">$!{model.collectionDetail.detail.category} - $!{model.collectionDetail.detail.period}
+	                     <span class="fr tag tag-warning">拍卖品</span></p>
+	                </div>
+	            </li>
+	        </ul>
+        </div>
+        <div class="intro">
+        	藏品简介：$!{model.collectionDetail.detail.introduction}
+        </div>
+        <div class="data">
+        	<ul class="ui-list ui-border-tb ui-list-text">
+                <li class="ui-border-t"><span class="label">成交日期：</span><span class="ui-txt-warning">$!{model.collectionDetail.detail.transaction_price_time} </span></li>
+                <li class="ui-border-t"><span class="label">成交于：</span><span class="ui-txt-warning">$!{model.auctionName} </span></li>
+                <li class="ui-border-t"><span class="label">成交价格：</span><span class="ui-txt-warning">$!{model.collectionDetail.detail.transaction_price}$!{model.collectionDetail.detail.transaction_price_unit}</span></li>
+                <li class="ui-border-t"><span class="label">文字说明：$!{model.collectionDetail.detail.transaction_desc}</span></li>
+            </ul>
+        </div>
+        <div class="btns cc">
+        	<a href="searchFriend?id=$!{model.collectionDetail.detail.id}" class="fl">邀请评论</a>
+        	<a href="toComment?id=$!{model.collectionDetail.detail.id}&source_type=0" class="fr">发表评论</a>
+        </div>
+        <div class="comment-info">
+        	<div class="ui-row-flex">
+                <div class="ui-col ui-col">当前共 $!{model.collectionDetail.commentsTotal}条评论</div>
+                <div class="ui-col ui-col ui-arrowlink" data-href="toAllComments?id=$!{model.collectionDetail.detail.id}&source_type=0">查看全部评论</div>
+            </div>
+        </div>
+        <div class="comment-list">
+        	<ul class="ui-list ui-list-pure ui-border-b">
+                #foreach($comment in $model.collectionDetail.comments)
+                <li class="ui-border-t">
+                    <p>
+                    	<!-- <span class="star">
+                    		<i class="active"></i>
+                    		<i class="active"></i>
+                    		<i class="active"></i>
+                    		<i></i>
+                    		<i></i>
+                    	</span> -->
+                    	<i>$!{comment.user_name}</i>
+                    	<i class="date fr">$!{comment.like_size}条赞同</i>
+                    	<!-- <span class="date fr">$!{comment.user_name}</span>-->
+                	</p>
+                    <h4>$!{comment.content}</h4>
+                </li>
+                #end
+            </ul>
+        </div>
+	    <div class="sharepop">
+			<div class="inner">
+				<div class="tit">分享</div>
+				<ul class="cc bb">
+					<!-- <li id="kWeixin" style="display: none"><a href="javascript:share('weixin');"><img alt="" src="images/share-weixin.png"><p>微信</p></a></li>
+					<li id="kWeixinFriend" style="display: none"><a href="javascript:share('weixinFriend');"><img alt="" src="images/share-firend.png"><p>朋友圈</p></a></li>
+					<li><a href="javascript:shareclntoqq('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq-weibo.png"><p>腾讯微博</p></a></li>
+					<li><a href="javascript:shareclntosina('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-weibo.png"><p>新浪微博</p></a></li>
+					<li><a href="javascript:shareclntoqqzone('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq.png"><p>QQ</p></a></li> -->
+					<!-- <li><a href="javascript:;"><img alt="" src="images/share-email.png"><p>邮件</p></a></li>-->
+					<!--<li><a href="javascript:;"><img alt="" src="images/share-message.png"><p>短信</p></a></li>-->
+				</ul>
+				<div class="p">
+					<button class="btn">取消</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/swiper/swiper.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<!-- <script src="js/share.js"></script>
+	<script src="js/nShare.js"></script> -->
+	<script>
+		new Swiper('.swiper', {
+			pagination : '.swiper-pagination'
+		});
+
+		// 显示分享层
+		(function(){
+			var shareBtn = $(".share");
+			var shareBox = $(".sharepop");
+			
+			shareBtn.click(function(){
+				//shareBox.addClass("show");
+				appToShare();
+				return false;
+			});
+			
+			shareBox.find(".btn").click(function(){
+				shareBox.addClass("hide");
+				setTimeout(function(){
+					shareBox.removeClass("show").removeClass("hide");
+				},600);
+			});
+			
+			/**init();
+			var config = {
+	            url: window.location.href,
+	            title:'$!{model.collectionDetail.detail.title}',
+	            desc:'$!{model.collectionDetail.detail.introduction}',
+	            img:'$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}',
+	            img_title:'',
+	            from:'收藏+'
+	        };
+			refConfig(config);*/
+		})();
+		
+		function addFavorites(collectionId)
+		{
+		   var options = {
+                type : "POST",
+	            url: "addFavorites",
+	            data: {"id" : collectionId},
+	            dataType : "json",
+	            success : function(result) {
+	               if (result.result)
+	               {
+	                   $("#favorites").attr("href",'javascript:deleteFavorites(\'$!{model.collectionDetail.detail.id}\');');
+	                   $("#favorites").removeClass('love');
+	                   $("#favorites").addClass('activelove');
+	               }
+	               tips(result.msg);
+	            },
+	            error : function(error) {
+	                tips("添加收藏失败");
+	            }
+            }
+            $.ajax(options);
+		}
+		
+		function deleteFavorites(collectionId)
+		{
+		   var options = {
+                type : "POST",
+	            url: "deleteFavorites",
+	            data: {"id" : collectionId},
+	            dataType : "json",
+	            success : function(result) {
+	               if (result.result)
+	               {
+	                   $("#favorites").attr("href",'javascript:addFavorites(\'$!{model.collectionDetail.detail.id}\');');
+	                   $("#favorites").removeClass('activelove');
+	                   $("#favorites").addClass('love');
+	               }
+	               tips(result.msg);
+	            },
+	            error : function(error) {
+	                tips("删除收藏失败");
+	            }
+            }
+            $.ajax(options);
+		}
+		
+		function appToShare()
+		{
+	        if (window.HostApp) {
+	            var reqURL = window.location.href;
+	            var hostURL = window.location.origin;
+	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}';
+	            
+	            if (imgURL != null && imgURL.indexOf('http://') == -1)
+	            {
+	                imgURL = hostURL + imgURL;
+	            }
+	            
+	            var introduction = '$!{model.collectionDetail.detail.introduction}';
+	            //简介为空时，分享不出去，简介设置这空字符串
+	            if (introduction == '')
+	            {
+	               introduction = ' ';
+	            }
+		        /** window.HostApp.share('$!{model.collectionDetail.detail.title}',
+		            '$!{model.collectionDetail.detail.introduction}',
+		            reqURL,
+		            '');*/
+	            window.HostApp.share('$!{model.collectionDetail.detail.title}',
+		            introduction,
+		            imgURL,
+		            reqURL);
+		    }
+		    else
+		    {
+		        tips("非收藏+客户端暂不支持分享");
+		    }
+		}
+	</script>
+</body>
+</html>

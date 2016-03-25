@@ -1,0 +1,186 @@
+﻿<project basedir="." default="osource.war" name="osource">
+ <target name="init" >
+  <property name="Name" value="osource" />
+  <property name="name" value="osource" />
+  <property name="version" value="2.0" />
+  <property name="year" value="2009" />
+
+  <echo message="----------- ${Name} ${version} [${year}] ------------" />
+
+  <property name="debug" value="off" />
+  <property name="optimize" value="on" />
+  <property name="basedir" value="../" />
+<!--   java源文件路径 -->
+
+  <property name="src.dir" value="src" />
+
+<!--   jar包路径 -->
+  <property name="lib.dir" value="../common/lib" />
+  <property name="common.ipdata" value="../common/IPdata" />
+<echo message="${lib.dir}----------------------------" />
+<!--   webapp路径 -->
+  <property name="webapp.dir" value="${basedir}/osource/" />
+
+
+<!--   准备源文件路径 -->
+  <property name="build.src" value="${basedir}/build/src" />
+
+
+<!--   准备war源文件路径 -->
+  <property name="buildwar.dest" value="${basedir}/build/warsrc" />
+
+
+<!--   打包war文件路径 -->
+  <property name="war.dest" value="${basedir}/dist/" />
+
+<!--   tomcat-home路径 -->
+  <property name="tomcat.home" value="E:\apache-tomcat-6.0.26"/> 
+
+
+<!--   classpath -->
+  <path id="classpath">
+   <fileset dir="${buildwar.dest}/WEB-INF/lib">
+    <include name="**/*.jar"/>
+   </fileset>
+   <!--<pathelement location="lib/"/>-->
+  </path>
+
+
+
+  <filter token="year" value="${year}" />
+  <filter token="version" value="${version}" />
+  <filter token="date" value="${TODAY}" />
+  <filter token="log" value="true" />
+  <filter token="verbose" value="true" />
+
+
+
+ </target>
+
+
+
+  <!-- =================================================================== -->
+ <!-- Help on usage -->
+ <!-- =================================================================== -->
+ <target name="usage" depends="init">
+  <echo message="${Name} Build file" />
+  <echo message="-------------------------------------------------------------" />
+  <echo message="" />
+  <echo message=" available targets are:" />
+  <echo message="" />
+  <echo message=" jar --> generates the ${name}.jar file" />
+  <echo message=" build --> compiles the source code" />
+  <echo message=" clean --> cleans up the directory" />
+  <echo message="" />
+  <echo message=" See the comments inside the build.xml file for more details." />
+  <echo message="-------------------------------------------------------------" />
+  <echo message="" />
+  <echo message="" />
+ </target>
+
+
+
+ <!-- =================================================================== -->
+ <!-- 准备源文件-->
+ <!-- =================================================================== -->
+ <target name="prepare-src" depends="init,usage,clean">
+  <!-- create directories -->
+  <mkdir dir="${build.src}" />
+  <mkdir dir="${war.dest}" />
+  <mkdir dir="${buildwar.dest}" />
+  <mkdir dir="${buildwar.dest}/WEB-INF/lib"/>
+  <mkdir dir="${buildwar.dest}/WEB-INF/classes"/>
+  <mkdir dir="${buildwar.dest}/WEB-INF/IPdata"/>
+  
+  <!-- copy src files -->
+  <copy todir="${build.src}">
+   <fileset dir="${src.dir}" >
+	<exclude name="test/"/>
+	<exclude name="com/osource/template/"/>
+	<exclude name="com/osource/template/"/>
+	<exclude name="com/osource/template2/"/>
+	<exclude name="com/osource/module/demo/"/>
+   </fileset>
+  </copy>
+  <copy todir="${buildwar.dest}">
+   <fileset dir="${webapp.dir}">
+   <exclude name="module/demo/"/>
+   </fileset>
+  </copy>
+  <copy todir="${buildwar.dest}/WEB-INF/lib">
+    <fileset dir="${lib.dir}" >
+	  <include name="*.jar"/>
+	  <exclude name="javax.servlet*.jar"/>
+    </fileset>
+  </copy>
+ </target>
+
+
+
+ <!-- =================================================================== -->
+ <!-- 编译源文件-->
+ <!-- =================================================================== -->
+ <target name="build" depends="prepare-src">
+  <javac srcdir="${build.src}" encoding="UTF-8" destdir="${buildwar.dest}/WEB-INF/classes" debug="${debug}" optimize="${optimize}">
+   <classpath refid="classpath" />
+  </javac>
+  <copy todir="${buildwar.dest}/WEB-INF/classes">
+   <fileset dir="${build.src}" >
+    <exclude name="**/*.java"/>
+   </fileset>
+  </copy>
+  <copy todir="${buildwar.dest}/WEB-INF/classes">
+     <fileset dir="../common/IPdata" >
+   </fileset>
+  </copy>
+ </target>
+
+
+
+ <!-- =================================================================== -->
+ <!-- 打war包-->
+ <!-- =================================================================== -->
+
+ <target name="war" depends="build">
+  <war warfile="${war.dest}/osource.war" webxml="${buildwar.dest}/WEB-INF/web.xml">
+   <fileset dir="${buildwar.dest}">    
+  </fileset> 
+  </war>
+ </target>
+
+ <!-- =================================================================== -->
+ <!-- 打war文件夹报-->
+ <!-- =================================================================== -->
+ <target name="osource.war" depends="build">
+  <copy todir="${war.dest}/osource.war">
+   <fileset dir="${buildwar.dest}" >
+    <include name="**/*.*"/>
+   </fileset>
+  </copy>
+  <delete dir="${basedir}/build"/>
+ </target>
+
+
+ <!-- =================================================================== -->
+ <!-- 发布到tomcat-->
+ <!-- ===================================================================  -->
+
+ <target name="publish" depends="osource.war,clean">
+  <copy todir="${tomcat.home}/webapps">
+   <fileset dir="${war.dest}">
+    <include name="**/*.*"/>
+   </fileset>
+  </copy>
+   </target>
+ <!-- =================================================================== -->
+ <!-- 清除临时文件-->
+ <!-- =================================================================== -->
+
+ <target name="clean" depends="init">
+  <delete dir="${basedir}/build"/>
+	<delete dir="${basedir}/dist"/>
+ </target>
+
+
+</project>
+

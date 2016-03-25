@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<package name="map" extends="ictmap-default" namespace="/module/map">
+		<action name="centerPoint_*" class="com.osource.module.map.web.action.CenterPointAction" 
+			method="{1}">
+			<result name="frame">/module/map/jsp/centerPointFrame.jsp</result>		
+			<result name="default">/module/map/jsp/centerPointFind.jsp</result>
+			<result name="dialog">/module/map/jsp/centerPointSave.jsp</result>
+			<result name="map">/module/map/jsp/centerPointMap.jsp</result>
+		</action>
+		<action name="historyTrace_*" class="com.osource.module.map.web.action.HistoryTraceAction" 
+			method="{1}">
+			<result name="frame">/module/map/jsp/historyTraceFrame.jsp</result>	
+			<result name="map">/module/map/jsp/historyTraceMap.jsp</result>	
+     		<result name="init">/module/map/jsp/historyTraceMgr.jsp</result>	
+			<!--  <result name="list">/module/map/jsp/historyTraceList.jsp</result>-->
+     		<result name="tree">/module/map/jsp/traceTree.jsp</result>
+     		<result name="getTree">/module/map/jsp/traceTreeDirect.jsp</result>
+		</action>
+		<action name="railings_*" class="com.osource.module.map.web.action.RailingsAction" 
+			method="{1}">
+			<result name="frame">/module/map/jsp/railingsFrame.jsp</result>
+			<result name="map">/module/map/jsp/railingsMap.jsp</result>		
+     		<result name="init">/module/map/jsp/railingsMgr.jsp</result>	
+     		<result name="dialog">/module/map/jsp/railingsSave.jsp</result>	
+     		<result name="list">/module/map/jsp/railingsList.jsp</result>
+     		<result name="set">/module/map/jsp/railingsSet.jsp</result>
+     		<!--<result name="pop">/module/map/jsp/railingsSave.jsp</result>-->
+     		<result name="popcommon">/module/map/jsp/railingsSaveCommon.jsp</result>
+     		<!--  <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref> -->
+		</action>
+		<action name="check_*" class="com.osource.module.map.web.action.CheckAction" method="{1}">
+	    <result name="init">/module/map/jsp/checkMgr.jsp</result>
+	    <result name="list">/module/map/jsp/checkList.jsp</result>
+	    <result name="view">/module/map/jsp/checkView.jsp</result>
+	    <result name="set">/module/map/jsp/checkSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">check_init</param>
+		</result>
+	</action>
+	
+	<action name="locaQuery_*" class="com.osource.module.map.web.action.LocaQueryAction" method="{1}">
+	    <result name="frame">/module/map/jsp/locaQueryFrame.jsp</result>
+	    <result name="init">/module/map/jsp/locaQueryMgr.jsp</result>
+	    <result name="googleInit">/module/map/jsp/googleLocationMgr.jsp</result>
+	    <!--<result name="map">/module/map/jsp/locaQueryMap.jsp</result> -->
+	    <result name="list">/module/map/jsp/locaQueryList.jsp</result>
+	    <!--<result name="view">/module/map/jsp/locaQueryView.jsp</result> -->
+	    <result name="view">/module/map/jsp/mapSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">locaQuery_init</param>
+		</result>
+	</action>
+	
+	<action name="notifyVoice_*" class="com.osource.module.map.web.action.NotifyVoiceAction" method="{1}" >
+	 	<!-- <interceptor-ref name="noPermissionUserAuthInterceptorStack"></interceptor-ref> -->
+	 	<result name="init">/module/map/jsp/notifyVoiceMgr.jsp</result>
+	 	<result name="list">/module/map/jsp/notifyVoiceList.jsp</result>
+	</action>
+	
+	<action name="voiceCheck_*" class="com.osource.module.map.web.action.VoiceCheckAction" method="{1}">
+	    <result name="init">/module/map/jsp/voiceCheckMgr.jsp</result>
+	    <result name="list">/module/map/jsp/voiceCheckList.jsp</result>
+	    <result name="view">/module/map/jsp/voiceCheckView.jsp</result>
+	    <result name="set">/module/map/jsp/voiceCheckSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">voiceCheck_init</param>
+		</result>
+	</action>
+	
+	<action name="areaTime_*" class="com.osource.module.map.web.action.AreaTimeAction" method="{1}">
+	    <result name="frame">/module/map/jsp/areaTimeFrame.jsp</result>
+	    <result name="init">/module/map/jsp/areaTimeMgr.jsp</result>
+	    <result name="list">/module/map/jsp/areaTimeList.jsp</result>
+	    <result name="view">/module/map/jsp/areaTimeView.jsp</result>
+	    <result name="set">/module/map/jsp/areaTimeSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">areaTime_init</param>
+		</result>
+	</action>
+	
+	<action name="actual_*" class="com.osource.module.map.web.action.ActualAction" method="{1}">
+	    <result name="init">/module/map/jsp/actualMgr.jsp</result>
+	    <result name="list">/module/map/jsp/actualList.jsp</result>
+	    <result name="view">/module/map/jsp/actualView.jsp</result>
+	    <result name="set">/module/map/jsp/actualSet.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">actual_init</param>
+		</result>
+	</action>
+	
+</package>
+</struts>

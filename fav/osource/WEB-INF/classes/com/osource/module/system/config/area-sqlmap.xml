@@ -1,0 +1,28 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.base.util.Entry" id="areaResultMap">
+		<result property="key" column="code"/>
+		<result property="value" column="name"/>
+	</resultMap>
+<!--查询省-->
+    <select id="system_area_getProvinceSelectList" parameterClass="java.lang.String" resultMap="areaResultMap">
+        select code,name from ts_province order by id
+    </select>
+
+    <select id="system_area_getAllCity" resultMap="areaResultMap">
+        select code,name from ts_city order by id
+    </select>
+    
+<!--根据省查询城市-->
+    <select id="system_area_getCitySelectList" parameterClass="java.lang.String" resultMap="areaResultMap">
+        select code,name from ts_city where provincecode = #value# order by id
+    </select>
+
+    <select id="system_area_getAllArea" resultMap="areaResultMap">
+        select code,name from ts_area order by id
+    </select>
+<!--根据城市查询区县-->
+    <select id="system_area_getAreaSelectList" parameterClass="java.lang.String" resultMap="areaResultMap">
+        select code,name from ts_area where citycode = #value# order by id
+    </select>
+</sqlMap>

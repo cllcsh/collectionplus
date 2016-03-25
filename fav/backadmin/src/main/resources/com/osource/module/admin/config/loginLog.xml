@@ -1,0 +1,129 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<select id="admin_loginLog_query" parameterClass="com.osource.module.admin.model.LoginLogBean" resultClass="com.osource.module.admin.model.LoginLogBean">
+		select log.id as id,
+			log.login_name   as loginName,
+			log.login_ip     as loginIp,
+			DATE_FORMAT(log.login_date,'%Y-%m-%d %T') as loginDate,
+			<!--  login_date   as loginDate,-->
+			log.login_result as loginResult,
+			log.login_addr   as loginAddr,
+			log.dept_id      as deptId
+		from ts_login_log log 
+	    where log.use_flag = '1' 
+		<isNotEmpty prepend=" AND " property="loginResult"><![CDATA[ log.login_result=#loginResult# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="loginName"><![CDATA[ LOCATE(#loginName#, log.login_name) >0 ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="loginIp"><![CDATA[ LOCATE(#loginIp#, log.login_ip) >0]]></isNotEmpty>	
+		<!--  <isNotEmpty prepend=" AND " property="loginDate"><![CDATA[login_date=DATE_FORMAT(#loginDate#,'%Y-%m-%d %T')]]></isNotEmpty>  -->
+		<isNotEmpty prepend=" AND " property="loginFirDate"><![CDATA[log.login_date>=DATE_FORMAT(#loginFirDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="loginEndDate"><![CDATA[log.login_date<=DATE_FORMAT(#loginEndDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	     order by log.login_date desc
+	</select>
+	
+	<delete id="admin_loginLog_delete" parameterClass="String">
+		update   ts_login_log  set use_flag = 0  where id = $value$
+	</delete>
+	
+	<delete id="admin_loginLog_deletes" parameterClass="String">
+		update   ts_login_log  set use_flag = 0  where id in $value$
+	</delete>
+	
+	<select id="admin_loginLog_getCount" 
+		resultClass="java.lang.Integer">
+		select count(*) 
+		from ts_login_log log
+		where log.use_flag = 1 
+	    <isNotEmpty prepend=" AND " property="loginResult"><![CDATA[ log.login_result=#loginResult# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="loginName"><![CDATA[ LOCATE(#loginName#, log.login_name) >0 ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="loginIp"><![CDATA[ LOCATE(#loginIp#, log.login_ip) >0 ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="loginFirDate"><![CDATA[log.login_date>=DATE_FORMAT(#loginFirDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	    <isNotEmpty prepend=" AND " property="loginEndDate"><![CDATA[log.login_date<=DATE_FORMAT(#loginEndDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	</select>
+	 
+    <insert id="admin_loginLog_save" parameterClass="com.osource.module.admin.model.LoginLogBean">
+    	<![CDATA[
+    		insert into ts_login_log(id,login_name,login_date,login_ip,login_addr,login_result,dept_id,use_flag) 
+    			values(#id#,#loginName#,now(),#loginIp#,#loginAddr#,#loginResult#,0,1)
+    	]]>
+    </insert>
+ 
+ 
+ 	<select id="admin_loginSta_query" parameterClass="com.osource.module.admin.model.LoginStaBean" resultClass="com.osource.module.admin.model.LoginStaBean">
+		select log.id as id,
+			log.login_name   as loginName,
+			log.login_ip     as loginIp,
+			DATE_FORMAT(log.login_date,'%Y-%m-%d %T') as loginDate,
+			<!--  login_date   as loginDate,-->
+			log.login_result as loginResult,
+			log.login_addr   as loginAddr,
+			log.dept_id      as deptId,
+			log.online_time as onlineTime,
+			user.name as userName,
+			dept.name as deptName
+		from ts_login_log log, tb_user user
+	    where log.login_name = user.login_name 
+	    and log.use_flag = '1' 
+			<isNotEmpty prepend=" AND " property="loginResult"><![CDATA[ log.login_result=#loginResult# ]]></isNotEmpty>
+			<isNotEmpty prepend=" AND " property="loginName"><![CDATA[ LOCATE(#loginName#, log.login_name) >0 ]]></isNotEmpty>	
+			<isNotEmpty prepend=" AND " property="loginIp"><![CDATA[ LOCATE(#loginIp#, log.login_ip) >0]]></isNotEmpty>	
+			<isNotEmpty prepend=" AND " property="loginFirDate"><![CDATA[log.login_date>=DATE_FORMAT(#loginFirDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+		  <isNotEmpty prepend=" AND " property="loginEndDate"><![CDATA[log.login_date<=DATE_FORMAT(#loginEndDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	     order by log.login_date desc
+	</select>
+
+ 	<select id="admin_loginSta_exportQuery" parameterClass="java.util.HashMap" resultClass="com.osource.module.admin.model.LoginStaBean">
+		select log.id as id,
+			log.login_name   as loginName,
+			log.login_ip     as loginIp,
+			DATE_FORMAT(log.login_date,'%Y-%m-%d %T') as loginDate,
+			case when log.login_result = 1 then '成功'
+				 when log.login_result = 2 then '用户名不存在'
+				 when log.login_result = 3 then '密码错误'
+				 when log.login_result = 4 then '验证码错误 '
+			end as loginResult,
+			log.login_addr   as loginAddr,
+			log.dept_id      as deptId,
+			log.online_time as onlineTime,
+			user.name as userName,
+			dept.name as deptName
+		from ts_login_log log, tb_user user
+	    where log.login_name = user.login_name 
+	    and log.use_flag = '1' 
+			<isNotEmpty prepend=" AND " property="loginResult"><![CDATA[ log.login_result=#loginResult# ]]></isNotEmpty>
+			<isNotEmpty prepend=" AND " property="loginName"><![CDATA[ LOCATE(#loginName#, log.login_name) >0 ]]></isNotEmpty>	
+			<isNotEmpty prepend=" AND " property="loginIp"><![CDATA[ LOCATE(#loginIp#, log.login_ip) >0]]></isNotEmpty>	
+			<isNotEmpty prepend=" AND " property="loginFirDate"><![CDATA[log.login_date>=DATE_FORMAT(#loginFirDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+		  <isNotEmpty prepend=" AND " property="loginEndDate"><![CDATA[log.login_date<=DATE_FORMAT(#loginEndDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	     order by log.login_date desc
+	</select>
+	
+	<delete id="admin_loginSta_delete" parameterClass="String">
+		update   ts_login_log  set use_flag = 0  where id = $value$
+	</delete>
+	
+	<delete id="admin_loginSta_deletes" parameterClass="String">
+		update   ts_login_log  set use_flag = 0  where id in $value$
+	</delete>
+	
+	<select id="admin_loginSta_getCount" 
+		resultClass="java.lang.Integer">
+		select count(*) 
+		from ts_login_log log
+		where log.use_flag = 1 
+	    <isNotEmpty prepend=" AND " property="loginResult"><![CDATA[ log.login_result=#loginResult# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="loginName"><![CDATA[ LOCATE(#loginName#, log.login_name) >0 ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="loginIp"><![CDATA[ LOCATE(#loginIp#, log.login_ip) >0 ]]></isNotEmpty>	
+		<isNotEmpty prepend=" AND " property="loginFirDate"><![CDATA[log.login_date>=DATE_FORMAT(#loginFirDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	    <isNotEmpty prepend=" AND " property="loginEndDate"><![CDATA[log.login_date<=DATE_FORMAT(#loginEndDate#,'%Y-%m-%d %T')]]></isNotEmpty>
+	</select>
+	 
+    <insert id="admin_loginSta_save" parameterClass="com.osource.module.admin.model.LoginLogBean">
+    	<![CDATA[
+    		insert into ts_login_log(id,login_name,login_date,login_ip,login_addr,login_result,dept_id,use_flag) 
+    			values(#id#,#loginName#,now(),#loginIp#,#loginAddr#,#loginResult#,0,1)
+    	]]>
+    </insert>
+ 
+</sqlMap>
+

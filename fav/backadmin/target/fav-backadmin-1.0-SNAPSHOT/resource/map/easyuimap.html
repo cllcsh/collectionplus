@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text-html; charset=utf-8" />
+	<script type="text/javascript" src="jquery-1.4.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="scripts/SuperMap.IS.Include.js"></script>
+    <script type="text/javascript" src="SuperMap.ictmap.CustomMark.js"></script>
+	<script type="text/javascript" src="SuperMap.ictmap.ToolbarControl.js"></script>
+	<script type="text/javascript" src="SuperMap.ictmap.Overlay.js"></script>
+	<script type="text/javascript" src="SuperMap.ictmap.Action.js"></script>
+	<script type="text/javascript" src="jquery.ictmap.js"></script>
+	<script type="text/javascript" src="jiangsu.js"></script>
+
+
+  <script type="text/javascript">
+	jQuery(function(){
+		var map = jQuery('#myMap').ictmap({mapHandler:'http://202.102.112.26:8089/',toolmode:'full'},function(){
+			$('#MapControl_workLayer').width('100%').height('100%');
+		});
+		$('#test1').click(function(){
+		//	map.addOverlay(new SuperMap.ictmap.Marker({x:118.769464113121,	y:32.0534903971}, {img:"images/personal.png",minZoomLevel:12}));
+		//	map.addOverlay(new SuperMap.ictmap.Marker({x:118.7794641131,	y:32.04349039}, {img:"images/tag_red2.png",minZoomLevel:13}));
+		//	map.addOverlay(new SuperMap.ictmap.Marker({x:118.7694643121,	y:32.06343971}, {img:"images/personal.png",minZoomLevel:6}));
+			map.addOverlay(new SuperMap.ictmap.LocMarker({x:118.7464113121,	y:32.044903971, id:123},12, {minZoomLevel:11}));
+			map.addOverlay(new SuperMap.ictmap.Marker({x:118.769464121,	y:32.04349971}, {width:31,height:32,img:"images/walk4.gif"}));
+		});
+		$('#locBtn').click(function(){
+			//map.addOverlay(new SuperMap.ictmap.LocMarker({x:118.769464113121, y:32.0534903971, id:123},12, {img:"images/personal.png",minZoomLevel:12}));
+			map.addOverlay(new SuperMap.ictmap.LocMarker({x:118.779690,	y:32.081380, id:123},12, {img:"images/tag_red2.png",minZoomLevel:5, infowin:{width:300,height:600,title:"标题", content:"自适应宽度",onshow:function(info){info.html("我爱你sjdfksdjfksdjfksdjlfkds<div><img src='373980.jpg'/><div>")}}}));
+			//map.addOverlay(new SuperMap.ictmap.LocMarker({x:118.7694643121,	y:32.06343971, id:123},12, {img:"images/personal.png",minZoomLevel:6}));
+		});
+		$('#drawLine').click(function(){
+			map.addOverlay(new SuperMap.ictmap.Polyline([{x:118.7464113121,	y:32.044903971},{x:118.7794641131,	y:32.04349039},{x:118.769464113121,	y:32.0534903971}], {minZoomLevel:11}));
+		});
+		$('#drawLine2').click(function(){
+			map.addOverlay(new SuperMap.ictmap.LocHisPolyline([{x:118.7464113121, y:32.044903971, id:123},{x:118.76946421,y:32.0434971, id:124},{x:118.779464131,	y:32.04349039, id:125},{x:118.79464113121,	y:32.0534903971, id:126}],null,{id:"line1",minZoomLevel:11}));
+		});
+		$('#Polygon').click(function(){
+			map.addOverlay(new SuperMap.ictmap.Polygon([{x:118.74641121, y:32.04403971, id:123},{x:118.7694641,y:32.033971, id:124},{x:118.79464131,	y:32.0449039, id:125},{x:118.7946113121,	y:32.0834903971, id:126}],null,{id:"Polygon",minZoomLevel:11}));
+		});
+		$('#drawNum').click(function(){
+			map.addOverlay(new SuperMap.ictmap.NumMarker({x:118.769464121,	y:32.04349971},189,189, {width:31,height:32,img:"images/walk4.gif"}));
+		});
+		$('#level').click(function(){
+			alert(map.getMapControl().GetMapScale());
+		});
+		$('#area').click(function(){
+			map.addOverlay(new SuperMap.ictmap.AreaPolygon(A340000.xs,A340000.ys,null,{id:"Polygon",minZoomLevel:11}));
+		});
+	})
+  </script>
+</head>
+<body class="easyui-layout">
+<div region="east" split="true" title="East" style="width:280px;padding:0px;">
+			<div class="easyui-accordion" fit="true" border="false">
+				<div title="Title1" style="overflow:auto;">
+					<p>content1</p>
+					<p>content1</p>
+					<p>content1</p>
+					<p>content1</p>
+					<p>content1</p>
+					<p>content1</p>
+					<p>content1</p>
+					<p>content12</p>
+				</div>
+				<div title="Title2" selected="true" style="padding:10px;">
+					<input id="test1" type="button" value="打点"/>
+					<input id="locBtn" type="button" value="打定位点"/>
+					<input id="drawLine" type="button" value="划线"/>
+					<input id="drawLine2" type="button" value="划线2"/>
+					<input id="level" type="button" value="层级"/>
+					<input id="Polygon" type="button" value="画区域"/>
+					<input id="drawNum" type="button" value="打数字点"/>
+					<input id="area" type="button" value="行政围栏"/>
+				</div>
+				<div title="Title3">
+					content3
+				</div>
+			</div>
+	</div>
+	<div region="center" style="overflow:hidden;">
+		<div id="myMap" class="map"  style="position: relative; margin: 0px auto; overflow: hidden; width: 100%;min-height: 500px; height: 100%"></div>
+	</div>
+</body>
+</html>

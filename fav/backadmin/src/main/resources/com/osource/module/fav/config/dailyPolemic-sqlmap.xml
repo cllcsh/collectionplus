@@ -1,0 +1,79 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DailyPolemicInfo" id="dailyPolemicInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="images" column="images" />
+		<result property="aViewpoint" column="a_viewpoint" />
+		<result property="bViewpoint" column="b_viewpoint" />
+		<result property="supportAViewpoint" column="support_a_viewpoint" />
+		<result property="supportBViewpoint" column="support_b_viewpoint" />
+	</resultMap>
+	<select id="fav_dailyPolemic_countAll" resultClass="int">
+		select count(*) from tb_daily_polemic
+	</select>
+
+	<select id="fav_dailyPolemic_findAll" resultMap="dailyPolemicInfoResultMap">
+		select t.* from tb_daily_polemic order by t.insert_date desc
+	</select>
+
+	<select id="fav_dailyPolemic_findById" parameterClass="java.lang.Integer" resultMap="dailyPolemicInfoResultMap">
+		select * from tb_daily_polemic where id = #value#
+	</select>
+	
+	<select id="fav_dailyPolemic_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_daily_polemic t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content=#content# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="images"><![CDATA[ t.images=#images# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="aViewpoint"><![CDATA[ t.a_viewpoint=#aViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="bViewpoint"><![CDATA[ t.b_viewpoint=#bViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="supportAViewpoint"><![CDATA[ t.support_a_viewpoint=#supportAViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="supportBViewpoint"><![CDATA[ t.support_b_viewpoint=#supportBViewpoint# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dailyPolemic_findByCondition" parameterClass="java.util.Map" resultMap="dailyPolemicInfoResultMap">
+		select t.* from tb_daily_polemic t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content=#content# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="images"><![CDATA[ t.images=#images# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="aViewpoint"><![CDATA[ t.a_viewpoint=#aViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="bViewpoint"><![CDATA[ t.b_viewpoint=#bViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="supportAViewpoint"><![CDATA[ t.support_a_viewpoint=#supportAViewpoint# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="supportBViewpoint"><![CDATA[ t.support_b_viewpoint=#supportBViewpoint# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_dailyPolemic_save" parameterClass="com.osource.module.fav.model.DailyPolemicInfo">
+		 insert into tb_daily_polemic(id,title,content,images,a_viewpoint,b_viewpoint,support_a_viewpoint,support_b_viewpoint,use_flag,insert_date,insert_id)
+    		values (#id#,#title#,#content#,#images#,#aViewpoint#,#bViewpoint#,#supportAViewpoint#,#supportBViewpoint#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_dailyPolemic_update" parameterClass="com.osource.module.fav.model.DailyPolemicInfo">
+		update tb_daily_polemic set
+	        title = #title#,
+	        content = #content#,
+	        images = #images#,
+	        a_viewpoint = #aViewpoint#,
+	        b_viewpoint = #bViewpoint#,
+	        support_a_viewpoint = #supportAViewpoint#,
+	        support_b_viewpoint = #supportBViewpoint#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_dailyPolemic_deleteInIds" parameterClass="java.util.List">
+		update tb_daily_polemic set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dailyPolemic_deleteById" parameterClass="String">
+		update tb_daily_polemic set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

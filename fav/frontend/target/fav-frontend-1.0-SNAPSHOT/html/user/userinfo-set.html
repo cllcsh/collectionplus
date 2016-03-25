@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sign.css"/>
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<div class="ui-flex ui-flex-pack-center">
+            <h1>完善个人信息</h1>
+        </div>
+        <button class="submit" onclick="defaultUserSet()">跳过</button>
+    </header>
+    <div class="release main">
+	    <form id="form1" action="" class="validform myform myform-label" method="post" onsubmit="return setUserInfo()">
+            <ul class="list">
+                <li class="group">
+                    <span class="label">恭喜您已经完成注册，请完善您的个人信息</span>
+                    <div  class="input-text text"></div>
+                    <div  class="input-text text"></div>
+                </li> 
+                <li class="group">
+                    <span class="label">昵称：</span>
+                    <input type="text" name="username" id="username" placeholder="最多16个字符，区分大小写" class="input-text text">
+                </li>
+                <li class="group ui-arrowlink" data-panel="like">
+                    <span class="label">选择兴趣：</span>
+                    <input type="text" name="" id="categoryNames" data-type="*" data-null="请选择您的兴趣方向" placeholder="请选择您的兴趣方向" class="input-text" readonly="readonly">
+                    <input type="hidden" name="categoryIds" id="categoryIds">
+                </li>
+            </ul>
+            <div class="mt10">
+                <input type="submit" value="确认提交" class="btn">
+            </div>
+        </form>
+        <div class="panel" id="like">
+            <header class="ui-header ui-header-positive header">
+                <i class="ui-icon-return"></i>
+                <div class="ui-flex ui-flex-pack-center">
+                    <h1>选择兴趣</h1>
+                </div>
+                <button class="submit" id="categorySelected" onclick="categorySelected(1)">全部取消</button>
+            </header>
+            <ul class="ui-list ui-list-text ui-border-tb">
+                #foreach($category in $model.categoryList)
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap">$!{category.getCategory_name()}</h4>
+                    </div>
+                    <label class="ui-checkbox">
+                        <input type="checkbox" id="$!{category.getId()}" checked>
+                    </label>
+                </li>
+                #end
+            </ul>
+        </div>
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        new Validform($('.validform'), {
+            beforeSubmit: function(form){
+                var username = form.find('#username');
+                if(username.val().length > 16){
+                    tips('昵称长度不能大于16个字符');
+                    username.focus();
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        (function(){
+            var panel = $('.panel');
+            panel.on('click', 'li.ui-border-t', function(){
+                var input = $(this).find('input');  
+                var allLen = $('.panel').find('li.ui-border-t').find('input[type=checkbox]').length;
+                var selectedLen = $('.panel').find('li.ui-border-t').find('input[type=checkbox]:checked').length;
+                if (allLen == selectedLen && selectedLen > 0)
+                {
+                    cancelAll();
+                }
+                else
+                {
+                    selectedAll();
+                }
+            });
+			
+			//重写script.js中方法
+			$('.panel .ui-icon-return').on('click', function(){
+				$(this).parents('.panel').removeClass('show');
+				var categoryNames = '';
+				var categoryIds = '';
+				$('.panel').find('li.ui-border-t').each(function(){
+				    var input = $(this).find('input');  
+				    if (input.is(':checked')){
+	                     categoryIds +=  ',' + input.attr("id");  
+	                     categoryNames += ',' + $(this).find('.ui-list-info h4.ui-nowrap').text();
+	                }
+				});
+				$('#categoryNames').val(categoryNames.length > 0 ? categoryNames.substr(1) : '');
+				$('#categoryIds').val(categoryIds.length > 0 ? categoryIds.substr(1) : '');
+			});
+        })();
+        
+        function checkParameter()
+        {
+            var username = $('#username');
+            var categoryIds = $('#categoryIds');
+            if(username.val().length > 16){
+                tips('昵称长度不能大于16个字符');
+                username.focus();
+                return false;
+            }
+
+            if(categoryIds.val() == ''){
+                //tips('请至少选择一个您的兴趣方向');
+                categoryIds.focus();
+                return false;   
+            }
+            return true;
+        }
+        
+        function setUserInfo()
+        {
+            if(!checkParameter())
+            {
+                return false;
+            }
+            var options = {
+                type : "POST",
+	            url: "updateUserInfoSet",
+	            data: $("#form1").serialize(),
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    window.location.href = "home";
+	                }
+	                else
+	                {
+	                    tips(result.msg);
+	                }
+	            },
+	            error : function(error) {
+	                tips("完善个人信息失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        function defaultUserSet()
+        {
+            var options = {
+                type : "POST",
+	            url: "updateUserInfoSet",
+	            data: {},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    window.location.href = "home";
+	                }
+	                else
+	                {
+	                    tips(result.msg);
+	                }
+	            },
+	            error : function(error) {
+	                tips("完善个人信息失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        function categorySelected(flag)
+        {
+            if (flag == 1)
+            {
+                
+                $('.panel').find('li.ui-border-t').each(function(){
+                    var input = $(this).find('input');  
+	                if(input.attr('checked')){
+	                    input.prop('checked', false);
+	                }
+                });
+                selectedAll();
+            }
+            else
+            {
+                $('.panel').find('li.ui-border-t').each(function(){
+                    var input = $(this).find('input');  
+                    if(!input.attr('checked')){
+                        input.prop('checked', true);
+		            }
+                });
+                cancelAll();
+            }
+        }
+        
+        function selectedAll()
+        {
+             $("#categorySelected").text("全部选中");
+             $("#categorySelected").removeAttr("onclick");
+             $("#categorySelected").attr("onclick","categorySelected(0);");
+        }
+        
+        function cancelAll()
+        {
+            $("#categorySelected").text("全部取消");
+            $("#categorySelected").removeAttr("onclick");
+            $("#categorySelected").attr("onclick","categorySelected(1);");
+        }
+    </script>
+</body>
+</html>

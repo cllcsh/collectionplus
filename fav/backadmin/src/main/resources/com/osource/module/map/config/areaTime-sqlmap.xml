@@ -1,0 +1,60 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.map.model.AreaTimeBean" id="areaTimeBeanResultMap" extends="baseResultMapNew">
+		
+	</resultMap>
+	<select id="module_areaTime_countAll" resultClass="int">
+		select count(*) from tb_location
+	</select>
+
+	<select id="module_areaTime_findAll" resultMap="areaTimeBeanResultMap">
+		select * from tb_location
+	</select>
+
+	<select id="module_areaTime_findById" parameterClass="java.lang.Integer" resultMap="areaTimeBeanResultMap">
+		select * from tb_location where id = #value#
+	</select>
+	
+	<select id="module_areaTime_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_location t, tb_dept d
+		where t.use_flag =1 and t.dept_id = d.id
+		<isNotEmpty prepend="AND" property="deptId">
+			d.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%') 
+		</isNotEmpty>
+	</select>
+	
+	<select id="module_areaTime_findByCondition" parameterClass="java.util.Map" resultMap="areaTimeBeanResultMap">
+		select t.* from tb_location t, tb_dept d
+		where t.use_flag =1 and t.dept_id = d.id
+		<isNotEmpty prepend="AND" property="deptId">
+			d.node like concat((select tb_dept.node from tb_dept where tb_dept.use_flag = '1' and tb_dept.id = 0), '%') 
+		</isNotEmpty>
+	</select>
+	
+	<insert id="module_areaTime_save" parameterClass="com.osource.module.map.model.AreaTimeBean">
+		insert into tb_location(id,
+			 
+			dept_id, use_flag, insert_date, insert_id)
+		values (#id#,
+			
+			0, 1, now(), #insertId#)
+	</insert>
+	
+	<update id="module_areaTime_update" parameterClass="com.osource.module.map.model.AreaTimeBean">
+		update tb_location set
+			update_date = now(),
+			update_id = #updateId#
+		where id = #id#
+	</update>
+	
+	<update id="module_areaTime_deleteInIds" parameterClass="java.util.List">
+		update tb_location set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="module_areaTime_deleteById" parameterClass="String">
+		update tb_location set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

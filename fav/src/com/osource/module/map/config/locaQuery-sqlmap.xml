@@ -1,0 +1,264 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="LocaQueryBean" type="com.osource.module.map.model.LocaQueryBean"/>
+	<typeAlias alias="LocaQueryForm" type="com.osource.module.map.web.form.LocaQueryForm"/>
+	
+	<!-- 查询该级机构下矫正对象或矫正工作者的信息列表(不包括子机构) -->
+	<select id="module_locaQuery_findByCondition" parameterClass="java.util.Map" resultClass="LocaQueryBean">
+		SELECT t1.id, t1.name, ifnull(t1.loc_no,'') locNum 
+		FROM 
+		<dynamic prepend="">
+			<isEqual prepend="" property="objType" compareValue="0">
+				tb_criminal t1, 
+			</isEqual>
+			<isEqual prepend="" property="objType" compareValue="1">
+				tb_user t1, 
+			</isEqual>
+		</dynamic>
+		tb_dept t2
+		WHERE t1.use_flag = 1 
+		AND t2.use_flag = 1
+		AND t1.dept_id = t2.id
+		and t1.status = 1
+		and LENGTH(t1.loc_no) = 11
+		AND t2.id = 0
+	</select>
+	
+	<!-- 统计该级机构下矫正对象或矫正工作者的人数(包括本级机构和所有子级机构) -->
+	<select id="module_locaQuery_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		SELECT count(t1.id) total 
+		FROM 
+		<dynamic prepend="">
+			<isEqual prepend="" property="objType" compareValue="0">
+				tb_criminal t1, 
+			</isEqual>
+			<isEqual prepend="" property="objType" compareValue="1">
+				tb_user t1, 
+			</isEqual>
+		</dynamic>
+		tb_dept t2
+		WHERE t1.use_flag = 1 
+		AND t2.use_flag = 1
+		AND t1.dept_id = t2.id
+		and t1.status = 1
+		and LENGTH(t1.loc_no) = 11
+		AND t2.node LIKE 
+			(SELECT CONCAT(node,'%') 
+			FROM tb_dept 
+			WHERE use_flag = 1 
+			AND id = 0);
+	</select>
+	
+	<select id="postition_criminal_findByCondition" parameterClass="java.util.List" resultClass="LocaQueryBean">
+		SELECT a.id, a.name, a.loc_num locNum, a.longitude , a.latitude, a.rectifyLong, 
+			   a.rectifyLat, a.placeName, a.pattern, date_format(b.loc_date,'%Y-%m-%d %H:%i:%s') locDate,
+			   a.areaId, (select name from v_railings_area where id = a.areaId) areaName,
+			   a.locId, a.radius, a.posour, a.pic_path
+		FROM (SELECT t2.id, t2.name, t2.railings_id areaId, t1.loc_num, t1.longitude , t1.latitude,
+			   t1.rectify_long rectifyLong, t1.rectify_lat rectifyLat,
+			   t1.placeName, t1.loc_date, t1.pattern, t1.id locId, t1.radius, t1.posour, t2.pic_path
+		FROM tb_location t1, tb_criminal t2
+		WHERE t1.use_flag = 1
+		AND t2.use_flag = 1
+		AND t1.terminal_id = t2.id
+		AND t1.loc_num = t2.loc_no
+		and t1.loc_code = 0
+		AND t2.id in 
+		<iterate conjunction="," open="(" close=")" >
+		    #value[]# 
+		</iterate>) a, 
+		(select terminal_id, id locId, loc_date from
+			(SELECT l.terminal_id, l.id,l.loc_date
+								FROM tb_location l left join tb_criminal c
+			                  on c.id = l.terminal_id
+								where l.use_flag = 1 and c.use_flag = 1
+			 and l.loc_code = 0 AND terminal_id in 
+		<iterate conjunction="," open="(" close=")" >
+		    #value[]# 
+		</iterate>
+			order by l.loc_date desc) t1
+			GROUP BY t1.terminal_id) b
+		where a.id = b.terminal_id 
+		AND a.locId = b.locId
+	</select>
+	
+	<select id="postition_user_findByCondition" parameterClass="java.util.List" resultClass="LocaQueryBean">
+		SELECT a.id, a.name, a.loc_num locNum, a.longitude , a.latitude, a.rectifyLong, 
+			   a.rectifyLat, a.placeName, a.pattern, date_format(a.loc_date,'%Y-%m-%d %H:%i:%s') locDate,
+			   a.locId, a.radius, a.posour, a.pic_path
+		FROM (SELECT t2.id, t2.name, t1.loc_num, t1.longitude , t1.latitude, 
+			   t1.rectify_long rectifyLong, t1.rectify_lat rectifyLat,
+			   t1.placeName, t1.loc_date, t1.pattern, t1.id locId, t1.radius, t1.posour, t2.pic_path
+		FROM tb_location t1, tb_user t2
+		WHERE t1.use_flag = 1
+		AND t2.use_flag = 1
+		AND t1.terminal_id = t2.id
+		AND t1.loc_num = t2.loc_no
+		and t1.loc_code = 0
+		AND t2.id in 
+		<iterate conjunction="," open="(" close=")" >
+		    #value[]# 
+		</iterate>) a, 
+		(SELECT terminal_id, MAX(id) locId
+		FROM tb_location 
+		where use_flag = 1
+		and loc_code = 0
+		AND terminal_id in 
+		<iterate conjunction="," open="(" close=")" >
+		    #value[]# 
+		</iterate>
+		GROUP BY terminal_id) b
+		where a.id = b.terminal_id 
+		AND a.locId = b.locId
+	</select>
+	
+	<select id="map_findLocationInfoById" parameterClass="LocaQueryForm" resultClass="LocaQueryBean">
+		SELECT t2.id, t2.name, t1.id locId, t1.loc_num locNum, t1.loc_code locCode, t1.longitude , t1.latitude, 
+			   t1.placeName, t1.loc_date locDate, t1.pattern, t1.rectify_long rectifyLong,
+			   t2.railings_id areaId, (select name from v_railings_area where id = t2.railings_id) areaName,
+			   t1.rectify_lat rectifyLat, t1.railings_id railingsId, t1.loc_imsi imsi, t1.radius, t1.posour, t2.pic_path
+			   <isEqual prepend="" property="objType" compareValue="0">
+				,t2.staff_id staffId,u.name staffName
+			</isEqual>
+		FROM tb_location t1 LEFT JOIN
+		<isEqual prepend="" property="objType" compareValue="0">
+			tb_criminal t2 
+		</isEqual>
+		<isEqual prepend="" property="objType" compareValue="1">
+			tb_user t2 
+		</isEqual> 
+		ON t1.terminal_id = t2.id
+		<isEqual prepend="" property="objType" compareValue="0">
+			left join tb_user u on t2.staff_id = u.id
+		</isEqual>
+		AND t2.use_flag = 1
+		WHERE t1.use_flag = 1 
+		AND t1.id = #id#
+	</select>
+	
+	<select id="map_findLastLocationInfoByNum" parameterClass="LocaQueryForm" resultClass="LocaQueryBean">
+		SELECT t2.id, t2.name, t1.id locId, t1.loc_num locNum, t1.loc_code locCode, t1.longitude , t1.latitude, 
+			   t1.placeName, t1.loc_date locDate, t1.pattern, t1.rectify_long rectifyLong,
+			   t2.railings_id areaId, (select name from v_railings_area where id = t2.railings_id) areaName,
+			   t1.rectify_lat rectifyLat, t1.railings_id railingsId, t1.loc_imsi imsi, t1.radius, t1.posour,t2.pic_path
+			   <isEqual prepend="" property="objType" compareValue="0">
+				,t2.staff_id staffId,u.name staffName
+			</isEqual>
+		FROM tb_location t1 LEFT JOIN
+		<isEqual prepend="" property="objType" compareValue="0">
+			tb_criminal t2
+		</isEqual>
+		<isEqual prepend="" property="objType" compareValue="1">
+			tb_user t2 
+		</isEqual> 
+		ON t1.terminal_id = t2.id
+		<isEqual prepend="" property="objType" compareValue="0">
+			left join tb_user u on t2.staff_id = u.id
+		</isEqual>
+		AND t2.use_flag = 1
+		WHERE t1.use_flag = 1
+		AND t1.loc_code = 0
+		AND t1.loc_num = #locNum#
+		ORDER BY t1.loc_date DESC LIMIT 1
+	</select>
+	
+	<select id="map_findLatestLocationInfoByNum" parameterClass="LocaQueryForm" resultClass="LocaQueryBean">
+		SELECT t2.id, t2.name, t1.id locId, t1.loc_num locNum, t1.loc_code locCode, t1.longitude , t1.latitude, 
+			   t1.placeName, t1.loc_date locDate, t1.pattern, t1.rectify_long rectifyLong,
+			   t2.railings_id areaId, (select name from v_railings_area where id = t2.railings_id) areaName,
+			   t1.rectify_lat rectifyLat, t1.railings_id railingsId, t1.loc_imsi imsi, t1.radius, t1.posour, t2.pic_path
+			<isEqual prepend="" property="objType" compareValue="0">
+				,t2.staff_id staffId,u.name staffName
+			</isEqual>
+		FROM tb_location t1 LEFT JOIN
+		<isEqual prepend="" property="objType" compareValue="0">
+			tb_criminal t2 
+		</isEqual>
+		<isEqual prepend="" property="objType" compareValue="1">
+			tb_user t2 
+		</isEqual> 
+		ON t1.terminal_id = t2.id
+		<isEqual prepend="" property="objType" compareValue="0">
+			left join tb_user u on t2.staff_id = u.id
+		</isEqual>
+		AND t2.use_flag = 1
+		WHERE t1.use_flag = 1
+		AND t1.loc_num = #locNum#
+		ORDER BY t1.loc_date DESC LIMIT 1
+	</select>
+	
+	<select id="historyTrace_location_getLocationInfoCountInDate" parameterClass="java.util.Map" 
+			resultClass="java.lang.Integer">
+		select count(*) from tb_location where use_flag = '1' 
+		and loc_date between #startDate# and #endDate# and loc_code = '0'
+		<dynamic prepend="and">
+			<isNotEmpty prepend="and" property="locNum">
+				 loc_num = #locNum# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="id">
+				terminal_id = #terminalId#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="historyTrace_location_findLocationInfoInDate" parameterClass="java.util.Map" 
+			resultClass="com.osource.module.map.model.LocaQueryBean">
+		select a.id,
+        	a.railings_id as railingsId,
+        	a.loc_num as locNum, 
+         	a.loc_code as locCode,
+         	a.loc_date as locDate,
+          	a.placename as placeName, 
+	    	a.longitude,
+            a.latitude, 
+            a.rectify_long as rectifyLong, 
+            a.rectify_lat as rectifyLat, 
+            a.type,
+            a.dept_id as deptId,
+            a.use_flag as useFlag, 
+	     	a.insert_date as insertDate,
+            a.insert_id as insertId, 
+            a.update_date as updateDate,
+            ifnull(c.id, '0') as alarmStatus, 
+	     	a.update_id as updateId, 
+            b.name,
+            b.pic_path
+            from tb_location a left join tb_criminal b on 
+				(b.id = a.terminal_id and b.use_flag = '1') 
+				left join tb_beyond c on (c.location_id = a.id and c.use_flag = '1') 
+				where a.use_flag = '1' and a.loc_code = '0'
+		<dynamic prepend="and">
+		
+			<isNotEmpty prepend="and" property="startDate">
+	            a.loc_date between #startDate#
+	            <isNotEmpty prepend="and" property="endDate"> #endDate#</isNotEmpty>
+	       		<isEmpty prepend="and" property="endDate"> now() </isEmpty> 
+	       </isNotEmpty>
+	       <isEmpty prepend="and" property="startDate">
+	            a.loc_date between '1984-01-01' 
+	            <isNotEmpty prepend="and" property="endDate"> #endDate# </isNotEmpty>
+	       		<isEmpty prepend="and" property="endDate"> now()  </isEmpty> 
+	       </isEmpty>
+	       
+			<isNotEmpty prepend="and" property="locNum">
+				 a.loc_num = #locNum# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="terminalId">
+				a.terminal_id = #terminalId#
+			</isNotEmpty>
+		</dynamic>
+		order by a.loc_date
+	</select>
+	
+	<select id="map_findLocationInfo" parameterClass="java.lang.Integer" resultClass="LocaQueryBean">
+		SELECT t.name as holder,l.placename as placeName,
+		l.id as locationId,l.rectify_long as rectifyLong,
+		l.rectify_lat as rectifyLat,l.railings_id as railingsId,
+		l.loc_num as locNum,l.loc_date as locDate
+		FROM tb_location l LEFT JOIN
+		(select c.id,c.name,u.name as staffName from tb_criminal c left join tb_user u on c.staff_id = u.id) t
+		ON l.terminal_id = t.id
+		WHERE l.use_flag = 1 
+		AND l.id = #value#
+	</select>
+</sqlMap>

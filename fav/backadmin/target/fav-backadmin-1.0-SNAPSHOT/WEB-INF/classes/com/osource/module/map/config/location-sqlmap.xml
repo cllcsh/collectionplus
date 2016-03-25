@@ -1,0 +1,151 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.base.model.Location" id="locationResultMap" extends="baseResultMapNew">
+		<result property="terminalId" column="terminal_id"/>
+		<result property="railingsId" column="railings_id"/>
+		<result property="railings" column="railings"/>
+		<result property="locNum" column="loc_num"/>
+		<result property="locImsi" column="loc_imsi"/>
+		<result property="locDate" column="loc_date"/>
+		<result property="locCode" column="loc_code"/>
+		<result property="locPeriod" column="loc_period"/>
+		<result property="longitude" column="longitude"/>
+		<result property="latitude" column="latitude"/>
+		<result property="rectifyLong" column="rectify_long"/>
+		<result property="rectifyLat" column="rectify_lat"/>
+		<result property="type" column="type"/>
+		<result property="mod" column="pattern"/>
+		<result property="resultMod" column="result_mod"/>
+		<result property="radius" column="radius"/>
+		<result property="posour" column="posour"/>
+	</resultMap>
+    <insert id="Location_save" parameterClass="com.osource.base.model.Location">
+    INSERT INTO tb_location
+        (id
+        ,terminal_id
+        ,railings_id
+        ,railings
+        ,loc_num
+        ,loc_imsi
+        ,loc_date
+        ,loc_code
+        ,loc_period
+        ,longitude
+        ,latitude
+        ,rectify_long
+        ,rectify_lat
+        ,type
+        ,pattern
+        ,radius
+        ,posour
+        ,dept_id
+        ,insert_id)
+    VALUES
+        (#id#
+        ,#terminalId#
+        ,#railingsId#
+        ,#railings#
+        ,#locNum#
+        ,#locImsi#
+        ,#locDate#
+        ,#locCode#
+        ,#locPeriod#
+        ,#longitude#
+        ,#latitude#
+        ,#rectifyLong#
+        ,#rectifyLat#
+        ,#type#
+        ,#mod#
+        ,#radius#
+        ,#posour#
+    <isEmpty property="deptId">
+        ,ifnull((SELECT dept_id FROM tb_criminal WHERE id=#terminalId#), 0)
+    </isEmpty>
+    <isNotEmpty property="deptId">
+        ,0
+    </isNotEmpty>
+        ,#insertId#)
+    </insert>
+
+    <update id="Location_update" parameterClass="com.osource.base.model.Location">
+    UPDATE tb_location
+       SET loc_date     = #locDate#
+          ,loc_code     = #locCode#
+          ,loc_period   = #locPeriod#
+          ,longitude    = #longitude#
+          ,latitude     = #latitude#
+          ,rectify_long = #rectifyLong#
+          ,rectify_lat  = #rectifyLat#
+          ,placename    = #placename#
+          ,update_date  = now()
+          ,update_id    = #updateId#
+          ,radius		= #radius#
+          ,result_mod	= #resultMod#
+          ,posour		= #posour#
+     WHERE id = #id#
+    </update>
+    
+	<select id="Location_findInIds" parameterClass="java.util.List" resultMap="locationResultMap">
+        SELECT id
+              ,terminal_id
+              ,railings_id
+              ,railings
+              ,loc_num
+              ,loc_imsi
+              ,loc_date
+              ,loc_code
+              ,loc_period
+              ,longitude
+              ,latitude
+              ,rectify_long
+              ,rectify_lat
+              ,type
+              ,pattern
+              ,result_mod
+              ,radius
+              ,posour
+              ,dept_id
+              ,use_flag
+              ,insert_date
+              ,insert_id
+              ,update_date
+              ,update_id
+          FROM tb_location
+         WHERE id in
+         	<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+    </select>
+    
+    <select id="Location_queryNewly" parameterClass="java.util.Map" resultMap="locationResultMap">
+        SELECT id
+              ,terminal_id
+              ,railings_id
+              ,railings
+              ,loc_num
+              ,loc_imsi
+              ,loc_date
+              ,loc_code
+              ,loc_period
+              ,longitude
+              ,latitude
+              ,rectify_long
+              ,rectify_lat
+              ,type
+              ,pattern
+              ,result_mod
+              ,radius
+              ,posour
+              ,dept_id
+              ,use_flag
+              ,insert_date
+              ,insert_id
+              ,update_date
+              ,update_id
+          FROM tb_location
+         WHERE loc_date > now() - INTERVAL '$agoMin$' minute
+           AND loc_imsi = #locImsi#
+           AND mod = '02'
+         ORDER BY loc_date DESC
+    </select>
+</sqlMap>

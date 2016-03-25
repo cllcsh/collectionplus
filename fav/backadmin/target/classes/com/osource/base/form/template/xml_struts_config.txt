@@ -1,0 +1,10 @@
+	<action name="#{entity}_*" class="#{action_p}.#{Entity}Action" method="{1}">
+	    <result name="init">#{module_path}/jsp/#{entity}Mgr.jsp</result>
+	    <result name="list">#{module_path}/jsp/#{entity}List.jsp</result>
+	    <result name="view">#{module_path}/jsp/#{entity}View.jsp</result>
+	    <result name="set">#{module_path}/jsp/#{entity}Set.jsp</result>
+	    <result name="default" type="redirectAction">
+			<param name="actionName">#{entity}_init</param>
+		</result>
+	</action>
+	

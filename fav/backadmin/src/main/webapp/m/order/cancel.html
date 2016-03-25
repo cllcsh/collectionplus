@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>取消交易理由</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body class="white">
+    <header class="comm-header">
+    <div class="left opt">
+        <a href="#">返回</a>
+    </div>
+    <h1 class="title">取消交易理由</h1>
+</header>
+
+    <div class="wrap">
+        <div class="comm-form" style="margin-right: 1rem;">
+            <div class="form-group mod-order-tick">
+                <span class="label">不想买了</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <span class="label">无法及时到店提车</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <span class="label">卖家车源已不在</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <span class="label">车源颜色、配置、随车工具与合同不符</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <span class="label">卖家未按合同规定日期发放</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <span class="label">其他理由</span>
+                <div class="input">&nbsp;</div>
+            </div>
+            <div class="form-group j-cancel" style="border-bottom: none;">
+                <div class="input" style="padding-right: 0;"><textarea name="reason" placeholder="详细说明（选填）" style="border: 1px solid #e0e0e0;padding: .5rem;"></textarea></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mod-order-cancel-action">
+        <div class="inner">
+            <form action="">
+                <input type="hidden" id="J-Reason">
+                <button class="button" type="submit">确认提交</button>
+            </form>
+        </div>
+    </div>
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+<script src="../bower_components/zeptotouch/zepto-touch.min.js"></script>
+<script src="../js/app.js"></script>
+
+    <script>
+    window.onload = function(){
+        $('.form-group').on('tap', function(){
+            var _ = $(this);
+            if (_.hasClass('j-cancel')) return;
+            _.addClass('mod-order-tick').siblings().removeClass('mod-order-tick');
+        });
+
+        var textarea = $('textarea');
+        $('form').submit(function(){
+            var reason = $('.mod-order-tick').find('.label').html();
+            if (reason == '其他理由')
+                reason = textarea.val();
+            if (!reason) {
+                alert('请至少选择一项内容');
+                return false;
+            }
+            return true;
+        });
+    };
+    </script>
+</body>
+</html>

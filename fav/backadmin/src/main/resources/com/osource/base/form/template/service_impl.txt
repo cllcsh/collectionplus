@@ -1,0 +1,28 @@
+package #{service_impl_p};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import #{service_impl_parent_p}.#{service_impl_parent_name};
+import #{dao_p}.#{Entity}Dao;
+import #{entity_p}.#{Entity_Bean};
+import #{service_p}.#{Entity}Service;
+
+@Service
+@Scope("prototype")
+@Transactional
+public class #{Entity}ServiceImpl extends #{service_impl_parent_name}<#{Entity_Bean}> implements #{Entity}Service {
+
+	/** setter and getter methods **/
+	
+	protected #{Entity}Dao getDao() {
+		return (#{Entity}Dao)super.getDao();
+	}
+
+	@Autowired
+	public void setDao(#{Entity}Dao #{entity}Dao) {
+		super.setDao(#{entity}Dao);
+	}
+}

@@ -1,0 +1,60 @@
+.bootstrap {position: fixed;width: 100%;height: 100%;background: -webkit-linear-gradient(bottom, #620001 , #a60001);top:0px;left:0px;padding-bottom: 30px;}
+.bootstrap .logo {width: 156px;}
+.bootstrap .logo img {width: 156px;}
+.bootstrap .copyright {color:#fff;position: absolute;width: 100%;font-size: 12px;bottom:10px;left:0px;text-align: center;}
+
+.home .banner {height: 140px;}
+.home .banner .ui-slider-indicators {-webkit-box-pack:center;bottom:5px;}
+.home .banner .ui-slider-indicators li {margin:0 3px;width: 8px;height:8px;background:#fff;opacity: 0.5;}
+.home .banner .ui-slider-indicators li.current {opacity: 1;}
+.home .banner .ui-slider-indicators li.current:before {display: none;}
+.home .buttons {padding:10px 0px;text-align: center;}
+.home .buttons a {display: block;font-size: 16px;border:1px solid #860000;height: 40px;line-height: 40px;margin:0px 20px;border-radius: 3px;color:#860000;}
+.home .buttons a img {height: 20px;vertical-align: -3px;margin-right: 5px;}
+.home .buttons a img:nth-child(2) {display: none;}
+.home .buttons a:active img:nth-child(1) {display: none;}
+.home .buttons a:active img:nth-child(2) {display: inline-block;}
+.home .buttons .ui-col:first-child a {background: #860000;color:#fff;}
+.home .buttons .ui-col:nth-child(1) a:active {background: none;color: #860000;}
+.home .buttons .ui-col:nth-child(2) a:active {background: #860000;color:#fff;}
+
+.jianshang {width: 80%;padding:5px;border:1px solid #e0e0e0;background: #fff;margin:0 auto;margin-top: 50px;position: relative;}
+.jianshang .layer {position: absolute;width: 100%;top:-16px;left:0px;}
+.jianshang .swiper {height: 100%;width: 100%;overflow: hidden;}
+.jianshang .swiper-num {width: 80px;height: 80px;border-radius: 50%;background: #303030;color:#fff;position: fixed;bottom:-40px;left:50%;margin-left: -40px;text-align: center;line-height: 46px;}
+.jianshang .swiper-num .current {font-size: 18px;}
+.jianshang .swiper-slide {padding-bottom: 50px;}
+.jianshang .item {position: relative;}
+.jianshang .item p {padding:5px 0px;}
+.jianshang .item span {font-size: 12px;}
+
+.lunzhan .banner {position: relative;}
+.lunzhan .banner img {width: 100%;display: block;}
+.lunzhan .banner p {color:#fff;position: absolute;bottom:0px;left:0px;width: 100%;text-align: center;line-height: 30px;background:rgba(0,0,0,0.6);}
+.lunzhan .guandian {padding-right: 10px;padding-top: 10px;}
+.lunzhan .guandian .item {border:1px solid #c52425;background: #fff;margin-left: 10px;padding:10px;}
+.lunzhan .guandian .item h3 {color:#c52425;text-align: center;}
+.lunzhan .guandian .item p {font-size: 12px;color:#444444;padding-top: 10px;}
+.lunzhan .guandian .ui-col:last-child .item {border-color:#3167a9;}
+.lunzhan .guandian .ui-col:last-child .item h3 {color:#3167a9;}
+
+.vs {padding:10px;}
+.vs .dir {position: relative;height: 60px;text-align: center;}
+.vs .dir span {line-height: 60px;color:#b0b0b0;font-size: 30px;font-style: italic;}
+.vs .dir .round {position: absolute;width: 60px;height: 60px;border-radius: 50%;background: #860000;color:#fff;padding:10px;text-align: center;line-height: 18px;top:0px;border:2px solid #ca3737;}
+.vs .dir .left {left:0px;}
+.vs .dir .right {right:0px;background: #3167a9;border-color:#5f87b8;}
+.vs .ui-progress {height: 8px;border-radius: 4px;background: #3167a9;margin-top: 10px;}
+.vs .ui-progress span {background: #860000;}
+.vs .num {line-height: 30px;}
+.vs .num .fl {color:#860000;}
+.vs .num .fr {color:#3167a9;}
+
+.message .ui-list .ui-avatar {border-radius: 0px;position: relative;overflow: inherit;}
+.message .ui-list .ui-avatar .ui-badge {position: absolute;right:-4px;top:-4px;min-width: 16px;padding:0px 4px;}
+.message .ui-list .ui-avatar img {height: 100%;width: 100%;}
+.message .ui-list h4 .ui-txt-muted {margin-top: 4px;}
+.message .ui-list h4 .ui-btn {float: right;color:#818181;}
+.message .content {color:#b0b0b0;padding:10px 0px;width: 100%;}
+.message .content .area {padding-right: 10px;margin-top: 5px;}
+.message .content .area textarea {overflow: hidden;resize:none;width: 100%;height: 200px;border:none;}

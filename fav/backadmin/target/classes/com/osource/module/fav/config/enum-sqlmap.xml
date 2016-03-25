@@ -1,0 +1,71 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.EnumInfo" id="enumInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="enumType" column="enum_type" />
+<result property="enumDesc" column="enum_desc" />
+<result property="enumCode" column="enum_code" />
+<result property="enumName" column="enum_name" />
+<result property="displayOrder" column="display_order" />
+	</resultMap>
+	<select id="fav_enum_countAll" resultClass="int">
+		select count(*) from tb_enum
+	</select>
+
+	<select id="fav_enum_findAll" resultMap="enumInfoResultMap">
+		select * from tb_enum order by display_order
+	</select>
+
+	<select id="fav_enum_findById" parameterClass="java.lang.Integer" resultMap="enumInfoResultMap">
+		select * from tb_enum where id = #value#
+	</select>
+	
+	<select id="fav_enum_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_enum t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="enumType"><![CDATA[ t.enumType=#enumType# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumDesc"><![CDATA[ t.enumDesc=#enumDesc# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumCode"><![CDATA[ t.enumCode=#enumCode# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumName"><![CDATA[ t.enumName=#enumName# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.displayOrder=#displayOrder# ]]></isNotEmpty>
+		order by display_order
+	</select>
+	
+	<select id="fav_enum_findByCondition" parameterClass="java.util.Map" resultMap="enumInfoResultMap">
+		select t.* from tb_enum t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="enumType"><![CDATA[ t.enumType=#enumType# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumDesc"><![CDATA[ t.enumDesc=#enumDesc# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumCode"><![CDATA[ t.enumCode=#enumCode# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="enumName"><![CDATA[ t.enumName=#enumName# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.displayOrder=#displayOrder# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_enum_save" parameterClass="com.osource.module.fav.model.EnumInfo">
+    insert into tb_enum(id,enum_type,enum_desc,enum_code,enum_name,display_order,use_flag,insert_date,insert_id)
+     values (#id#,#enumType#,#enumDesc#,#enumCode#,#enumName#,#displayOrder#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_enum_update" parameterClass="com.osource.module.fav.model.EnumInfo">
+    update tb_enum set
+        enum_type = #enumType#,
+        enum_desc = #enumDesc#,
+        enum_code = #enumCode#,
+        enum_name = #enumName#,
+        display_order = #displayOrder#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_enum_deleteInIds" parameterClass="java.util.List">
+		update tb_enum set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_enum_deleteById" parameterClass="String">
+		update tb_enum set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

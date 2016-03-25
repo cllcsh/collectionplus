@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<div class="logo"><img src="images/logo.png" alt=""></div>
+    	<a href="message" class="link email">
+    	    #if($model.unreadMsgTotal > 0)
+    	    <div class="ui-badge" id="unreadMsg" style="display: block;"></div>
+    	    #else
+    	    <div class="ui-badge" id="unreadMsg" style="display: none;"></div>
+    	    #end
+    	</a>
+    </header>
+    <div class="home main">
+	    <div class="ui-slider banner">
+	        <ul class="ui-slider-content" style="width: 300%">
+	            #foreach($ad in $model.adImagesList)
+	                <li><span style="background-image:url($!{imgWebContextPath}$!{ad.ad_image}-canglist)" onclick="goAd('$!{ad.ad_path}')"></span></li>
+	            #end
+	        </ul>
+	    </div>
+	    <div class="ui-row-flex buttons">
+	        <div class="ui-col ui-col"><a href="todayAppreciation"><img src="images/icon-see.png" alt=""><img src="images/icon-see-active.png" alt="">今日鉴赏</a></div>
+	        <div class="ui-col ui-col"><a href="dailyPolemic"><img src="images/icon-zan.png" alt=""><img src="images/icon-zan-active.png" alt="">天天论战</a></div>
+	    </div>
+	    <section class="ui-panel product recommend-collection">
+	        <h2 class="cc">推荐藏品<span class="ui-panel-subtitle" onclick="changeRecommendCollections()"><img src="images/icon-fresh.png" alt="" >换一批</span></h2>
+	     	<div class="ui-row-flex" id="recommend_collection">
+	     	    #foreach($rc in $model.recommendCollectionList)
+		        <div class="ui-col ui-col">
+		        	<a href="collectionDetail?id=$!{rc.id}">
+		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{rc.image_url}-canglist)"></div>
+		        		<p class="ui-nowrap">$!{rc.title}</p>
+		        	</a>
+	        	</div>
+	        	#end
+		    </div>
+	    </section>
+	    <section class="ui-panel product cangjia">
+	        <h2 class="cc">热门藏家<span class="ui-panel-subtitle"  onclick="changeTopCollectors()"><img src="images/icon-fresh.png" alt="">换一批</span></h2>
+	     	<div class="ui-row-flex" id="top_collectors">
+	     	    #foreach($tc in $model.topCollectorsList)
+		        <div class="ui-col ui-col">
+		        	<a href="userInfo?id=$!{tc.getId()}">
+		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{tc.getAvatar()}-canglist)"></div>
+		        		<p class="ui-nowrap">$!{tc.getUser_name()}</p>
+		        	</a>
+	        	</div>
+	        	#end
+		    </div>
+	    </section>
+    </div>
+    <footer class="ui-footer footer">
+    	<div class="list">
+	        <div class="ui-col">
+	        	<a data-href="home" class="active">
+	        		<img src="images/nav-home.png" alt="" class="img1">
+	        		<img src="images/nav-home-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="collectionCircle">
+	        		<img src="images/nav-quan.png" alt="" class="img1">
+	        		<img src="images/nav-quan-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="faProduct">
+	        		<img src="images/nav-add.png" alt="">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="cangIndex">
+	        		<img src="images/nav-cang.png" alt="" class="img1">
+	        		<img src="images/nav-cang-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        	<div class="ui-col">
+	        	<a data-href="myIndex">
+	        		<img src="images/nav-my.png" alt="" class="img1">
+	        		<img src="images/nav-my-active.png" alt="" class="img2">
+	        	</a>
+        	</div>
+        </div>
+    </footer>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		var slider = new fz.Scroll('.ui-slider', {
+            role: 'slider',
+            indicator: true,
+            autoplay: true,
+            interval: 3000
+        });
+        
+        
+        function queryUnreadMessagesTotal()
+        {
+            var options = {
+                type : "POST",
+	            url: "queryUnreadMessagesTotal",
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.unreadMsgTotal)
+	                {
+	                    //$("#unreadMsg").text(result.unreadMsgTotal);
+	                    if(result.unreadMsgTotal > 0)
+	                    {
+	                        $("#unreadMsg").show();
+	                    }
+	                    else
+	                    {
+	                        $("#unreadMsg").hide();
+	                    }
+	                }
+	            },
+	            error : function(error) {
+	                
+	            }
+            }
+            $.ajax(options);
+        }
+        var clearIntervals = null;
+        
+        function loadUnreadMsg()
+        {
+            clearInterval(clearIntervals);
+            clearIntervals = setInterval(queryUnreadMessagesTotal, 60 * 1000);
+        }
+        
+        var imgWebContextPath = '$!{imgWebContextPath}';
+        function changeRecommendCollections()
+        {
+            var options = {
+                type : "POST",
+	            url: "changeRecommendCollections",
+	            dataType : "json",
+	            success : function(result) {
+	                if (result)
+	                {
+	                    if (result.length > 0)
+	                    {
+	                        $("#recommend_collection").children("div").remove();
+	                        for(var i =0 ; i < result.length; i++)
+	                        {
+	                            $("#recommend_collection").append('<div class="ui-col ui-col"><a href="collectionDetail?id='+result[i].id+'"><div class="img" style="background-image:url('+imgWebContextPath + result[i].image_url+'?imgView2/2/w/140/h/140/q/10/format/png'+')"></div><p class="ui-nowrap">'+result[i].title+'</p></a></div>');
+	                        }
+	                    }
+	                }
+	            },
+	            error : function(error) {
+	                
+	            }
+            }
+            $.ajax(options);
+        }
+        
+        function changeTopCollectors()
+        {
+            var options = {
+                type : "POST",
+	            url: "changeTopCollectors",
+	            dataType : "json",
+	            success : function(result) {
+	                if (result)
+	                {
+	                    if (result.length > 0)
+	                    {
+	                        $("#top_collectors").children("div").remove();
+	                        for(var i =0 ; i < result.length; i++)
+	                        {
+	                            $("#top_collectors").append('<div class="ui-col ui-col"><a href="userInfo?id='+result[i].id+'"><div class="img"  style="background-image:url($!{imgWebContextPath}'+result[i].avatar+'imgView2/2/w/140/h/140/q/10/format/png'+')"></div><p class="ui-nowrap">'+result[i].user_name+'</p></a></div>');
+	                        }
+	                    }
+	                }
+	            },
+	            error : function(error) {
+	                
+	            }
+            }
+            $.ajax(options);
+        }
+        
+        (function(){
+			loadUnreadMsg();
+		})();
+        
+        function goAd(adPath)
+        {
+            //console.log(adPath);
+            if (adPath && $.trim(adPath).length > 0)
+            {
+                window.location.href = adPath;
+            }
+        }
+	</script>
+</body>
+</html>

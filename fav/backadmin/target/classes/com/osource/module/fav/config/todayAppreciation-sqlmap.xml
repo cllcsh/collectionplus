@@ -1,0 +1,83 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.TodayAppreciationInfo" id="todayAppreciationInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="releaseTime" column="release_time" />
+		<result property="image" column="image" />
+		<result property="displayOrder" column="display_order" />
+		<result property="isShow" column="is_show" />
+		<result property="isShowDesc" column="enum_name" />
+	</resultMap>
+	<select id="fav_todayAppreciation_countAll" resultClass="int">
+		select count(*) from tb_today_appreciation
+	</select>
+
+	<select id="fav_todayAppreciation_findAll" resultMap="todayAppreciationInfoResultMap">
+		select t.*,e.enum_name from tb_today_appreciation t
+		LEFT JOIN tb_enum e ON t.is_show=e.enum_code AND e.enum_type='today_appreciation_is_show_type'
+		ORDER BY t.is_show DESC,t.insert_date DESC 
+	</select>
+
+	<select id="fav_todayAppreciation_findById" parameterClass="java.lang.Integer" resultMap="todayAppreciationInfoResultMap">
+		select t.*,e.enum_name from tb_today_appreciation t
+		LEFT JOIN tb_enum e ON t.is_show=e.enum_code AND e.enum_type='today_appreciation_is_show_type'
+		where t.id = #value#
+	</select>
+	
+	<select id="fav_todayAppreciation_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_today_appreciation t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseTime"><![CDATA[ t.release_time=#releaseTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isShow"><![CDATA[ t.is_show=#isShow# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.release_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.release_time <= #endDate#]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_todayAppreciation_findByCondition" parameterClass="java.util.Map" resultMap="todayAppreciationInfoResultMap">
+		select t.*,e.enum_name from tb_today_appreciation t
+		LEFT JOIN tb_enum e ON t.is_show=e.enum_code AND e.enum_type='today_appreciation_is_show_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="content"><![CDATA[ t.content like concat('%',#content#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="releaseTime"><![CDATA[ t.release_time=#releaseTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="displayOrder"><![CDATA[ t.display_order=#displayOrder# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isShow"><![CDATA[ t.is_show=#isShow# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.release_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.release_time <= #endDate#]]></isNotEmpty>
+		ORDER BY t.is_show DESC,t.insert_date DESC 
+	</select>
+	
+	<insert id="fav_todayAppreciation_save" parameterClass="com.osource.module.fav.model.TodayAppreciationInfo">
+		insert into tb_today_appreciation(id,title,content,release_time,image,display_order,is_show,use_flag,insert_date,insert_id)
+    	 values (#id#,#title#,#content#,#releaseTime#,#image#,#displayOrder#,#isShow#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_todayAppreciation_update" parameterClass="com.osource.module.fav.model.TodayAppreciationInfo">
+		update tb_today_appreciation set
+	        title = #title#,
+	        content = #content#,
+	        release_time = #releaseTime#,
+	        image = #image#,
+	        display_order = #displayOrder#,
+	        is_show = #isShow#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_todayAppreciation_deleteInIds" parameterClass="java.util.List">
+		update tb_today_appreciation set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_todayAppreciation_deleteById" parameterClass="String">
+		update tb_today_appreciation set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

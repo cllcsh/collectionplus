@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>$!{model.category} - $!{model.period}</h1>
+    </header>
+    <div class="list main">
+	    <div class="plist">
+	    	<ul id="list-view">
+	    	   #foreach($collection in $model.collectionList)
+	    	   #if($!{velocityCount} <= ${pageSize})
+	    		<li data-href="cangSearchShow?id=${collection.id}">
+	    			<div class="img" style="background-image:url($!{imgWebContextPath}$!{collection.image_url})"></div>
+	    			<div class="txt">
+	    				<div class="title">$!{collection.title}</div>
+	    				<div class="info">
+	    					<span class="fr time">$!{collection.transaction_price_time}</span>
+	    					<span class="fl">$!{collection.category} - $!{collection.collection_period}</span>
+	    				</div>
+	    				<div class="f12 price">成交价：<span class="ui-txt-warning">$!{collection.transaction_price}$!{collection.transaction_price_unit}</span></div>
+	    				<div class="f12 ui-txt-info mt5">$!{collection.auction_name}</div>
+	    			</div>
+	    		</li>
+	    		#end
+	    		#end
+	    	</ul>
+	    	<div class="ui-loading-wrap">
+				<p class="ui-txt-info">加载中</p>
+				<i class="ui-loading"></i>
+			</div>
+	    </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		$('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').tap(function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+
+        var list = [];
+        var listSize = 0;
+        var pageSize = $!{pageSize};
+        (function(){
+			try{
+                list = $model.collectionList;
+            }catch(e){
+            }
+     	    listSize = list.length;
+	    	if (listSize <= pageSize)
+	    	{
+	    	    $(".ui-loading-wrap").remove();
+	    	}
+			var view = $('#list-view');
+			loadMore(function(page){
+			    var idx = (page-1)* pageSize;
+			    console.log(idx);
+			    if (idx < listSize)
+			    {
+			        for (var i = idx; i < idx + pageSize; i++)
+			        {
+			            if (list[i])
+			            {
+				            var transaction_price_unit = '';
+				            if (typeof(list[i].transaction_price_unit) != 'undefined')
+				            {
+					            transaction_price_unit =list[i].transaction_price_unit;
+				            }
+				            var html = '<li data-href="cangSearchShow?id=' + list[i].id + '">' +
+				                       '<div class="img" style="background-image:url($!{imgWebContextPath}'+list[i].image_url+')"></div>' + 
+		    			               '<div class="txt">'+
+		    				           '<div class="title">'+list[i].title+'</div>'+
+		    				           '<div class="info">'+
+		    					       '<span class="fr time">'+list[i].transaction_price_time+'</span>'+
+		    					       '<span class="fl">'+list[i].category+' - '+list[i].collection_period+'</span>' +
+		    				           '</div>'+
+		    				           '<div class="f12 price">成交价：<span class="ui-txt-warning">'+list[i].transaction_price + transaction_price_unit + '</span></div>'+
+		    				           '<div class="f12 ui-txt-info mt5">'+list[i].auction_name+'</div>'+
+		    				           '</div>'+
+		    				           '</li>';
+				            view.append(html);
+			            }
+			        }
+			    }
+			    else
+			    {
+			         $(".ui-loading-wrap").remove();
+			    }
+			});
+		})();	
+	</script>
+</body>
+</html>

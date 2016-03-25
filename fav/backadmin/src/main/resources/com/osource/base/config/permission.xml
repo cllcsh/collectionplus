@@ -1,0 +1,85 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="permission_findAllMenuNodes" resultClass="com.osource.base.common.menu.MenuNode">
+		select nav.id,
+		nav.name,
+		nav.target,
+		func.url as link,
+		nav.upper_id as upperId,
+		func.user_type as userType
+		from ts_navigation nav, ts_func func
+		where nav.func_id = func.id
+		and nav.use_flag = 1
+		and func.use_flag = 1
+	</select>
+	<select id="permission_findAllFuncNodes" resultClass="com.osource.base.common.menu.FuncNode">
+		select func.id, 
+		func.name, 
+		func.url as link, 
+		func.front_func as frontFuncId, 
+		func.user_type as userType,
+		func.binding
+		from ts_func func
+		where func.use_flag = 1
+	</select>
+	<select id="permission_findRolesByUserId" resultClass="com.osource.base.common.menu.FuncNode">
+		select func.id, 
+		func.name, 
+		func.url as link, 
+		func.front_func as frontFuncId, 
+		func.user_type as userType
+		from ts_func func
+		where func.use_flag = 1
+	</select>
+	<select id="permission_findFuncNodesByUserId" parameterClass="java.lang.Integer" resultClass="com.osource.base.common.menu.FuncNode">
+		select func.id, 
+		func.name, 
+		func.url as link, 
+		func.front_func as frontFuncId, 
+		func.user_type as userType
+		from v_func func
+		where func.user_id = #value#
+	</select>
+	<select id="permission_findFuncNodesHasBinding" resultClass="com.osource.base.common.menu.FuncNode">
+		select func.id, 
+		func.name, 
+	    func.url as link, 
+	    func.front_func as frontFuncId, 
+	    func.user_type as userType,
+	    func.binding
+	    from ts_func func
+	    where func.use_flag = 1
+	    and binding in ('2','3')
+	</select>
+	<select id="permission_findFuncNodesWhileList" resultClass="com.osource.base.common.menu.FuncNode">
+		select func.id, 
+		func.name, 
+	    func.url as link, 
+	    func.front_func as frontFuncId, 
+	    func.user_type as userType,
+	    func.binding
+	    from ts_func func
+	    where func.use_flag = 1
+	    and binding = 4
+	</select>
+	<select id="permission_findModuleMenuNodesByUserId" parameterClass="java.lang.Integer" resultClass="com.osource.base.common.menu.MenuNode">
+		select distinct nav.id,
+			nav.name,
+			nav.target,
+			nav.url as link,
+			nav.upper_id as upperId,
+			nav.user_type as userType
+			from v_navigation nav
+		where nav.upper_id is null and nav.user_id = #value# order by nav.target, nav.view_order
+	</select>
+	<select id="permission_findSubNodesByUserId" parameterClass="java.util.Map" resultClass="com.osource.base.common.menu.MenuNode">
+		select distinct nav.id,
+			nav.name,
+			nav.target,
+			nav.url as link,
+			nav.upper_id as upperId,
+			nav.user_type as userType
+			from v_navigation nav
+		where nav.upper_id = #upperId# and nav.user_id = #userId#
+	</select>
+</sqlMap>

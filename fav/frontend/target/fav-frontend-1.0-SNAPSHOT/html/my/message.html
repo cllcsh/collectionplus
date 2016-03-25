@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/my.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>谁可向我发送私信</h1>
+    </header>
+    <div class="message main">
+        <ul class="ui-list ui-border-tb mt10">
+            <li class="ui-border-t checked" id="received_msg_all">
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">全部接收</h4>
+                </div>
+                <img src="images/icon-dui.png" alt="">
+            </li>
+            <li class="ui-border-t" id="received_msg_attention">
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">只接收我关注的用户</h4>
+                </div>
+                <img src="images/icon-dui.png" alt="">
+            </li>
+            <li class="ui-border-t" id="reject_msg_all">
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">拒绝所有私信</h4>
+                </div>
+                <img src="images/icon-dui.png" alt="">
+            </li>
+        </ul>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		$('.ui-list li').click(function(){
+            $(this).addClass('checked').siblings().removeClass('checked');
+            console.log($(".ui-list").find('.checked').attr("id"));
+            if (oldId != $(".ui-list").find('.checked').attr("id"))
+            {
+                updateUserMsgSet();
+            }
+        });
+        var oldId = $(".ui-list").find('.checked').attr("id");
+        $(function()
+        {
+            var id = '$model.msg_set';
+            $("#" + id).addClass('checked').siblings().removeClass('checked');
+            oldId = $(".ui-list").find('.checked').attr("id");
+        });
+        
+        function updateUserMsgSet()
+        {
+            var options = {
+                type : "POST",
+	            url: "updateUserMsgSet",
+	            data: {msgSet : $(".ui-list").find('.checked').attr("id")},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    oldId = $(".ui-list").find('.checked').attr("id");
+	                    tips("修改成功");
+	                }
+	                else
+	                {
+	                    tips("修改失败");
+	                }
+	            },
+	            error : function(error) {
+	                tips("修改失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+	</script>
+</body>
+</html>

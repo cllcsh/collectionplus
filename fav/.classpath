@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="com/osource/module/photo/web/action/|com/osource/lh_sfet/data/|com/osource/lh_sfet/servlet/|com/osource/module/lh_sfet/servlet/|com/osource/module/photo/service/impl/" kind="src" path="src"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/axis.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-digester-2.0.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-jexl-1.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-lang3-3.1.jar" sourcepath="C:/Users/Administrator/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1-sources.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-lang3-3.3.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/freemarker-2.3.13.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/GraphComm.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/ibatis-2.3.4.726.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jofc2-1.0-0.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jox116.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jsf-api.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/json.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jxl.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jxls-core-0.9.8.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jxls-reader-0.9.8.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/mysql-conn-java-3.0.6-stable-bin.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/ognl-3.0.4.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/ojdbc5.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/osourcecommon-1.3.5-beta4.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/pinyin4j-2.5.0.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/quartz-1.6.5.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/resolver.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/saaj.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/serializer.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/slf4j-api-1.5.10.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/slf4j-log4j12-1.5.10.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/smgp.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/spring.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/struts-core-1.3.10.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/struts2-core-2.3.15.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/struts2-spring-plugin-2.3.15.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/transfercommon-1.0.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/wsdl4j.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xercesSamples.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xwork-core-2.3.15.1.jar" sourcepath="C:/Users/Administrator/.m2/repository/org/apache/struts/xwork/xwork-core/2.3.15.1/xwork-core-2.3.15.1-sources.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/jpush-java-libraryV2.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-examples-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-excelant-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-ooxml-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-ooxml-schemas-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/poi-scratchpad-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/xbean.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/bcprov-jdk15on-1.48.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/chinapayfilesecure.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/chinapaysecure.jar"/>
+	<classpathentry kind="lib" path="osource/WEB-INF/lib/comet4j-tomcat6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="com.genuitec.runtime.library/com.genuitec.generic_5.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="com.genuitec.runtime.library/com.genuitec.jstl_1.2">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web.jstl"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="osource/WEB-INF/classes"/>
+</classpath>

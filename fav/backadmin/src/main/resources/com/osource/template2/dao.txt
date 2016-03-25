@@ -1,0 +1,8 @@
+package #{dao_p};
+
+import #{dao_parent_p}.#{dao_parent_name};
+import #{entity_p}.#{Entity_Bean};
+
+public interface #{Entity}Dao extends BaseDao<#{Entity_Bean}> {
+
+}

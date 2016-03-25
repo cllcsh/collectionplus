@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/fa.css">
+    #parse("html/common/include.html")
+</head>
+<body class="bgfff">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>名人堂</h1>
+    </header>
+    <div class="famous main">
+        <div class="tab-link">
+            <div class="ui-row-flex">
+                #if ($!model.type == '0')
+                <div class="ui-col ui-col"> <a id="greatcoffee" href="javascript:queryFamous(1);" >收藏大咖</a></div>
+                <div class="ui-col ui-col"><a id="expert" href="javascript:queryFamous(0);"  class="active">专家组</a></div>
+                #else
+                <div class="ui-col ui-col"> <a id="greatcoffee" href="javascript:queryFamous(1);"  class="active">收藏大咖</a></div>
+                <div class="ui-col ui-col"><a id="expert" href="javascript:queryFamous(0);">专家组</a></div>
+                #end
+            </div>
+        </div>
+        <ul class="ui-list ui-border-tb" id="list-view">
+           #foreach($famous in $model.famousList)
+            <li class="ui-border-t" data-href="famousShow?id=$!{famous.id}">
+                <div class="ui-avatar rect">
+                    <img src="$!{imgWebContextPath}$!{famous.icon}" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">$!{famous.name} 
+                        #if($famous.status == '1')
+                        <span class="ui-txt-success fr">已入驻</span>
+                        #else
+                        <span class="ui-txt-muted fr">待入驻</span>
+                        #end
+                    </h4>
+                    <p class="ui-nowrap"><span class="ui-txt-muted">专项：$!{famous.specialids}</span></p>
+                </div>
+            </li>
+            #end
+        </ul>
+        <!-- <div class="ui-loading-wrap">
+            <p class="ui-txt-info">加载中</p>
+            <i class="ui-loading"></i>
+        </div> -->
+	</div>	
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+    <script>
+        (function(){
+           /* var view = $('#list-view');
+            var html = view.html();
+            
+            loadMore(function(page){
+                view.append(html);
+            });*/
+        })();   
+        
+        function queryFamous(type)
+        {
+            var options = {
+                type : "POST",
+	            url: "queryFamousByType",
+	            data: {'type' : type},
+	            dataType : "json",
+	            success : function(result) {
+	                if(type == '0')
+	                {
+	                    $("#expert").addClass('active');
+	                    $("#greatcoffee").removeClass('active');
+	                }
+	                else
+	                {
+	                    $("#expert").removeClass('active');
+	                    $("#greatcoffee").addClass('active');
+	                }
+	                $("#list-view li").remove();
+	                if (result)
+	                {
+	                    for(var i = 0; i < result.length; i++)
+	                    {
+	                        var statusHtml = '<span class="ui-txt-muted fr">待入驻</span>';
+	                        if (result[i].status == '1')
+	                        {
+	                            statusHtml = '<span class="ui-txt-success fr">已入驻</span>';
+	                        }
+	                        var html = '<li class="ui-border-t" data-href="famousShow?id=$!{famous.id}">'
+	                            +'<div class="ui-avatar rect">'
+	                            +'<img src="$!{imgWebContextPath}'+result[i].icon+'" alt="">'
+	                            +'</div>'
+	                            +'<div class="ui-list-info">'
+	                            +'<h4 class="ui-nowrap">$!{famous.name}'
+	                            +statusHtml
+	                            +'</h4>'
+					            +'<p class="ui-nowrap"><span class="ui-txt-muted">专项：'+result[i].specialids+'</span></p>'
+					            +'</div>'
+					            +'</li>';
+	                        $("#list-view").append(html);
+	                    }
+	                }
+	            },
+	            error : function(error) {
+	                tips("获取数据失败，请重试");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+    </script>
+</body>
+</html>

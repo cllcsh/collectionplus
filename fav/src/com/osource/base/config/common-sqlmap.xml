@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+  <settings useStatementNamespaces="true"/>
+    
+    
+  <!-- List more for master here...  -->
+  <!-- common.xml 必须放在第一个  -->
+  <sqlMap resource="com/osource/base/config/common.xml"/>
+  <sqlMap resource="com/osource/base/config/menu.xml"/>
+  <sqlMap resource="com/osource/base/config/permission.xml"/>
+  <sqlMap resource="com/osource/base/config/CodeBook.xml"/>
+
+  <sqlMap resource="com/osource/base/config/login-sqlmap.xml"/>
+  <sqlMap resource="com/osource/base/config/LoginInfo.xml"/>
+  <sqlMap resource="com/osource/base/config/Sequence.xml"/>
+
+  <sqlMap resource="com/osource/base/config/attachment.xml"/>
+  <sqlMap resource="com/osource/base/config/area.xml"/>
+  
+  <sqlMap resource="com/osource/base/config/SelectUI.xml"/>
+  <sqlMap resource="com/osource/base/form/config/form-sqlmap.xml"/>
+</sqlMapConfig>

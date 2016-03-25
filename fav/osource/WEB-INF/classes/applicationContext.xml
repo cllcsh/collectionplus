@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!--此bean告诉Spring去哪找数据库的配置信息,因为有此Bean才出现下面用${}标记来取变量的语句-->
+  <bean id="propertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location">
+		<value>classpath:jdbc.properties</value>
+	</property>
+  </bean>
+
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  
+        destroy-method="close" dependency-check="none">   
+        <property name="driverClass">   
+            <value>${jdbc.driver}</value>   
+        </property>   
+        <property name="jdbcUrl">   
+            <value>${jdbc.url}</value>   
+        </property>   
+        <property name="user">   
+            <value>${jdbc.username}</value>   
+        </property>   
+        <property name="password">   
+            <value>${jdbc.password}</value>   
+        </property>
+        <property name="acquireIncrement">   
+            <value>${c3p0.acquireIncrement}</value>   
+        </property>   
+        <property name="initialPoolSize">   
+            <value>${c3p0.initialPoolSize}</value>   
+        </property>   
+        <property name="minPoolSize">   
+            <value>${c3p0.minPoolSize}</value>   
+        </property>   
+        <property name="maxPoolSize">   
+            <value>${c3p0.maxPoolSize}</value>   
+        </property>   
+        <property name="maxIdleTime">   
+            <value>${c3p0.maxIdleTime}</value>   
+        </property>   
+        <property name="idleConnectionTestPeriod">   
+            <value>${c3p0.idleConnectionTestPeriod}</value>   
+        </property>   
+        <property name="maxStatements">   
+            <value>${c3p0.maxStatements}</value>   
+        </property>   
+        <property name="numHelperThreads">   
+            <value>${c3p0.numHelperThreads}</value>   
+        </property>   
+    </bean>
+    
+<!--根据dataSource和configLocation创建一个SqlMapClient-->
+  <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	<property name="configLocation">
+		<value>classpath:com/osource/base/config/common-sqlmap.xml</value>
+	</property>
+	<property name="mappingLocations">
+		<value>classpath:com/osource/module/*/config/*.xml</value>
+	</property>
+	<property name="dataSource">
+		<ref local="dataSource" />
+	</property>
+  </bean>
+	
+<!--根据sqlMapClien创建一个SqlMapClient模版类--> 
+  <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+	<property name="sqlMapClient">
+		<ref local="sqlMapClient" />
+	</property>
+  </bean>
+  
+  <!-- Transaction manager for a single JDBC DataSource -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+	<bean id="baseService" class="com.osource.base.service.BaseService" >
+	</bean>
+	<!--<bean id="sequenceDao" class="com.osource.base.dao.impl.SequenceDaoIbatisImpl" />
+	--><bean id="codeBookDao" class="com.osource.base.dao.impl.CodeBookDaoImpl"></bean>
+	
+<!-- 	
+	<bean id="criminalMonthStatService" class="com.osource.module.analysis.service.impl.CriminalMonthStatServiceImpl" >
+		 <property name="criminalMonthStatDao" ref="criminalMonthStatDao"/>
+	</bean>
+	
+	<bean id="criminalMonthStatDao" class="com.osource.module.analysis.dao.impl.CriminalMonthStatDaoImpl"></bean>
+ -->	
+	<!--<bean id="locationDao" class="com.osource.base.dao.impl.LocationDaoIbatisImpl" />-->
+	<bean id="railingsdao" class="com.osource.base.dao.impl.RailingsDaoIbatisImpl" />
+	<bean id="alarmDao" class="com.osource.base.dao.impl.AlarmDaoIbatisImpl" ></bean>
+	<bean id="coordinateSetDao" class="com.osource.base.dao.impl.CoordinateSetDaoIbatisImpl" ></bean>
+	<bean id="pwdEncoder" class="com.osource.util.Md5PwdEncoder"></bean>
+	<bean id="configInfoService" class="com.osource.module.system.service.impl.ConfigInfoServiceImpl"></bean>
+	
+	<!-- added by lifa，用于管理下拉列表 -->
+	<!-- 根据所属机构获得矫正对象列表 ，用于下拉列表显示 -->
+	<bean id="rectifySelectDao" class="com.osource.base.ui.RectifySelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	<!-- 根据所属机构获得矫正工作者列表 ，用于下拉列表显示 -->
+	<bean id="managerSelectDao" class="com.osource.base.ui.ManagerSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	<!-- 根据所属机构获得刑释解教人员列表 ，用于下拉列表显示 -->
+	<bean id="resurviverSelectDao" class="com.osource.base.ui.ResurviverSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	<!-- 根据查询帮教人员条件获得矫正对象列表 ，用于下拉列表显示 -->
+	<bean id="criminalSelectDao" class="com.osource.base.ui.CriminalSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	
+	<bean id="nodeTypeSelectDao" class="com.osource.base.ui.NodeTypeSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	
+	<bean id="nodeSelectDao" class="com.osource.base.ui.NodeSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	
+	<bean id="equipSelectDao" class="com.osource.base.ui.EquipSelectUIDao" >
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
+	
+	<bean id="attachmentDao" class="com.osource.base.dao.impl.AttachmentDaoIbatisImpl"></bean>
+	<!--
+	<bean id="usInitializer" class="com.osource.base.web.session.UsInitializerContainer" >
+		<property name="initializerList">
+			<list>
+				<ref local="permissionUsInitializer" />
+				<ref bean="centerPointUsInitializer" />
+			</list>
+		</property>
+	</bean>
+	<bean id="permissionUsInitializer" class="com.osource.base.web.session.PermissionUsInitializer" >
+		<property name="loginService"><ref local="loginService" /></property>
+	</bean>
+	-->
+	
+	<bean id="servletInitializer" class="com.osource.core.init.ServletInitializerContainer" >
+		<constructor-arg index="0">
+			<list>
+				<ref local="constantsInitializer" />
+				<!--<ref local="mapconfigInitializer" />
+				<ref local="SMSQueueInitializer" />
+				<ref local="carDataInitializer" />
+				<ref local="locationQueueInitializer" />
+				<ref local="QuartzInitializer" />
+				<ref bean="funcInitializer" />
+			--></list>
+		</constructor-arg>
+	</bean>
+	<bean id="constantsInitializer"	class="com.osource.base.web.init.ConstantsInitializer" ></bean>
+	<bean id="mapconfigInitializer"	class="com.osource.base.web.init.MapconfigInitializer" ></bean>
+	<bean id="locationQueueInitializer" class="com.osource.base.web.init.LocationQueueInitializer" ></bean>
+	<bean id="QuartzInitializer" class="com.osource.base.web.init.QuartzInitializer"></bean>
+	<!--<bean id="funcInitializer"	class="com.osource.base.web.init.FuncInitializer" ></bean>
+	<bean id="SMSQueueInitializer" class="com.osource.base.web.init.SMSQueueInitializer" ></bean>
+	<bean id="carDataInitializer" class="com.osource.base.web.init.CarDataInitializer"></bean>
+	<bean id="areaDao" class="com.osource.base.dao.impl.AreaDaoImpl" />
+	<bean id="areaService" class="com.osource.base.service.impl.AreaServiceImpl" >
+		<property name="areaDao"><ref local="areaDao"/></property>
+	</bean>
+	
+	<bean id="smsSender" class="com.osource.base.sender.SmsSender"></bean>
+	-->
+	<bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+   		<property name="corePoolSize" value="2" />
+   		<property name="keepAliveSeconds" value="200" />
+   		<property name="maxPoolSize" value="10" />
+   		<property name="queueCapacity" value="60" />
+   	</bean>
+   	
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="/"/>
+	
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<bean id="springContextHolder" class="com.osource.base.SpringContextHolder" />
+
+<!--	<import resource="classpath:/spring-quartz.xml" />-->
+</beans>

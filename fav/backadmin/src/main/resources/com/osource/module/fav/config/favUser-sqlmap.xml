@@ -1,0 +1,138 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.FavUserInfo" id="favUserInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="userName" column="user_name" />
+		<result property="account" column="account" />
+		<result property="phone" column="phone" />
+		<result property="heat" column="heat" />
+		<result property="password" column="password" />
+		<result property="signature" column="signature" />
+		<result property="userLevel" column="user_level" />
+		<result property="userTitle" column="user_title" />
+		<result property="avatar" column="avatar" />
+		<result property="upateAvatarTime" column="upate_avatar_time" />
+		<result property="description" column="description" />
+		<result property="userPoints" column="user_points" />
+		<result property="userAllPoints" column="user_allPoints" />
+		<result property="experience" column="experience" />
+		<result property="personalMsgSet" column="personal_msg_set" />
+		<result property="personalMsgSetDesc" column="enum_name" />
+	</resultMap>
+	<select id="fav_favUser_countAll" resultClass="int">
+		select count(*) from tb_fav_user
+	</select>
+
+	<select id="fav_favUser_findAll" resultMap="favUserInfoResultMap">
+		select t.*,e.enum_name from tb_fav_user t LEFT JOIN tb_enum e ON t.personal_msg_set=e.enum_code AND e.enum_type='fav_user_personal_msg_set_type'
+	</select>
+
+	<select id="fav_favUser_findById" parameterClass="java.lang.Integer" resultMap="favUserInfoResultMap">
+		select t.*,e.enum_name from tb_fav_user t LEFT JOIN tb_enum e ON t.personal_msg_set=e.enum_code AND e.enum_type='fav_user_personal_msg_set_type'
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_favUser_countAllByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_fav_user t LEFT JOIN tb_enum e ON t.personal_msg_set=e.enum_code AND e.enum_type='fav_user_personal_msg_set_type'
+		where 1= 1
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ t.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="account"><![CDATA[ t.account like concat('%',#account#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="heat"><![CDATA[ t.heat=#heat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="signature"><![CDATA[ t.signature like concat('%',#signature#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userLevel"><![CDATA[ t.user_level=#userLevel# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userTitle"><![CDATA[ t.user_title like concat('%',#userTitle#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="avatar"><![CDATA[ t.avatar=#avatar# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="upateAvatarTime"><![CDATA[ t.upate_avatar_time=#upateAvatarTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="description"><![CDATA[ t.description=#description# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userPoints"><![CDATA[ t.user_points=#userPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAllPoints"><![CDATA[ t.user_allPoints=#userAllPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="experience"><![CDATA[ t.experience=#experience# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.upate_avatar_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.upate_avatar_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="personalMsgSet"><![CDATA[ t.personal_msg_set=#personalMsgSet# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_favUser_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_fav_user t LEFT JOIN tb_enum e ON t.personal_msg_set=e.enum_code AND e.enum_type='fav_user_personal_msg_set_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ t.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="account"><![CDATA[ t.account like concat('%',#account#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="heat"><![CDATA[ t.heat=#heat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="signature"><![CDATA[ t.signature like concat('%',#signature#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userLevel"><![CDATA[ t.user_level=#userLevel# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userTitle"><![CDATA[ t.user_title like concat('%',#userTitle#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="avatar"><![CDATA[ t.avatar=#avatar# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="upateAvatarTime"><![CDATA[ t.upate_avatar_time=#upateAvatarTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="description"><![CDATA[ t.description=#description# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userPoints"><![CDATA[ t.user_points=#userPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAllPoints"><![CDATA[ t.user_allPoints=#userAllPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="experience"><![CDATA[ t.experience=#experience# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.upate_avatar_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.upate_avatar_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="personalMsgSet"><![CDATA[ t.personal_msg_set=#personalMsgSet# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_favUser_findByCondition" parameterClass="java.util.Map" resultMap="favUserInfoResultMap">
+		select t.*,e.enum_name from tb_fav_user t LEFT JOIN tb_enum e ON t.personal_msg_set=e.enum_code AND e.enum_type='fav_user_personal_msg_set_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ t.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="account"><![CDATA[ t.account like concat('%',#account#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="phone"><![CDATA[ t.phone like concat('%',#phone#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="heat"><![CDATA[ t.heat=#heat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="signature"><![CDATA[ t.signature like concat('%',#signature#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userLevel"><![CDATA[ t.user_level=#userLevel# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userTitle"><![CDATA[ t.user_title like concat('%',#userTitle#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="avatar"><![CDATA[ t.avatar=#avatar# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="upateAvatarTime"><![CDATA[ t.upate_avatar_time=#upateAvatarTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="description"><![CDATA[ t.description=#description# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userPoints"><![CDATA[ t.user_points=#userPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAllPoints"><![CDATA[ t.user_allPoints=#userAllPoints# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="experience"><![CDATA[ t.experience=#experience# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.upate_avatar_time >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.upate_avatar_time <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="personalMsgSet"><![CDATA[ t.personal_msg_set=#personalMsgSet# ]]></isNotEmpty>
+		order by insert_date desc
+	</select>
+	
+	<insert id="fav_favUser_save" parameterClass="com.osource.module.fav.model.FavUserInfo">
+		insert into tb_fav_user(id,user_name,account,phone,heat,password,signature,user_level,user_title,avatar,upate_avatar_time,description,user_points,user_allPoints,use_flag,insert_date,insert_id,experience,personal_msg_set)
+     		values (#id#,#userName#,#account#,#phone#,#heat#,#password#,#signature#,#userLevel#,#userTitle#,#avatar#,#upateAvatarTime#,#description#,#userPoints#,#userAllPoints#,1,now(),#insertId#,#experience#,#personalMsgSet#)
+	</insert>
+	
+	<update id="fav_favUser_update" parameterClass="com.osource.module.fav.model.FavUserInfo">
+		update tb_fav_user set
+	        user_name = #userName#,
+	        account = #account#,
+	        phone = #phone#,
+	        heat = #heat#,
+	        <isNotEmpty property="password">
+				 password = #password#,
+			</isNotEmpty>
+	        signature = #signature#,
+	        user_level = #userLevel#,
+	        user_title = #userTitle#,
+	        description = #description#,
+	        user_points = #userPoints#,
+	        user_allPoints = #userAllPoints#,
+	        update_date = now(),
+	        update_id = #updateId#,
+	        experience = #experience#,
+	        personal_msg_set = #personalMsgSet#,
+	        avatar = #avatar#,
+	        upate_avatar_time= #upateAvatarTime#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_favUser_deleteInIds" parameterClass="java.util.List">
+		update tb_fav_user set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_favUser_deleteById" parameterClass="String">
+		update tb_fav_user set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

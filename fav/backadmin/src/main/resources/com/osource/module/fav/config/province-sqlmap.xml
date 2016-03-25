@@ -1,0 +1,54 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.ProvinceInfo" id="provinceInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="name" column="name" />
+	</resultMap>
+	<select id="fav_province_countAll" resultClass="int">
+		select count(*) from tb_province
+	</select>
+
+	<select id="fav_province_findAll" resultMap="provinceInfoResultMap">
+		select * from tb_province
+	</select>
+
+	<select id="fav_province_findById" parameterClass="java.lang.Integer" resultMap="provinceInfoResultMap">
+		select * from tb_province where id = #value#
+	</select>
+	
+	<select id="fav_province_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_province t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_province_findByCondition" parameterClass="java.util.Map" resultMap="provinceInfoResultMap">
+		select t.* from tb_province t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_province_save" parameterClass="com.osource.module.fav.model.ProvinceInfo">
+    insert into tb_province(id,name,use_flag,insert_date,insert_id)
+     values (#id#,#name#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_province_update" parameterClass="com.osource.module.fav.model.ProvinceInfo">
+    update tb_province set
+        name = #name#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_province_deleteInIds" parameterClass="java.util.List">
+		update tb_province set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_province_deleteById" parameterClass="String">
+		update tb_province set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

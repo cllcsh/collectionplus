@@ -1,0 +1,55 @@
+body {font:12px Tahoma;margin:0px;text-align:center; background:url(login/login-bg.jpg) repeat-x;height: 100%;overflow:hidden}
+input {width:100px; height:17px; background-color:#fff; border:solid 1px #153966; font-size:12px; color:#999999;}
+input.focused{background-color:#ccc;border:solid 1px yellow;}
+a:link,a:visited {font-size:12px;text-decoration:none;}
+a:hover{}
+.login {
+    width: 629px;
+	height:318px;
+	background:url(login/login.gif) no-repeat;
+	position:absolute;
+	margin-left:-314px;
+	left:50%;
+	top:50%;
+	margin-top:-159px;
+}
+span.loginForm {margin-left:-302px;
+	float:left;text-align:left;padding: 2pt 10pt;border: 0 solid yellow;
+	position:absolute;
+	margin-top:282px
+}
+span.loginForm span{
+	float:left;text-align:left;padding: 2pt 10pt;border: 0 solid yellow;
+}
+span.loginForm a {
+	display:block;
+	position:absolute;
+	width:79px;
+	height:25px;
+	margin:0;
+	padding:0 0 0 0px;
+	background:0 url(login/btn-login.gif) no-repeat;
+	color:#FFF;
+	text-decoration:none;
+}
+span.loginForm a:hover {background:url("login/btn-login.gif") -79px 0 no-repeat;}
+
+div.message {border: 0 solid yellow;
+	width: 629px;
+	height:27px;
+	position:absolute;
+	margin-left:-314px;
+	left:50%;
+	top:85%;
+	margin-top:-14px;
+}
+
+div.footer {
+	width: 629px;
+	height:27px;
+	position:absolute;
+	margin-left:-314px;
+	left:50%;
+	top:90%;
+	margin-top:-14px;
+}

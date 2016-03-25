@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+    <link rel="stylesheet" href="lib/swiper/swiper.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/cang.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>古玩店</h1>
+    </header>
+    <div class="products shop-show main">
+	    <div class="swiper">
+            <div class="swiper-wrapper">
+                #foreach($image in $model.shop.images)
+                <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{image.imageUrl}-canglist" alt=""></div>
+                #end
+            </div>   
+            <div class="swiper-pagination"></div>
+        </div>
+        <ul class="ui-list ui-list-text ui-border-tb ui-list-link mt10">
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>
+                        <span class="ui-txt-default">店铺地址：</span>
+                        <span class="ui-txt-info">$!{model.shop.county}，$!{model.shop.address}</span>
+                    </h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-text ui-border-tb ui-list-link mt10">
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>
+                        <span class="ui-txt-default">联系电话：</span>
+                        <span class="ui-txt-info">$!{model.shop.phone}</span>
+                    </h4>
+                </div>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-text ui-border-tb mt10">
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>
+                        <span class="ui-txt-default">店铺简介：</span>
+                        <span class="ui-txt-info">$!{model.shop.introduction}</span>
+                    </h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+	<script src="lib/zepto.js"></script>
+    <script src="lib/swiper/swiper.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+        $('.swiper').swiper({
+            pagination : '.swiper-pagination'
+        });
+	</script>
+</body>
+</html>

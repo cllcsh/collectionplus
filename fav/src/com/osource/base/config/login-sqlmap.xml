@@ -1,0 +1,78 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="ict_login_getByLoginName" parameterClass="String" resultClass="com.osource.base.model.LoginInfo">
+	<![CDATA[
+    select tb_user.id, 
+    	tb_user.login_name as loginName, 
+    	tb_user.password,
+    	tb_user.name as userName,
+	    tb_user.e_mail as email,
+	    tb_user.phone_no as phoneNo,
+	    tb_user.dept_id as deptId,
+	    (select name from tb_dept where id = tb_user.dept_id) as deptName,
+	    tb_user.use_flag as useFlag,
+		tb_user.insert_date as insertDate,
+		tb_user.insert_id as insertId,
+		tb_user.update_date as updateDate, 
+		tb_user.update_id as updateId,
+		tb_user.approve_flag as approveFlag 
+	from tb_user
+		where tb_user.login_name = #value# and tb_user.use_flag = '1'
+    ]]>
+    </select>
+    
+    <insert id="ict_login_save" parameterClass="com.osource.base.model.LoginInfo">
+    	<![CDATA[
+    		
+    	]]>
+    </insert>
+    <insert id="ict_login_loginLog_save" parameterClass="com.osource.base.model.LoginLog">
+    	<![CDATA[
+    		insert into ts_login_log(id,login_name,login_date,login_ip,login_addr,login_result,dept_id,use_flag) 
+    			values(#id#,#loginName#,now(),#loginIp#,#loginAddr#,#loginResult#,0,1)
+    	]]>
+    </insert>
+    <update id="ict_login_update_last_login_date" parameterClass="java.lang.Integer">
+    	<![CDATA[
+    		update tb_user set last_login_time = now() where id = #id#
+    	]]>
+    </update>
+    
+    <update id="ict_login_update_online_times" parameterClass="java.util.Map">
+    	<![CDATA[
+    		update tb_user set online_times = online_times + #onlineTimes# where id = #id#
+    	]]>
+    </update>
+    
+    <update id="ict_login_update_login_count" parameterClass="java.lang.String">
+    	<![CDATA[
+    		update tb_user set login_count = login_count + 1 where login_name = #value# and use_flag = 1
+    	]]>
+    </update>
+    
+    <update id="ict_login_update_loginlog_onlinetime" parameterClass="java.util.Map">
+    	<![CDATA[
+    		update ts_login_log set online_time = #onlineTimes# where id = #id#
+    	]]>
+    </update>
+    <select id="ict_login_getByLoginInfo" parameterClass="java.util.Map" resultClass="com.osource.base.model.LoginInfo">
+	<![CDATA[
+    select tb_user.id, 
+    	tb_user.login_name as loginName, 
+    	tb_user.password,
+    	tb_user.name as userName,
+	    tb_user.e_mail as email,
+	    tb_user.phone_no as phoneNo,
+	    tb_user.dept_id as deptId,
+	    (select name from tb_dept where id = tb_user.dept_id) as deptName,
+	    tb_user.use_flag as useFlag,
+		tb_user.insert_date as insertDate,
+		tb_user.insert_id as insertId,
+		tb_user.update_date as updateDate, 
+		tb_user.update_id as updateId,
+		tb_user.approve_flag as approveFlag
+	from tb_user
+		where tb_user.loc_no = #userTel# and tb_user.password=#password# and tb_user.use_flag = '1'
+    ]]>
+    </select>
+</sqlMap>

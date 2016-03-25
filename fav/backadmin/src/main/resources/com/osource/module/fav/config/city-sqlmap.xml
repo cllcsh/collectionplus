@@ -1,0 +1,58 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CityInfo" id="cityInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="name" column="name" />
+
+	</resultMap>
+	<select id="fav_city_countAll" resultClass="int">
+		select count(*) from tb_city
+	</select>
+
+	<select id="fav_city_findAll" resultMap="cityInfoResultMap">
+		select * from tb_city
+	</select>
+
+	<select id="fav_city_findById" parameterClass="java.lang.Integer" resultMap="cityInfoResultMap">
+		select * from tb_city where id = #value#
+	</select>
+	
+	<select id="fav_city_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_city t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+
+	</select>
+	
+	<select id="fav_city_findByCondition" parameterClass="java.util.Map" resultMap="cityInfoResultMap">
+		select t.* from tb_city t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+
+	</select>
+	
+	<insert id="fav_city_save" parameterClass="com.osource.module.fav.model.CityInfo">
+    insert into tb_city(id,name,use_flag,insert_date,insert_id)
+     values (#id#,#name#,1,now(),#insertId#)
+
+	</insert>
+	
+	<update id="fav_city_update" parameterClass="com.osource.module.fav.model.CityInfo">
+    update tb_city set
+        name = #name#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_city_deleteInIds" parameterClass="java.util.List">
+		update tb_city set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_city_deleteById" parameterClass="String">
+		update tb_city set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

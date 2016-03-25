@@ -1,0 +1,59 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.UserInteresCategoryInfo" id="userInteresCategoryInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="userId" column="user_id" />
+<result property="categoryId" column="category_id" />
+	</resultMap>
+	<select id="fav_userInteresCategory_countAll" resultClass="int">
+		select count(*) from tb_user_interes_category
+	</select>
+
+	<select id="fav_userInteresCategory_findAll" resultMap="userInteresCategoryInfoResultMap">
+		select * from tb_user_interes_category t order by t.insert_date desc
+	</select>
+
+	<select id="fav_userInteresCategory_findById" parameterClass="java.lang.Integer" resultMap="userInteresCategoryInfoResultMap">
+		select * from tb_user_interes_category where id = #value#
+	</select>
+	
+	<select id="fav_userInteresCategory_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_user_interes_category t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.userId=#userId# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="categoryId"><![CDATA[ t.categoryId=#categoryId# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_userInteresCategory_findByCondition" parameterClass="java.util.Map" resultMap="userInteresCategoryInfoResultMap">
+		select t.* from tb_user_interes_category t
+		where t.use_flag = 1
+<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.userId=#userId# ]]></isNotEmpty>
+<isNotEmpty prepend=" AND " property="categoryId"><![CDATA[ t.categoryId=#categoryId# ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_userInteresCategory_save" parameterClass="com.osource.module.fav.model.UserInteresCategoryInfo">
+    insert into tb_user_interes_category(id,user_id,category_id,use_flag,insert_date,insert_id)
+     values (#id#,#userId#,#categoryId#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_userInteresCategory_update" parameterClass="com.osource.module.fav.model.UserInteresCategoryInfo">
+    update tb_user_interes_category set
+        user_id = #userId#,
+        category_id = #categoryId#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_userInteresCategory_deleteInIds" parameterClass="java.util.List">
+		update tb_user_interes_category set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_userInteresCategory_deleteById" parameterClass="String">
+		update tb_user_interes_category set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="false" monitoring="autodetect"
+         dynamicConfig="false">
+    <diskStore path="java.io.tmpdir"/>
+    <cacheManagerEventListenerFactory class="" properties=""/>
+    <defaultCache
+		maxElementsInMemory="100"
+		eternal="false"
+		overflowToDisk="true"
+		timeToIdleSeconds="1200"
+		timeToLiveSeconds="1200">
+    </defaultCache>
+    <cache name="member"
+        maxElementsInMemory="1000"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="1800"
+        timeToLiveSeconds="1800"/>
+    <cache name="index_news"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="cloud_top_albums"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="cloud_top_news"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="cloud_top_hots"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_pops"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_easys"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_latins"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_folks"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_rocks"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+	<cache name="res_top_spokens"
+        maxElementsInMemory="100"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="7200"
+        timeToLiveSeconds="7200"/>
+</ehcache>

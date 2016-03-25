@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<constant name="struts.custom.i18n.resources" value="globalMessages"/>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<package name="ictmap-default" extends="struts-default" namespace="">
+		<interceptors>
+			<interceptor name="remoteAddrInterceptor" class="com.osource.base.web.interceptor.RemoteAddrInterceptor"></interceptor>
+			<interceptor name="portalUserPermissionInterceptor" class="com.osource.base.web.interceptor.PortalUserPermissionInterceptor"></interceptor>
+			<interceptor name="mportalUserPermissionInterceptor" class="com.osource.base.web.interceptor.MPortalUserPermissionInterceptor"></interceptor>
+			<interceptor name="userPermissionInterceptor" class="com.osource.base.web.interceptor.UserPermissionInterceptor"></interceptor>
+			<interceptor name="wapUserPermissionInterceptor" class="com.osource.base.web.interceptor.WapUserPermissionInterceptor"></interceptor>
+			<interceptor name="manageLogInterceptor" class="com.osource.base.web.interceptor.ManageLogInterceptor"></interceptor>
+			<interceptor name="serviceInterceptor" class="com.osource.base.web.interceptor.ServiceInterceptor"></interceptor>
+			<interceptor name="navigationInterceptor" class="com.osource.base.web.interceptor.NavigationInterceptor"></interceptor>
+			<interceptor name="getterAndSetter" class="com.osource.base.struts2.interceptor.GetterAndSetterInterceptor"></interceptor>
+			<interceptor-stack name="mportalUserAuthInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="serviceInterceptor"></interceptor-ref>
+				<interceptor-ref name="mportalUserPermissionInterceptor"></interceptor-ref>
+				<interceptor-ref name="manageLogInterceptor"></interceptor-ref>
+				<interceptor-ref name="getterAndSetter"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="portalUserAuthInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="serviceInterceptor"></interceptor-ref>
+				<interceptor-ref name="portalUserPermissionInterceptor"></interceptor-ref>
+				<interceptor-ref name="manageLogInterceptor"></interceptor-ref>
+				<interceptor-ref name="getterAndSetter"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="userAuthInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="serviceInterceptor"></interceptor-ref>
+				<interceptor-ref name="userPermissionInterceptor"></interceptor-ref>
+				<interceptor-ref name="navigationInterceptor"></interceptor-ref>
+				<interceptor-ref name="manageLogInterceptor"></interceptor-ref>
+				<interceptor-ref name="getterAndSetter"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="noPermissionUserAuthInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="serviceInterceptor"></interceptor-ref>
+				<interceptor-ref name="navigationInterceptor"></interceptor-ref>
+				<interceptor-ref name="manageLogInterceptor"></interceptor-ref>
+				<interceptor-ref name="getterAndSetter"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="wapUserAuthInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="serviceInterceptor"></interceptor-ref>
+				<interceptor-ref name="wapUserPermissionInterceptor"></interceptor-ref>
+				<interceptor-ref name="navigationInterceptor"></interceptor-ref>
+				<interceptor-ref name="manageLogInterceptor"></interceptor-ref>
+				<interceptor-ref name="getterAndSetter"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- <default-interceptor-ref name="userAuthInterceptorStack"></default-interceptor-ref>   -->
+		<global-results>
+			<result name="intercepthtmlpass" type="redirect">
+				${jumptourl}
+			</result>
+			<result name="portalintercepthtmlpass" type="redirect">
+				${jumptourl}
+			</result>
+			<result name="error">${jsp_base}/jsp/error.jsp</result>
+			<result name="ajaxjson">${jsp_base}/jsp/ajaxjson.jsp</result>
+			<result name="jsonstring">${jsp_base}/jsp/jsonstring.jsp</result>
+			<result name="exception">${jsp_base}/jsp/exception.jsp</result>
+			<result name="ajaxlogin">${jsp_base}/jsp/ajaxLogin.jsp</result>
+			<result name="building">${jsp_base}/jsp/building.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="com.osource.core.exception.IctException"></exception-mapping>
+			<exception-mapping result="exception" exception="com.osource.core.exception.IctRunTimeException"></exception-mapping>
+			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+
+	<include file="com/osource/base/struts.xml" />
+	<include file="com/osource/module/*/struts-*.xml" />
+<!--<include file="com/osource/module/admin/struts-admin.xml" />
+	<include file="com/osource/module/analysis/struts-analysis.xml" />
+	<include file="com/osource/module/archives/struts-archives.xml" />
+	<include file="com/osource/module/assess/struts-assess.xml" />
+	<include file="com/osource/module/demo/struts-demo.xml" />
+	<include file="com/osource/module/information/struts-information.xml" />
+	<include file="com/osource/module/map/struts-map.xml" />
+	<include file="com/osource/module/system/struts-system.xml" />
+	<include file="com/osource/module/wap/struts-wap.xml" />-->
+	<include file="com/osource/base/form/struts-form.xml" />
+</struts>

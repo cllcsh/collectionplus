@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/my.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>申请记录</h1>
+    </header>
+    <div class="apply main">
+        <ul id="list-view">
+            #foreach($apply in $model.applyList)
+            <li>
+                <p>申请类型：$!{apply.apply_type}</p>
+                <p>申请时间：$!{apply.apply_time} </p>
+                <p>申请状态：$!{apply.status}</p>
+            </li>
+            #end
+        </ul>
+        <!-- <div class="ui-loading-wrap">
+            <p class="ui-txt-info">加载中</p>
+            <i class="ui-loading"></i>
+        </div> -->
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		(function(){
+            /*var view = $('#list-view');
+            var html = view.html();
+            
+            loadMore(function(page){
+                view.append(html);
+            });*/
+        })();
+	</script>
+</body>
+</html>

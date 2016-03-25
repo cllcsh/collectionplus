@@ -1,0 +1,153 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.CollectionInfo" id="collectionInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="categoryId" column="category_id" />
+		<result property="collectionPeriodId" column="collection_period_id" />
+		<result property="introduction" column="introduction" />
+		<result property="isSendRacket" column="is_send_racket" />
+		<result property="isSold" column="is_sold" />
+		<result property="isIdentify" column="is_identify" />
+		<result property="labelId" column="label_id" />
+		<result property="iconImg" column="icon_img" />
+		<result property="heat" column="heat" />
+		<result property="identifyResult" column="identify_result" />
+		<result property="status" column="status" />
+		<result property="auctionId" column="auction_id" />
+		<result property="appraisal" column="appraisal" />
+		<result property="appraisalUnit" column="appraisal_unit" />
+		<result property="appraisalTime" column="appraisal_time" />
+		<result property="appraisalUserId" column="appraisal_user_id" />
+		<result property="appraisalUserName" column="appraisal_user_name" />
+		<result property="transactionPrice" column="transaction_price" />
+		<result property="transactionPriceUnit" column="transaction_price_unit" />
+		<result property="transactionPriceTime" column="transaction_price_time" />
+		<result property="transactionUserId" column="transaction_user_id" />
+		<result property="transactionUserName" column="transaction_user_name" />
+		<result property="transactionDesc" column="transaction_desc" />
+		<result property="categoryName" column="category_name" />
+		<result property="insertUserName" column="user_name" />
+	</resultMap>
+	<select id="fav_collection_countAll" resultClass="int">
+		select count(*) from tb_collection
+	</select>
+
+	<select id="fav_collection_findAll" resultMap="collectionInfoResultMap">
+		select t.*,c.category_name,u.user_name from tb_collection t left join tb_collection_category c on t.category_id=c.id LEFT JOIN tb_fav_user u ON t.insert_id=u.id
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_collection_findById" parameterClass="java.lang.Integer" resultMap="collectionInfoResultMap">
+		select t.*,c.category_name,u.user_name from tb_collection t left join tb_collection_category c on t.category_id=c.id LEFT JOIN tb_fav_user u ON t.insert_id=u.id where t.id = #value#
+	</select>
+	
+	<select id="fav_collection_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_collection t left join tb_collection_category c on t.category_id=c.id LEFT JOIN tb_fav_user u ON t.insert_id=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[t.title like concat('%',#title#,'%')]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="categoryId"><![CDATA[ t.category_id=#categoryId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionPeriodId"><![CDATA[ t.collection_period_id=#collectionPeriodId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction=#introduction# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isSendRacket"><![CDATA[ t.is_send_racket=#isSendRacket# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isSold"><![CDATA[ t.is_sold=#isSold# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isIdentify"><![CDATA[ t.is_identify=#isIdentify# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="labelId"><![CDATA[ t.label_id=#labelId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="iconImg"><![CDATA[ t.icon_img=#iconImg# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="heat"><![CDATA[ t.heat=#heat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="identifyResult"><![CDATA[ t.identify_result=#identifyResult# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionId"><![CDATA[ t.auction_id=#auctionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisal"><![CDATA[ t.appraisal=#appraisal# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUnit"><![CDATA[ t.appraisal_unit=#appraisalUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalTime"><![CDATA[ t.appraisal_time=#appraisalTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUserId"><![CDATA[ t.appraisal_user_id=#appraisalUserId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUserName"><![CDATA[ t.appraisal_user_name=#appraisalUserName# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPrice"><![CDATA[ t.transaction_price=#transactionPrice# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPriceUnit"><![CDATA[ t.transaction_price_unit=#transactionPriceUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPriceTime"><![CDATA[ t.transaction_price_time=#transactionPriceTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionUserId"><![CDATA[ t.transaction_user_id=#transactionUserId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionUserName"><![CDATA[ t.transaction_user_name=#transactionUserName# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="insertUserName"><![CDATA[ u.user_name like concat('%',#insertUserName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_collection_findByCondition" parameterClass="java.util.Map" resultMap="collectionInfoResultMap">
+		select t.*,c.category_name,u.user_name from tb_collection t left join tb_collection_category c on t.category_id=c.id LEFT JOIN tb_fav_user u ON t.insert_id=u.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="title"><![CDATA[ t.title like concat('%',#title#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="categoryId"><![CDATA[ t.category_id=#categoryId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="collectionPeriodId"><![CDATA[ t.collection_period_id=#collectionPeriodId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="introduction"><![CDATA[ t.introduction=#introduction# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isSendRacket"><![CDATA[ t.is_send_racket=#isSendRacket# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isSold"><![CDATA[ t.is_sold=#isSold# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="isIdentify"><![CDATA[ t.is_identify=#isIdentify# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="labelId"><![CDATA[ t.label_id=#labelId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="iconImg"><![CDATA[ t.icon_img=#iconImg# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="heat"><![CDATA[ t.heat=#heat# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="identifyResult"><![CDATA[ t.identify_result=#identifyResult# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status"><![CDATA[ t.status=#status# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="auctionId"><![CDATA[ t.auction_id=#auctionId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisal"><![CDATA[ t.appraisal=#appraisal# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUnit"><![CDATA[ t.appraisal_unit=#appraisalUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalTime"><![CDATA[ t.appraisal_time=#appraisalTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUserId"><![CDATA[ t.appraisal_user_id=#appraisalUserId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appraisalUserName"><![CDATA[ t.appraisal_user_name=#appraisalUserName# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPrice"><![CDATA[ t.transaction_price=#transactionPrice# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPriceUnit"><![CDATA[ t.transaction_price_unit=#transactionPriceUnit# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionPriceTime"><![CDATA[ t.transaction_price_time=#transactionPriceTime# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionUserId"><![CDATA[ t.transaction_user_id=#transactionUserId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="transactionUserName"><![CDATA[ t.transaction_user_name=#transactionUserName# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="insertUserName"><![CDATA[ u.user_name like concat('%',#insertUserName#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_collection_save" parameterClass="com.osource.module.fav.model.CollectionInfo">
+		 insert into tb_collection(id,title,category_id,collection_period_id,introduction,is_send_racket,is_sold,is_identify,label_id,icon_img,heat,identify_result,status,auction_id,appraisal,appraisal_unit,appraisal_time,appraisal_user_id,appraisal_user_name,transaction_price,transaction_price_unit,transaction_price_time,transaction_user_id,transaction_user_name,transaction_desc,use_flag,insert_date,insert_id,update_id)
+     		values (#id#,#title#,#categoryId#,#collectionPeriodId#,#introduction#,#isSendRacket#,#isSold#,#isIdentify#,#labelId#,#iconImg#,#heat#,#identifyResult#,#status#,#auctionId#,#appraisal#,#appraisalUnit#,#appraisalTime#,#appraisalUserId#,#appraisalUserName#,#transactionPrice#,#transactionPriceUnit#,#transactionPriceTime#,#transactionUserId#,#transactionUserName#,#transactionDesc#,1,now(),#insertId#,#updateId#)
+	</insert>
+	
+	<update id="fav_collection_update" parameterClass="com.osource.module.fav.model.CollectionInfo">
+		update tb_collection set
+	        title = #title#,
+	        category_id = #categoryId#,
+	        collection_period_id = #collectionPeriodId#,
+	        introduction = #introduction#,
+	        is_send_racket = #isSendRacket#,
+	        is_sold = #isSold#,
+	        is_identify = #isIdentify#,
+	        label_id = #labelId#,
+	        icon_img = #iconImg#,
+	        heat = #heat#,
+	        identify_result = #identifyResult#,
+	        status = #status#,
+	        auction_id = #auctionId#,
+	        appraisal = #appraisal#,
+	        appraisal_unit = #appraisalUnit#,
+	        appraisal_time = #appraisalTime#,
+	        appraisal_user_id = #appraisalUserId#,
+	        appraisal_user_name = #appraisalUserName#,
+	        transaction_price = #transactionPrice#,
+	        transaction_price_unit = #transactionPriceUnit#,
+	        transaction_price_time = #transactionPriceTime#,
+	        transaction_user_id = #transactionUserId#,
+	        transaction_user_name = #transactionUserName#,
+	        transaction_desc = #transactionDesc#,
+	        <isNotEmpty property="insertId">
+	        insert_id = #insertId#,
+	        </isNotEmpty>
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_collection_deleteInIds" parameterClass="java.util.List">
+		update tb_collection set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_collection_deleteById" parameterClass="String">
+		update tb_collection set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

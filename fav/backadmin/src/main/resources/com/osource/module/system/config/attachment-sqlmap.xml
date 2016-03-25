@@ -1,0 +1,104 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.system.model.AttachmentBean" id="attachmentBeanResultMap" extends="baseResultMapNew">
+		
+	</resultMap>
+	<select id="system_attachment_countAll" resultClass="int">
+		select count(*) from tb_notice_attachment
+	</select>
+
+	<select id="system_attachment_findAll" resultClass="com.osource.module.system.model.AttachmentBean">
+		select * from tb_notice_attachment
+	</select>
+
+	<select id="system_attachment_findById" parameterClass="java.lang.Integer" resultClass="com.osource.module.system.model.AttachmentBean">
+		select a.id, a.name, a.file_name as fileName, a.description, a.dept_id as deptId, b.file_path as filePath
+		from tb_notice_attachment a left join tb_attachment b on a.file_name = b.id
+		where a.id = #value#
+	</select>
+	
+	<select id="system_attachment_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select  count(*)
+		from tb_notice_attachment where use_flag = 1
+	</select>
+	
+	<select id="system_attachment_findByCondition" parameterClass="java.util.Map" resultClass="com.osource.module.system.model.AttachmentBean">
+		select  a.id,
+				a.name,
+				a.file_name as fileName,
+				a.description,
+				b.file_path as filePath,
+				c.name as deptName,
+				a.dept_id as deptId,
+				a.use_flag,
+				a.insert_date,
+				a.update_date,
+				a.insert_id,
+				a.update_id
+		from tb_notice_attachment a left join tb_attachment b on a.file_name = b.id
+		left join tb_dept c on a.dept_id = c.id
+		where a.use_flag = 1
+		and (
+			c.node in (
+						(select left(node, 8) from tb_dept
+						where id = 0) ,
+						(select left(node, 16) from tb_dept
+						where id = 0) ,
+						(select left(node, 24) from tb_dept
+						where id = 0) ,
+						(select left(node, 32) from tb_dept
+						where id = 0)
+						)
+			or c.node like concat((select node from tb_dept    where id = 0), '%')
+			)
+		<isNotEmpty prepend="and" property="name">
+	        	a.name like concat('%',#name#,'%')
+	    </isNotEmpty>
+	</select>
+	
+	<insert id="system_attachment_save" parameterClass="com.osource.module.system.model.AttachmentBean">
+		insert into tb_notice_attachment
+		(id, name, file_name, description, dept_id, use_flag, insert_date, insert_id)
+		values
+		(#id#, #name#, #fileName#, #description#, 0, '1', now(), #insertId#)
+	</insert>
+	
+	<update id="system_attachment_update" parameterClass="com.osource.module.system.model.AttachmentBean">
+		update tb_notice_attachment
+	    <dynamic prepend="set" >
+	     update_date = now(),
+	      <isNotNull prepend="," property="deptId" >
+	        dept_id = 0
+	      </isNotNull>
+	      <isNotNull prepend="," property="name" >
+	        name = #name#
+	      </isNotNull>
+	      <isNotNull prepend="," property="fileName" >
+	        file_name = #fileName#
+	      </isNotNull>
+	      <isNotNull prepend="," property="description" >
+	        description = #description#
+	      </isNotNull>
+	    </dynamic>
+	    where id = #id#		
+	</update>
+	
+	<update id="system_attachment_add" parameterClass="java.util.Map">
+		update tb_notice_attachment
+		set	name = #name#,
+			down_count = 0,
+			description = #description#
+		where id = #id#
+	</update>
+	
+	<update id="system_attachment_deleteInIds" parameterClass="java.util.List">
+		update tb_notice_attachment set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="system_attachment_deleteById" parameterClass="String">
+		update tb_attachment set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

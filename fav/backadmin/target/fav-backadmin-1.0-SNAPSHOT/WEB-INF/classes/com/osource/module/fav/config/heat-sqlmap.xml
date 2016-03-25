@@ -1,0 +1,60 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.HeatInfo" id="heatInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="nameDesc" column="enum_name" />
+		<result property="value" column="value" />
+	</resultMap>
+	<select id="fav_heat_countAll" resultClass="int">
+		select count(*) from tb_heat
+	</select>
+
+	<select id="fav_heat_findAll" resultMap="heatInfoResultMap">
+		SELECT t.*,e.enum_name FROM tb_heat t LEFT JOIN tb_enum e ON t.`name` = e.enum_code AND e.enum_type='heat_name_type'
+	</select>
+
+	<select id="fav_heat_findById" parameterClass="java.lang.Integer" resultMap="heatInfoResultMap">
+		SELECT t.*,e.enum_name FROM tb_heat t LEFT JOIN tb_enum e ON t.`name` = e.enum_code AND e.enum_type='heat_name_type'
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_heat_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_heat t
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="value"><![CDATA[ t.value=#value# ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_heat_findByCondition" parameterClass="java.util.Map" resultMap="heatInfoResultMap">
+		SELECT t.*,e.enum_name FROM tb_heat t LEFT JOIN tb_enum e ON t.`name` = e.enum_code AND e.enum_type='heat_name_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="name"><![CDATA[ t.name=#name# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="value"><![CDATA[ t.value=#value# ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_heat_save" parameterClass="com.osource.module.fav.model.HeatInfo">
+		insert into tb_heat(id,name,value,use_flag,insert_date,insert_id)
+     		values (#id#,#name#,#value#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_heat_update" parameterClass="com.osource.module.fav.model.HeatInfo">
+		 update tb_heat set
+	        name = #name#,
+	        value = #value#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_heat_deleteInIds" parameterClass="java.util.List">
+		update tb_heat set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_heat_deleteById" parameterClass="String">
+		update tb_heat set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

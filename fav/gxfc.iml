@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/activation.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/axis.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/c3p0-0.9.1.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-beanutils-1.8.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-codec-1.3.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-collections-3.2.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-digester-2.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-discovery-0.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-fileupload-1.2.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-httpclient-3.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-io-1.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-jexl-1.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang3-3.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang3-3.3.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-logging.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/dom4j-1.6.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/ezmorph-1.0.6.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/freemarker-2.3.13.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/GraphComm.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/ibatis-2.3.4.726.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/javassist-3.11.0.GA.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jaxrpc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jcommon-1.0.16.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jdom.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jfreechart-1.0.13.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jofc2-1.0-0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jox116.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jsf-api.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jsf-impl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/json-lib-2.2.3-jdk15.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/json.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jstl-1.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxls-core-0.9.8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxls-reader-0.9.8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/log4j-1.2.15.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/mail.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/mysql-conn-java-3.0.6-stable-bin.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/ognl-3.0.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/ojdbc5.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/osourcecommon-1.3.5-beta4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/pinyin4j-2.5.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/poi-3.2-FINAL-20081019.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/quartz-1.6.5.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/resolver.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/saaj.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/serializer.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/slf4j-api-1.5.10.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/slf4j-log4j12-1.5.10.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/smgp.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/spring.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts-core-1.3.10.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts2-core-2.3.15.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts2-spring-plugin-2.3.15.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/transfercommon-1.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/wsdl4j.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/xercesImpl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/xercesSamples.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/xml-apis.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/xstream-1.3.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/xwork-core-2.3.15.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/gson-2.2.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/osource/WEB-INF/lib/jpush-java-libraryV2.jar!/" />
+    <conelement value="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/osource/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/osource" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/osource/WEB-INF/classes" />
+    <output-test url="file://$MODULE_DIR$/osource/WEB-INF/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="library" name="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER" level="application" />
+    <orderEntry type="module-library">
+      <library name="activation.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/activation.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="axis.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/axis.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="c3p0-0.9.1.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/c3p0-0.9.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-beanutils-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-beanutils-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-codec-1.3.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-codec-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections-3.2.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-collections-3.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-digester-2.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-digester-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-discovery-0.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-discovery-0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-fileupload-1.2.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-fileupload-1.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-httpclient-3.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-httpclient-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-io-1.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-io-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-jexl-1.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-jexl-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang3-3.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang3-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang3-3.3.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-lang3-3.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-logging.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/commons-logging.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="dom4j-1.6.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/dom4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ezmorph-1.0.6.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/ezmorph-1.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="freemarker-2.3.13.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/freemarker-2.3.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="GraphComm.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/GraphComm.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ibatis-2.3.4.726.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/ibatis-2.3.4.726.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javassist-3.11.0.GA.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/javassist-3.11.0.GA.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxrpc.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jaxrpc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jcommon-1.0.16.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jcommon-1.0.16.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jdom.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jdom.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jfreechart-1.0.13.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jfreechart-1.0.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jofc2-1.0-0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jofc2-1.0-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jox116.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jox116.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jsf-api.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jsf-api.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jsf-impl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jsf-impl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="json-lib-2.2.3-jdk15.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/json-lib-2.2.3-jdk15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="json.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/json.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jstl-1.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jstl-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jxl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jxls-core-0.9.8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxls-core-0.9.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jxls-reader-0.9.8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jxls-reader-0.9.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="log4j-1.2.15.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/log4j-1.2.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mail.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/mail.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mysql-conn-java-3.0.6-stable-bin.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/mysql-conn-java-3.0.6-stable-bin.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ognl-3.0.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/ognl-3.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ojdbc5.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/ojdbc5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="osourcecommon-1.3.5-beta4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/osourcecommon-1.3.5-beta4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="pinyin4j-2.5.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/pinyin4j-2.5.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="poi-3.2-FINAL-20081019.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/poi-3.2-FINAL-20081019.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="quartz-1.6.5.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/quartz-1.6.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="resolver.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/resolver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="saaj.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/saaj.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="serializer.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/serializer.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-api-1.5.10.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/slf4j-api-1.5.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-log4j12-1.5.10.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/slf4j-log4j12-1.5.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="smgp.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/smgp.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="spring.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/spring.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="struts-core-1.3.10.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts-core-1.3.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="struts2-core-2.3.15.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts2-core-2.3.15.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="struts2-spring-plugin-2.3.15.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/struts2-spring-plugin-2.3.15.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="transfercommon-1.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/transfercommon-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="wsdl4j.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/wsdl4j.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xercesImpl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/xercesImpl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xercesSamples.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/xercesSamples.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xml-apis.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/xml-apis.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xstream-1.3.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/xstream-1.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xwork-core-2.3.15.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/xwork-core-2.3.15.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="gson-2.2.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/gson-2.2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jpush-java-libraryV2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/osource/WEB-INF/lib/jpush-java-libraryV2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

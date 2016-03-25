@@ -1,0 +1,89 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.FavUserSetInfo" id="favUserSetInfoResultMap" extends="baseResultMapNew">
+<result property="id" column="id" />
+<result property="userId" column="user_id" />
+<result property="userName" column="userName" />
+<result property="friendId" column="friend_id" />
+<result property="friendName" column="friendName" />
+<result property="blockMsg" column="block_msg" />
+<result property="blockDynamic" column="block_dynamic" />
+<result property="blockReply" column="block_reply" />
+<result property="blockComment" column="block_comment" />
+	</resultMap>
+	<select id="fav_favUserSet_countAll" resultClass="int">
+		select count(*) from tb_fav_user_set
+	</select>
+
+	<select id="fav_favUserSet_findAll" resultMap="favUserSetInfoResultMap">
+		select t.* ,u.user_name userName,f.user_name friendName from tb_fav_user_set t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.friend_id=f.id
+	</select>
+
+	<select id="fav_favUserSet_findById" parameterClass="java.lang.Integer" resultMap="favUserSetInfoResultMap">
+		select t.* ,u.user_name userName,f.user_name friendName from tb_fav_user_set t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.friend_id=f.id
+		 where t.id = #value#
+	</select>
+	
+	<select id="fav_favUserSet_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_fav_user_set t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.friend_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockMsg"><![CDATA[ t.block_msg=#blockMsg# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockDynamic"><![CDATA[ t.block_dynamic=#blockDynamic# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockReply"><![CDATA[ t.block_reply=#blockReply# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockComment"><![CDATA[ t.block_comment=#blockComment# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendName"><![CDATA[ f.user_name like concat('%',#friendName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_favUserSet_findByCondition" parameterClass="java.util.Map" resultMap="favUserSetInfoResultMap">
+		select t.* ,u.user_name userName,f.user_name friendName from tb_fav_user_set t 
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_fav_user f ON t.friend_id=f.id
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendId"><![CDATA[ t.friend_id=#friendId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockMsg"><![CDATA[ t.block_msg=#blockMsg# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockDynamic"><![CDATA[ t.block_dynamic=#blockDynamic# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockReply"><![CDATA[ t.block_reply=#blockReply# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="blockComment"><![CDATA[ t.block_comment=#blockComment# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="friendName"><![CDATA[ f.user_name like concat('%',#friendName#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<insert id="fav_favUserSet_save" parameterClass="com.osource.module.fav.model.FavUserSetInfo">
+    insert into tb_fav_user_set(id,user_id,friend_id,block_msg,block_dynamic,block_reply,block_comment,use_flag,insert_date,insert_id)
+     values (#id#,#userId#,#friendId#,#blockMsg#,#blockDynamic#,#blockReply#,#blockComment#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_favUserSet_update" parameterClass="com.osource.module.fav.model.FavUserSetInfo">
+    update tb_fav_user_set set
+        user_id = #userId#,
+        friend_id = #friendId#,
+        block_msg = #blockMsg#,
+        block_dynamic = #blockDynamic#,
+        block_reply = #blockReply#,
+        block_comment = #blockComment#,
+        update_date = now(),
+        update_id = #updateId#
+    where id = #id#
+	</update>
+	
+	<update id="fav_favUserSet_deleteInIds" parameterClass="java.util.List">
+		update tb_fav_user_set set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_favUserSet_deleteById" parameterClass="String">
+		update tb_fav_user_set set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/fa.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<button class="cancel" onclick="history.back()">取消</button>
+        <div class="ui-flex ui-flex-pack-center">
+            <div class="tab">
+                <a href="javascript:;" class="active">发布藏品</a>
+                <a href="releaseDynamic">发布动态</a>
+            </div>   
+        </div>
+        <button class="submit">发布</button>
+    </header>
+    <div class="release main">
+        <form action="addCollection" class="validform" enctype="multipart/form-data" method="post">
+            <div class="ui-form ui-border-t mt10">
+                <div class="ui-form-item ui-border-b">
+                    <label>
+                        <span class="ui-txt-warning">*</span>标题:
+                    </label>
+                    <input type="text" name="title" data-type="*" data-null="请输入标题">
+                </div>
+            </div>
+            <div class="ui-form ui-border-t mt10">
+                <div class="ui-form-item ui-border-b ui-form-item-link" data-panel="category">
+                    <label>
+                        <span class="ui-txt-warning">*</span>藏品类别:
+                    </label>
+                    <input type="text" id="category_name" readonly=""  data-type="*" data-null="请选择藏品类别">
+                    <input type="hidden" id="category_id" name="categoryId">
+                </div>
+                <div class="ui-form-item ui-border-b ui-form-item-link" data-panel="time">
+                    <label>
+                        <span class="ui-txt-warning">*</span>所属时期:
+                    </label>
+                    <input type="text" id="time_name" readonly="" data-type="*" data-null="请选择所属时期">
+                    <input type="hidden" id="time_id" name="periodId">
+                </div>
+            </div>
+            <div class="textarea mt10">
+                <textarea  data-type="*" name="introduction" data-null="请输入藏品简介" placeholder="藏品简介(必填，最少150字，最多1500字)..."></textarea>
+            </div>
+            <div class="imglist mt10">
+                <ul class="cc">
+                    <li class="add">
+                        <figure><input type="file" name="loadmultfile0" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                        <figure style="display: none"><input type="file" name="loadmultfile1" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                        <figure style="display: none"><input type="file" name="loadmultfile2" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                        <figure style="display: none"><input type="file" name="loadmultfile3" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                        <figure style="display: none"><input type="file" name="loadmultfile4" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                        <figure style="display: none"><input type="file" name="loadmultfile5" accept="image/*" class="upload-file" multiple="multiple"></figure>
+                    </li>
+                </ul>
+            </div>
+            <ul class="ui-list ui-list-text ui-border-tb mt10">
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap">愿意送拍</h4>
+                    </div>
+                    <label class="ui-checkbox">
+                        <input type="checkbox" id="isSendRacket" name="isSendRacket" checked>
+                    </label>
+                </li>
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap">愿意出售</h4>
+                    </div>
+                    <label class="ui-checkbox">
+                        <input type="checkbox" id="isSold" name="isSold" checked>
+                    </label>
+                </li>
+            </ul>    
+        </form>
+        <div class="panel" id="category">
+            <header class="ui-header ui-header-positive header">
+                <i class="ui-icon-return"></i>
+                <h1>藏品类别</h1>
+            </header>
+            <ul class="ui-list ui-list-text ui-border-tb">
+                #foreach($category in $model.categoryList)
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap" id='$!{category.getId()}'>$!{category.getCategory_name()}</h4>
+                    </div>
+                </li>
+                 #end
+            </ul>
+        </div>
+        <div class="panel" id="time">
+            <header class="ui-header ui-header-positive header">
+                <i class="ui-icon-return"></i>
+                <h1>所属时期</h1>
+            </header>
+            <ul class="ui-list ui-list-text ui-border-tb">
+                #foreach($period in $model.periodList)
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4 class="ui-nowrap" id="$!{period.getId()}">$!{period.getName()}</h4>
+                    </div>
+                </li>
+                #end
+            </ul>
+        </div>
+	</div>	
+	<script src="lib/zepto.js"></script>
+    <script src="lib/upload/lrz.bundle.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+    <script>
+        for(var i = 0; i < 6; i++)
+        {
+            addInputElement(i);
+        }
+        /*var upload = $('.upload-file');
+        var add = upload.parents('.add');
+
+        upload.on('change', function(){
+            for(var i = 0; i < this.files.length; i ++){
+         var files = this.files;
+                (function(n){
+                    lrz(files[n]).then(function(result){
+                        add.before('<li><figure style="background-image:url('+ result.base64 +')"></figure></li>'); 
+                    }).catch(function(error){
+                        console.log(error);    
+                    });
+                })(i);
+            }
+        });*/
+        
+        $('.main').on('click', 'li.ui-border-t', function(){
+            var panel = $(this).parents('.panel');
+            //$('[data-panel="'+ panel.attr('id') +'"]').find('input[type=text]').val($(this).find('h4').text());
+            $('[data-panel="'+ panel.attr('id') +'"]').find('#' + panel.attr('id') + '_name').val($(this).find('h4').text());
+            $('[data-panel="'+ panel.attr('id') +'"]').find('#' + panel.attr('id') + '_id').val($(this).find('h4').attr('id'));
+            panel.removeClass('show');
+        });
+
+        var form = $('.validform');
+        $(".submit").click(function(){
+            if($("#isSendRacket").attr("checked")==true)
+            {
+                $("#isSendRacket").val("Y");
+            }
+            
+            if($("#isSold").attr("checked")==true)
+            {
+                $("#isSold").val("Y");
+            }
+            form.submit();
+            javascript:;
+        });
+
+        new Validform(form, { beforeSubmit : function(form){
+                if ($(".yu_lan_image").length == 0)
+                {
+                    tips('请选择藏品图片上传');
+                    return false;
+                }
+                else if ($(".yu_lan_image").length > 6)
+                {
+                    tips('最多只能上传6张图片');
+                    return false;
+                }
+                //校验通过后,隐藏发布按钮
+                $(".submit").hide();
+                doingTips("藏品正在发布中...");
+                return true;
+            }});
+            
+        if('$!{model.isShow}' == 'true')
+        {
+            tips("$!{model.msg}");
+            if ($model.result)
+            {
+                setTimeout(function(){history.go(-2);},1500);
+            }
+            else
+            {
+                history.back();
+            }
+        }
+    </script>
+</body>
+</html>

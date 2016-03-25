@@ -1,0 +1,17 @@
+/**
+ * #{config_comment}页面脚本
+ * @author #{author}
+ * @create #{date}
+ * @file #{entity}Mgr.js
+ * @since v0.1
+ */
+
+ //打开编辑#{self_module_name}页面
+function edit_#{entity}(id){
+	location.href("#{entity}_edit.do?id=" + id);
+}
+
+//打开查看#{self_module_name}页面
+function view_#{entity}(id){
+	location.href("#{entity}_view.do?id="+id);
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<resultMap class="com.osource.core.model.BaseModel" id="baseResultMap">
+		<result column="id" property="id" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="dept_id" property="deptId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="use_flag" property="useFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="insert_date" property="insertDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="insert_id" property="insertId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_id" property="updateId" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+    </resultMap>
+    
+	<resultMap class="com.osource.core.model.BaseModel" id="baseResultMapNew">
+		<result column="id" property="id" />
+		<result column="use_flag" property="useFlag" />
+		<result column="insert_date" property="insertDate" />
+		<result column="insert_id" property="insertId" />
+		<result column="update_date" property="updateDate" />
+		<result column="update_id" property="updateId" />
+    </resultMap>
+
+    <!-- 获取系统时间 -->
+    <select id="C_get_db_time" resultClass="java.util.Date">
+        select sysdate() FROM dual
+    </select>
+
+    <sql id="delete_start">
+        <!--自动生成删除语句_开头
+        delete $tableName$.* from $tableName$-->
+        update $tableName$ set $tableName$.use_flag='0'
+    </sql>
+
+    <sql id="update_start">
+        <!--自动生成修改语句_开头-->
+        update $tableName$
+    </sql>
+
+    <sql id="update_values">
+        <!--自动生成修改语句_赋值-->
+        set $tableName$.update_id = #userSession.userId#, $tableName$.update_date = now()
+        <iterate property="colListUpdate" conjunction="," prepend=",">
+            $tableName$.$colListUpdate[].name$ = 
+            <isEqual property="colListUpdate[].opType" compareValue="-1">
+                null
+            </isEqual>
+            <isNotEqual property="colListUpdate[].opType" compareValue="-1">
+                #colListUpdate[].value#
+            </isNotEqual>
+        </iterate>
+    </sql>
+
+    <sql id="select_start">
+        <!--自动生成查询语句_开头-->
+        select $tableName$.* from $tableName$
+    </sql>
+
+    <sql id="authority_control_table">
+        <!--自动生成权限控制_表名-->
+        <isNotEmpty property="userSession.deptNode">
+            ,tb_dept
+        </isNotEmpty>
+    </sql>
+
+    <sql id="authority_control_condition">
+        <!--自动生成权限控制_条件-->
+        <isNotEmpty property="userSession.deptNode">
+            where $tableName$.dept_id = tb_dept.id
+            and tb_dept.use_flag = '1'
+            and tb_dept.node like concat(#userSession.deptNode#,'%')
+        </isNotEmpty>
+        <isEmpty property="userSession.deptNode">
+            where $tableName$.use_flag = '1'
+        </isEmpty>
+    </sql>
+
+    <sql id="authority_control">
+        <!--自动生成权限控制-->
+        <include refid="authority_control_table"/>
+        <include refid="authority_control_condition"/>
+    </sql>
+
+    <sql id="auto_condition">
+        <!--自动生成查询条件-->
+        <isNotEmpty property="oredCriteria" prepend="and">
+            <isEqual property="oredCriteria[0].valid" compareValue="true">
+                (
+                <iterate property="oredCriteria" conjunction="or" removeFirstPrepend="iterate">
+                    <isEqual property="oredCriteria[].valid" compareValue="true">
+                        (
+                        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                            $oredCriteria[].criteriaWithoutValue[]$
+                        </iterate>
+                        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                            $oredCriteria[].criteriaWithSingleValue[].condition$
+                            #oredCriteria[].criteriaWithSingleValue[].value#
+                        </iterate>
+                        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                            $oredCriteria[].criteriaWithListValue[].condition$
+                            <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                                     conjunction=",">
+                                #oredCriteria[].criteriaWithListValue[].values[]#
+                            </iterate>
+                        </iterate>
+                        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                            $oredCriteria[].criteriaWithBetweenValue[].condition$
+                            #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                            #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                        </iterate>
+                        )
+                    </isEqual>
+                </iterate>
+                )
+            </isEqual>
+        </isNotEmpty>
+        <!--自动生成排序条件-->
+        <isNotEmpty property="orderByClause">
+            order by $orderByClause$
+        </isNotEmpty>
+    </sql>
+
+    <insert id="solo_insert">
+        <!--自动生成插入语句-->
+        insert into $tableName$(
+        <!--  <isNotEmpty property="deptId.value">
+        $tableName$.dept_id,
+        </isNotEmpty>-->
+        $tableName$.insert_id
+        <iterate property="colList" conjunction="," prepend=",">
+            $tableName$.$colList[].name$
+        </iterate>
+        ) values (
+        <!-- <isNotEmpty property="deptId.value">
+        #userSession.deptId#,
+        </isNotEmpty>#userSession.userId#-->
+        1
+        <iterate property="colList" conjunction="," prepend=",">
+            #colList[].value#
+        </iterate>
+        )
+    </insert>
+
+    <sql id="solo_delete">
+        <!--自动生成删除语句-->
+        <include refid="delete_start"/>
+        <include refid="authority_control"/>
+    </sql>
+
+    <sql id="solo_update">
+        <!--自动生成修改语句-->
+        <include refid="update_start"/>
+        <include refid="authority_control_table"/>
+        <include refid="update_values"/>
+        <include refid="authority_control_condition"/>
+    </sql>
+    
+   	<sql id="solo_deleteUser">
+        <!-- 韦进  2010-3-25 修改代码 -->
+        <include refid="update_start"/>
+        <include refid="authority_control_table"/>
+        <include refid="deleteUser_values"/>
+        <include refid="authority_control_condition"/>
+    </sql>
+    
+    <sql id="deleteUser_values">
+        <!--自动生成修改语句_赋值-->
+        set $tableName$.update_id = #userSession.userId#, $tableName$.update_date = now()
+        <iterate property="colList" conjunction="," prepend=",">
+            $tableName$.$colList[].name$ = 
+            <isEqual property="colList[].opType" compareValue="-1">
+                null
+            </isEqual>
+            <isNotEqual property="colList[].opType" compareValue="-1">
+                #colList[].value#
+            </isNotEqual>
+        </iterate>
+    </sql>
+
+    <sql id="solo_select">
+        <!--自动生成查询语句-->
+        <include refid="select_start"/>
+        <include refid="authority_control"/>
+    </sql>
+
+    <delete id="solo_delete_auto_condition">
+        <!--自动生成删除语句_自动条件-->
+        <include refid="solo_delete"/>
+        <include refid="auto_condition"/>
+    </delete>
+
+    <update id="solo_update_auto_condition">
+        <!--自动生成修改语句_自动条件-->
+        <include refid="solo_update"/>
+        <include refid="auto_condition"/>
+    </update>
+
+    <select id="solo_select_auto_condition">
+        <!--自动生成查询语句_自动条件-->
+        <include refid="solo_select"/>
+        <include refid="auto_condition"/>
+    </select>
+
+    <!--sql示例=========================================================================================================================-->
+    <resultMap class="com.osource.module.system.model.UserEntity" id="userResultMap">
+           <result column="id" property="idValue" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+           <result column="dept_id" property="deptIdValue" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+           <result column="use_flag" property="useFlagValue" jdbcType="VARCHAR" javaType="java.lang.String"/>
+           <result column="insert_date" property="insertDateValue" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+           <result column="insert_id" property="insertIdValue" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+           <result column="update_date" property="updateDateValue" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+           <result column="update_id" property="updateIdValue" jdbcType="DECIMAL" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <delete id="demo_delete" parameterClass="com.osource.base.model.BaseEntity">
+        <include refid="delete_start"/>
+        <include refid="authority_control"/>
+        <dynamic prepend="and">
+            <isNotEmpty prepend="and" property="userExt.ageStart">
+                <![CDATA[YEAR(now())-YEAR($tableName$.birthday) >= #userExt.ageStart#]]>
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="userExt.ageEnd">
+                <![CDATA[YEAR(now())-YEAR($tableName$.birthday) <= #userExt.ageEnd#]]>
+            </isNotEmpty>
+            <include refid="auto_condition"/>
+        </dynamic>
+    </delete>
+
+    <delete id="demo_delete_adv" parameterClass="com.osource.base.model.BaseEntity">
+        <include refid="delete_start"/>
+        <include refid="authority_control_table"/>
+        ,tb_domain d
+        <include refid="authority_control_condition"/>
+        <dynamic prepend="and">
+            <isParameterPresent prepend="and">
+                d.id = tb_dept.domain
+            </isParameterPresent>
+            <include refid="auto_condition"/>
+        </dynamic>
+    </delete>
+
+
+    <update id="demo_update" parameterClass="com.osource.base.model.BaseEntity">
+        <include refid="update_start"/>
+        <include refid="authority_control_table"/>
+        ,tb_domain d
+        <include refid="update_values"/>
+        ,tb_dept.manager = '23123'
+        <include refid="authority_control_condition"/>
+        <dynamic prepend="and">
+            <isParameterPresent prepend="and">
+                d.id = tb_dept.domain
+            </isParameterPresent>
+            <include refid="auto_condition"/>
+        </dynamic>
+    </update>
+
+
+    <select id="demo_select" parameterClass="com.osource.base.model.BaseEntity"
+            resultMap="userResultMap">
+        <include refid="select_start"/>
+        <include refid="authority_control"/>
+        <dynamic prepend="and">
+            <isParameterPresent prepend="and">
+                $tableName$.use_flag = '1'
+            </isParameterPresent>
+            <include refid="auto_condition"/>
+        </dynamic>
+    </select>
+
+    <select id="demo_select_adv" parameterClass="com.osource.base.model.BaseEntity"
+            resultClass="java.lang.Integer">
+        select $tableName$.id from $tableName$
+        <include refid="authority_control_table"/>
+        ,tb_domain d
+        <include refid="authority_control_condition"/>
+        <dynamic prepend="and">
+            <isParameterPresent prepend="and">
+                d.id = tb_dept.domain
+            </isParameterPresent>
+            <isNotEmpty prepend="and" property="userExt.ageStart">
+                <![CDATA[YEAR(now())-YEAR($tableName$.birthday) >= #userExt.ageStart#]]>
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="userExt.ageEnd">
+                <![CDATA[YEAR(now())-YEAR($tableName$.birthday) <= #userExt.ageEnd#]]>
+            </isNotEmpty>
+            <include refid="auto_condition"/>
+        </dynamic>
+    </select>
+
+</sqlMap>

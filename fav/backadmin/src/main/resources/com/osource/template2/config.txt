@@ -1,0 +1,48 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="#{entity_p}.#{Entity_Bean}" id="#{entity_Bean}ResultMap" extends="baseResultMapNew">
+			====bean====
+	</resultMap>
+	<select id="#{module_name}_#{entity}_countAll" resultClass="int">
+		select count(*) from #{table_name}
+	</select>
+
+	<select id="#{module_name}_#{entity}_findAll" resultMap="#{entity_Bean}ResultMap">
+		select * from #{table_name}
+	</select>
+
+	<select id="#{module_name}_#{entity}_findById" parameterClass="java.lang.Integer" resultMap="#{entity_Bean}ResultMap">
+		select * from #{table_name} where id = #value#
+	</select>
+	
+	<select id="#{module_name}_#{entity}_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from #{table_name} t
+		where t.use_flag = 1
+		====query====
+	</select>
+	
+	<select id="#{module_name}_#{entity}_findByCondition" parameterClass="java.util.Map" resultMap="#{entity_Bean}ResultMap">
+		select t.* from #{table_name} t
+		where t.use_flag = 1
+		====query====
+	</select>
+	
+	<insert id="#{module_name}_#{entity}_save" parameterClass="#{entity_p}.#{Entity_Bean}">
+		====insert====
+	</insert>
+	
+	<update id="#{module_name}_#{entity}_update" parameterClass="#{entity_p}.#{Entity_Bean}">
+		====update====
+	</update>
+	
+	<update id="#{module_name}_#{entity}_deleteInIds" parameterClass="java.util.List">
+		update #{table_name} set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="#{module_name}_#{entity}_deleteById" parameterClass="String">
+		update #{table_name} set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

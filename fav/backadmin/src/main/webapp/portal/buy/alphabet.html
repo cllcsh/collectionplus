@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>恭喜发车</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+    @@include('../templates/styles0.html')
+</head>
+<body>
+    <!-- 过滤条件、空结果、商品列表 -->
+    @@include('../templates/header.html', {"buy" : "active"})
+
+    <div class="comm-index-brands">
+        <div class="container">
+            <div class="title">
+                <h1>热门品牌 <small>HOT BRAND</small></h1>
+                <div class="comm-img angle-right"></div>
+            </div>
+            <ul class="brand-list list-unstyled">
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img"><img src="../img/data/brand.jpg" alt="宝马图片加载失败"></div>
+                        <div class="text">宝马</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="comm-white-ctn">
+        <div class="container">
+
+            <div id="J-AlphaChoose" class="mod-buy-alphabet">
+                <div class="title">按<span class="comm-text-red">拼音首字母</span>查找：</div>
+                <div class="body">
+                    <div class="j-alphas items">
+                        <!-- <span class="active">A</span>
+                        <span>B</span>
+                        <span>C</span>
+                        <span>D</span>
+                        <span>E</span>
+                        <span>F</span>
+                        <span>G</span>
+                        <span>H</span>
+                        <span>I</span>
+                        <span>J</span>
+                        <span>K</span>
+                        <span>L</span>
+                        <span>M</span>
+                        <span>N</span> -->
+                    </div>
+                    <div class="j-brands brands items">
+                        <!-- <span class="active">劳斯莱斯</span>
+                        <span>奥迪</span>
+                        <span>奥拓</span>
+                        <span>奥迪</span>
+                        <span>奥拓</span>
+                        <span>奥迪</span>
+                        <span>奥拓</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="mod-buy-alphabet-groups">
+                <div class="group">
+                    <h1 class="alphabet">A</h1>
+                    <div class="brand-item">
+                        <div class="brand">
+                            <a class="comm-nounderline" href="filter.html">
+                                <div class="img"><img src="../img/data/brand.jpg" alt=""></div>
+                                <h2>宝马</h2>
+                            </a>
+                        </div>
+                        <div class="cars-wrap">
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand-item">
+                        <div class="brand">
+                            <a class="comm-nounderline" href="filter.html">
+                                <div class="img"><img src="../img/data/brand.jpg" alt=""></div>
+                                <h2>阿斯顿马丁</h2>
+                            </a>
+                        </div>
+                        <div class="cars-wrap">
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <h1 class="alphabet">A</h1>
+                    <div class="brand-item">
+                        <div class="brand">
+                            <a class="comm-nounderline" href="filter.html">
+                                <div class="img"><img src="../img/data/brand.jpg" alt=""></div>
+                                <h2>宝马</h2>
+                            </a>
+                        </div>
+                        <div class="cars-wrap">
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="detail.html" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand-item">
+                        <div class="brand">
+                            <a class="comm-nounderline" href="filter.html">
+                                <div class="img"><img src="../img/data/brand.jpg" alt=""></div>
+                                <h2>阿斯顿马丁</h2>
+                            </a>
+                        </div>
+                        <div class="cars-wrap">
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cars">
+                                <div class="inner">
+                                    <h3>一汽大众奥迪</h3>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                    <a href="#" class="car">
+                                        <div class="car-number"><span class="comm-text-red">20</span>辆</div>
+                                        <div class="car-title">奥迪Q3</div>
+                                        <div class="car-img"><img src="../img/data/car.jpg" alt=""></div>
+                                        <div class="car-price">指导价：24.98~42.88万</div>
+                                        <div class="car-price">平台底价：<strong class="comm-text-red">24.98万起</strong></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @@include('../templates/footer.html')
+    @@include('../templates/scripts0.html')
+    <script>
+    var choose = new Fache.UI.AlphaChoose({
+        url : '/buy/alphabet.html', // 写下后端查询接口，比如: /brands，将会发起 /brands?alpha=A
+        onBrandsReceive : function(brands) {
+            // 当点击字母，查询到对应的brands之后，这个函数会被调用
+            // 你需要替换为服务端的数据
+            brands = ['奥迪', '林肯', '大众', '劳斯莱斯'];
+            var tmpl = '';
+            for (var i in brands) {
+                if (parseInt(i) === 0)
+                    tmpl += '<span class="active">'+ brands[i] +'</span>';
+                else
+                    tmpl += '<span>'+ brands[i] +'</span>';
+            }
+            choose.brands.html(tmpl);
+        },
+        ok : function(brand) {
+            // 选中品牌回调
+            console.debug(brand);
+        }
+    })
+    </script>
+</body>
+</html>

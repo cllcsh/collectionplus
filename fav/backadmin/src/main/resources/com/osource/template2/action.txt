@@ -1,0 +1,172 @@
+package #{action_p};
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.osource.core.exception.IctException;
+import com.osource.core.page.Pages;
+import com.osource.util.IctUtil;
+
+import #{entity_p}.#{Entity_Bean};
+import #{service_p}.#{Entity}Service;
+import #{form_p}.#{Entity}Form;
+import #{action_parent_p}.#{action_parent_name};
+
+@SuppressWarnings("serial")
+@Scope("prototype")
+@Controller
+public class #{Entity}Action extends #{action_parent_name} {
+	
+	@Autowired
+	private #{Entity}Service #{entity}Service;
+	
+	private #{Entity}Form #{entity}Form;
+
+	/** action methods **/
+	
+	public #{Entity}Action(){
+		super();
+	}
+	
+	/**
+	 *  功能初始页面跳转
+	 */
+	public String init(){
+	
+		return RESULT_INIT;
+	}
+	
+	/**
+	 *  根据查询条件进行查询
+	 */
+	public String query(){
+		Map condition = new HashMap();
+		
+		/*
+	 		TODO:此处把查询条件添加到Map中
+	 	*/
+		
+		Pages pages = new Pages(this.getPage(),this.getLimit());
+		this.setPageList(#{entity}Service.findByCondition(condition, pages));
+		
+		return RESULT_LIST;
+	}
+
+	/**
+	 *  跳转到添加#{self_module_name}页面
+	 */
+	public String add() {
+		this.setActionName("#{entity}_save");
+		return RESULT_SET;
+	}
+
+	/**
+	 *  添加#{self_module_name}信息
+	 */
+	public String save() {
+		#{Entity_Bean} #{entity_Bean} = new #{Entity_Bean}();
+	
+		try {
+			if(#{entity}Form != null)
+				IctUtil.copyProperties(#{entity_Bean}, #{entity}Form);
+			#{entity_Bean}.setInsertId(getUserSession().getUserId());
+			#{entity}Service.save(#{entity_Bean});
+			this.getAjaxMessagesJson().setMessage("0", "添加#{self_module_name}成功");
+			logger.debug("添加#{self_module_name}成功");
+		} catch (Exception e) { 
+			this.getAjaxMessagesJson().setMessage("E_ADDFAILED", "添加#{self_module_name}失败");
+			logger.debug(e);
+		}
+		
+		return RESULT_AJAXJSON;
+	}
+
+	/**
+	 *  跳转到编辑#{self_module_name}页面
+	 */
+	public String edit() throws IctException {
+		#{Entity_Bean} #{entity_Bean};
+		#{entity_Bean} = #{entity}Service.findById(this.getId());
+		
+		#{Entity}Form #{entity}Form = new #{Entity}Form(); 
+		IctUtil.copyProperties(#{entity}Form, #{entity_Bean});
+		
+		this.set#{Entity}Form(#{entity}Form);
+		
+		return RESULT_SET;
+	}
+
+	/**
+	 *  跳转到查看#{self_module_name}页面
+	 */
+	public String view() throws IctException {
+		#{Entity_Bean} #{entity_Bean};
+		#{entity_Bean} = #{entity}Service.findById(Integer.valueOf(this.getId()));
+		
+		#{Entity}Form #{entity}Form = new #{Entity}Form(); 
+		IctUtil.copyProperties(#{entity}Form, #{entity_Bean});
+		
+		this.set#{Entity}Form(#{entity}Form);
+		
+		return RESULT_VIEW;
+	}
+	
+	/**
+	 *  修改#{self_module_name}信息
+	 */
+	public String update() {
+		#{Entity_Bean} #{entity_Bean} = new #{Entity_Bean}();
+		
+		try {
+			IctUtil.copyProperties(#{entity_Bean}, #{entity}Form);
+			#{entity_Bean}.setUpdateId(getUserSession().getUserId());
+			
+			#{entity}Service.update(#{entity_Bean});
+			this.getAjaxMessagesJson().setMessage("0", "修改#{self_module_name}成功");
+			logger.debug("修改#{self_module_name}成功");
+		} catch (Exception e) {
+			this.getAjaxMessagesJson().setMessage("E_MODFAILED", "修改#{self_module_name}失败");
+			logger.debug(e);
+		}
+		
+		return RESULT_AJAXJSON;	
+	}
+	
+	/**
+	 *  删除#{self_module_name}信息
+	 */
+	public String deletes() {
+		try {
+			#{entity}Service.deleteById(this.getIds());
+			this.getAjaxMessagesJson().setMessage("0", "删除成功");
+			logger.debug("删除成功");
+		} catch (Exception e) {
+			this.getAjaxMessagesJson().setMessage("E_DELFAILED", "删除失败");
+			logger.debug(e);
+		}
+		return RESULT_AJAXJSON;
+	}
+	
+	/** getter and setter methods **/
+	
+	public #{Entity}Service get#{Entity}Service() {
+		return #{entity}Service;
+	}
+
+	public void set#{Entity}Service(#{Entity}Service #{entity}Service) {
+		this.#{entity}Service = #{entity}Service;
+	}
+
+	public #{Entity}Form get#{Entity}Form() {
+		return #{entity}Form;
+	}
+
+	public void set#{Entity}Form(#{Entity}Form #{entity}Form) {
+		this.#{entity}Form = #{entity}Form;
+	}
+
+}

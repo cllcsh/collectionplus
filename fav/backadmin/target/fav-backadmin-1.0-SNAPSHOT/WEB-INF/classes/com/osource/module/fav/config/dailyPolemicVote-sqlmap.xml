@@ -1,0 +1,92 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap class="com.osource.module.fav.model.DailyPolemicVoteInfo" id="dailyPolemicVoteInfoResultMap" extends="baseResultMapNew">
+		<result property="id" column="id" />
+		<result property="dailyPolemicId" column="daily_polemic_id" />
+		<result property="userId" column="user_id" />
+		<result property="type" column="type" />
+		<result property="day" column="day" />
+		<result property="dailyPolemicTitle" column="title" />
+		<result property="userName" column="user_name" />
+		<result property="typeDesc" column="enum_name" />
+	</resultMap>
+	<select id="fav_dailyPolemicVote_countAll" resultClass="int">
+		select count(*) from tb_daily_polemic_vote
+	</select>
+
+	<select id="fav_dailyPolemicVote_findAll" resultMap="dailyPolemicVoteInfoResultMap">
+		select t.*,p.title,u.user_name,e.enum_name from tb_daily_polemic_vote t 
+		LEFT JOIN tb_daily_polemic p ON t.daily_polemic_id=p.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_enum e ON t.type=e.enum_code AND e.enum_type='daily_polemic_vote_type'
+		order by t.insert_date desc
+	</select>
+
+	<select id="fav_dailyPolemicVote_findById" parameterClass="java.lang.Integer" resultMap="dailyPolemicVoteInfoResultMap">
+		select t.*,p.title,u.user_name,e.enum_name from tb_daily_polemic_vote t 
+		LEFT JOIN tb_daily_polemic p ON t.daily_polemic_id=p.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_enum e ON t.type=e.enum_code AND e.enum_type='daily_polemic_vote_type'
+ 		where t.id = #value#
+	</select>
+	
+	<select id="fav_dailyPolemicVote_countByCondition" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from tb_daily_polemic_vote t
+		LEFT JOIN tb_daily_polemic p ON t.daily_polemic_id=p.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_enum e ON t.type=e.enum_code AND e.enum_type='daily_polemic_vote_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dailyPolemicId"><![CDATA[ t.daily_polemic_id=#dailyPolemicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="day"><![CDATA[ t.day=#day# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+	    <isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dailyPolemicTitle"><![CDATA[ p.title like concat('%',#dailyPolemicTitle#,'%') ]]></isNotEmpty>
+	</select>
+	
+	<select id="fav_dailyPolemicVote_findByCondition" parameterClass="java.util.Map" resultMap="dailyPolemicVoteInfoResultMap">
+		select t.*,p.title,u.user_name,e.enum_name from tb_daily_polemic_vote t 
+		LEFT JOIN tb_daily_polemic p ON t.daily_polemic_id=p.id
+		LEFT JOIN tb_fav_user u ON t.user_id=u.id
+		LEFT JOIN tb_enum e ON t.type=e.enum_code AND e.enum_type='daily_polemic_vote_type'
+		where t.use_flag = 1
+		<isNotEmpty prepend=" AND " property="dailyPolemicId"><![CDATA[ t.daily_polemic_id=#dailyPolemicId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userId"><![CDATA[ t.user_id=#userId# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="type"><![CDATA[ t.type=#type# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="day"><![CDATA[ t.day=#day# ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDate"><![CDATA[t.insert_date >= #startDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDate"><![CDATA[t.insert_date <= #endDate#]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userName"><![CDATA[ u.user_name like concat('%',#userName#,'%') ]]></isNotEmpty>
+		<isNotEmpty prepend=" AND " property="dailyPolemicTitle"><![CDATA[ p.title like concat('%',#dailyPolemicTitle#,'%') ]]></isNotEmpty>
+		order by t.insert_date desc
+	</select>
+	
+	<insert id="fav_dailyPolemicVote_save" parameterClass="com.osource.module.fav.model.DailyPolemicVoteInfo">
+		 insert into tb_daily_polemic_vote(id,daily_polemic_id,user_id,type,day,use_flag,insert_date,insert_id)
+     		values (#id#,#dailyPolemicId#,#userId#,#type#,#day#,1,now(),#insertId#)
+	</insert>
+	
+	<update id="fav_dailyPolemicVote_update" parameterClass="com.osource.module.fav.model.DailyPolemicVoteInfo">
+		update tb_daily_polemic_vote set
+	        daily_polemic_id = #dailyPolemicId#,
+	        user_id = #userId#,
+	        type = #type#,
+	        day = #day#,
+	        update_date = now(),
+	        update_id = #updateId#
+	    where id = #id#
+	</update>
+	
+	<update id="fav_dailyPolemicVote_deleteInIds" parameterClass="java.util.List">
+		update tb_daily_polemic_vote set use_flag = '0' where id in 
+			<iterate conjunction="," open="(" close=")" >
+			    #value[]# 
+			</iterate>
+	</update>
+	
+	<update id="fav_dailyPolemicVote_deleteById" parameterClass="String">
+		update tb_daily_polemic_vote set use_flag = '0' where id = #value#
+	</update>
+</sqlMap>

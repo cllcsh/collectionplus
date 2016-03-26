@@ -17,7 +17,7 @@
     </header>
     <div class="user-info main">
 	    <div class="user cc">
-	    	<img id="avatarImg" src="$!{imgWebContextPath}$!{model.user.avatar}-canglist" alt="" onclick="changeAvatar('uploadAvatar')">
+	    	<img id="avatarImg" src="$!{imgWebContextPath}$!{model.user.avatar}" alt="" onclick="changeAvatar('uploadAvatar')">
 	    	<input type="file" id="uploadAvatar" name="uploadAvatar" accept="image/*" class="upload-file" multiple="multiple" style="display: none">
 	    	<div class="txt">
 	    		<div class="name"><input id="userNameId" type="text" style="background:transparent;border:0; min-width: 40%" value="$!{model.user.user_name}" onchange="modifyUserName(this.value)"><input type="submit" value="修改" class="min-btn" onclick="focusName();"></div>
@@ -47,9 +47,11 @@
 				<span class="line">/</span>
 				<span class="ui-txt-lanse">商铺</span> -->
 				#foreach($title in $model.user.titles)
-				    <!-- <span class="ui-txt-success">$!{title}</span>
-				    <span class="line">/</span> -->
-				    <img alt="" src="$!{imgWebContextPath}$!{title}-canglist">
+					<!-- <span class="ui-txt-success">$!{title}</span>
+					<span class="line">/</span> -->
+					#if($title)
+						<img alt="" src="$!{imgWebContextPath}$!{title}">
+					#end
 				#end
             </li>
         </ul>

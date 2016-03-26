@@ -28,7 +28,7 @@
 	    <div class="swiper">
 	    	<div class="swiper-wrapper">
 	    	   #foreach($imageUrl in $model.collectionDetail.images)
-	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}-cllcdetail" alt=""></div>
+	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}" alt=""></div>
 	    	   #end
 	    	</div>
 	    	<div class="swiper-pagination"></div>
@@ -38,7 +38,7 @@
 		    <ul class="ui-list ui-border-tb">
 	            <li>
 	                <div class="ui-avatar rect" data-href="userInfo?id=$!{model.collectionDetail.detail.insert_id}">
-	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}-cllcdetail" alt="">
+	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}" alt="">
 	                </div>
 	                <div class="ui-list-info">
 	                    <h4 class="ui-nowrap">$!{model.collectionDetail.detail.user_name} <span class="ui-txt-muted fr f12">$!{model.collectionDetail.detail.time}</span></h4>
@@ -104,7 +104,7 @@
 	     	   #foreach($interest in $model.collectionDetail.interests)
 		        <div class="ui-col ui-col">
 		        	<a href="collectionDetail?id=$!{interest.id}">
-		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{interest.image_url}-canglist)"></div>
+		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{interest.image_url})"></div>
 		        		<p class="ui-nowrap">$!{interest.title}</p>
 		        	</a>
 	        	</div>

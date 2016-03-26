@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="saveExit()"></i>
+    	<h1>更多操作</h1>
+    </header>
+    <div class="setting main mt10">
+        <ul class="ui-list ui-list-text ui-border-tb">
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>屏蔽该用户私信</h4>
+                </div>
+                <label class="ui-switch">
+                    <input id="block_msg" type="checkbox">
+                </label>
+            </li>
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>屏蔽该用户话题</h4>
+                </div>
+                <label class="ui-switch">
+                    <input id="block_dynamic" type="checkbox">
+                </label>
+            </li>
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>屏蔽该用户回复</h4>
+                </div>
+                <label class="ui-switch">
+                    <input id="block_reply" type="checkbox">
+                </label>
+            </li>
+            <li class="ui-border-t">
+                <div class="ui-list-info">
+                    <h4>屏蔽该用户评论</h4>
+                </div>
+                <label class="ui-switch">
+                    <input id="block_comment" type="checkbox">
+                </label>
+            </li>
+        </ul>
+        <div class="ui-footer pl10 pr10">
+        	<input type="button" value="加入黑名单" class="btn" onclick="addBlacklist('$!{model.id}')">
+        </div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+	     var friendId = '$!{model.id}';
+	    (function(){
+            if ('$model.set.block_msg' == '1')
+            {
+                $("#block_msg").click();
+            }
+            if ('$model.set.block_dynamic' == '1')
+            {
+                $("#block_dynamic").click();
+            }
+            if ('$model.set.block_reply' == '1')
+            {
+                $("#block_reply").click();
+            }
+            if ('$model.set.block_comment' == '1')
+            {
+                $("#block_comment").click();
+            }
+        })();
+        
+		function addBlacklist(id)
+		{
+		     var options = {
+                type : "POST",
+	            url: "addBlacklist",
+	            data: {'id': id},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                    tips("添加黑名单成功");
+	                }
+	                else
+	                {
+	                    tips(result.msg);
+	                }
+	            },
+	            error : function(error) {
+	                tips("添加黑名单失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+		}
+		
+		function saveExit()
+		{
+		    var block_msg = $("#block_msg").attr('checked') ? 1 : 0;
+		    var block_dynamic = $("#block_dynamic").attr('checked') ? 1 : 0;
+		    var block_reply = $("#block_reply").attr('checked') ? 1 : 0;
+		    var block_comment = $("#block_comment").attr('checked') ? 1 : 0;
+		    var options = {
+                type : "POST",
+	            url: "modifyFavUserSet",
+	            data: {'friendId' : friendId, 'block_msg' : block_msg, 'block_dynamic' : block_dynamic, 'block_reply' : block_reply, 'block_comment' : block_comment},
+	            dataType : "json",
+	            success : function(result) {
+	               history.back()
+	            },
+	            error : function(error) {
+	                history.back()
+	            }
+            }
+            $.ajax(options);
+		}
+	</script>
+</body>
+</html>

@@ -37,7 +37,7 @@
 	    	<div class="content">
 	    		<div class="item cc">
 	    			#foreach($period in $model.periodList)
-	    			    <a href="javascript:goCateList('$!{period.getId()}')"><img src="$!{imgWebContextPath}$!{period.getImage_url()-canglist}" alt=""><p>$!{period.getName()}</p></a>
+	    			    <a href="javascript:goCateList('$!{period.getId()}')"><img src="$!{imgWebContextPath}$!{period.getImage_url()}" alt=""><p>$!{period.getName()}</p></a>
 	    			#end
 	    		</div>
 	    	</div>

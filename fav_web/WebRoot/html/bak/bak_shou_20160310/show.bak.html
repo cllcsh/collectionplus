@@ -28,7 +28,7 @@
 	    <div class="swiper">
 	    	<div class="swiper-wrapper">
 	    	   #foreach($imageUrl in $model.collectionDetail.images)
-	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}-cllcdetail" alt=""></div>
+	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}" alt=""></div>
 	    	   #end
 	    	</div>
 	    	<div class="swiper-pagination"></div>
@@ -37,8 +37,8 @@
 	    <div class="user">
 		    <ul class="ui-list ui-border-tb">
 	            <li>
-	                <div class="ui-avatar rect" data-href="userInfo?id=$!{model.collectionDetail.detail.insert_id}">
-	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}-cllcdetail" alt="">
+	                <div class="ui-avatar rect">
+	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}" alt="">
 	                </div>
 	                <div class="ui-list-info">
 	                    <h4 class="ui-nowrap">$!{model.collectionDetail.detail.user_name} <span class="ui-txt-muted fr f12">$!{model.collectionDetail.detail.time}</span></h4>
@@ -104,7 +104,7 @@
 	     	   #foreach($interest in $model.collectionDetail.interests)
 		        <div class="ui-col ui-col">
 		        	<a href="collectionDetail?id=$!{interest.id}">
-		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{interest.image_url}-canglist)"></div>
+		        		<div class="img" style="background-image:url($!{imgWebContextPath}$!{interest.image_url})"></div>
 		        		<p class="ui-nowrap">$!{interest.title}</p>
 		        	</a>
 	        	</div>
@@ -115,11 +115,11 @@
 			<div class="inner">
 				<div class="tit">分享</div>
 				<ul class="cc bb">
-					<!-- <li id="kWeixin" style="display: none"><a href="javascript:share('weixin');"><img alt="" src="images/share-weixin.png"><p>微信</p></a></li>
-					<li id="kWeixinFriend" style="display: none"><a href="javascript:share('weixinFriend');"><img alt="" src="images/share-firend.png"><p>朋友圈</p></a></li> -->
-					<!-- <li><a href="javascript:shareclntoqq('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq-weibo.png"><p>腾讯微博</p></a></li>
+					<li id="kWeixin" style="display: none"><a href="javascript:share('weixin');"><img alt="" src="images/share-weixin.png"><p>微信</p></a></li>
+					<li id="kWeixinFriend" style="display: none"><a href="javascript:share('weixinFriend');"><img alt="" src="images/share-firend.png"><p>朋友圈</p></a></li>
+					<li><a href="javascript:shareclntoqq('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq-weibo.png"><p>腾讯微博</p></a></li>
 					<li><a href="javascript:shareclntosina('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-weibo.png"><p>新浪微博</p></a></li>
-					<li><a href="javascript:shareclntoqqzone('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq.png"><p>QQ</p></a></li> -->
+					<li><a href="javascript:shareclntoqqzone('$!{model.collectionDetail.detail.id}','$!{model.collectionDetail.detail.title}','$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}');"><img alt="" src="images/share-qq.png"><p>QQ</p></a></li>
 					<!-- <li><a href="javascript:;"><img alt="" src="images/share-email.png"><p>邮件</p></a></li>-->
 					<!--<li><a href="javascript:;"><img alt="" src="images/share-message.png"><p>短信</p></a></li>-->
 				</ul>
@@ -133,22 +133,20 @@
 	<script src="lib/swiper/swiper.js"></script>
 	<script src="lib/frozen/js/frozen.js"></script>
 	<script src="js/script.js"></script>
-	<!-- <script src="js/share.js"></script> -->
-	<!-- <script src="js/nShare.js"></script> -->
+	<script src="js/share.js"></script>
+	<script src="js/nShare.js"></script>
 	<script>
 		new Swiper('.swiper', {
 			pagination : '.swiper-pagination'
 		});
-		
+
 		// 显示分享层
 		(function(){
-		    
 			var shareBtn = $(".share");
 			var shareBox = $(".sharepop");
 			
 			shareBtn.click(function(){
-				//shareBox.addClass("show");
-				appToShare();
+				shareBox.addClass("show");
 				return false;
 			});
 			
@@ -158,14 +156,8 @@
 					shareBox.removeClass("show").removeClass("hide");
 				},600);
 			});
-			var ua = navigator.userAgent.toLowerCase(); 
-			//if (isIphoneSafari())
-			if (ua.indexOf('iphone') > -1)
-		    {
-		        shareBtn.hide();
-		    }
-		    
-			/**init();
+			
+			init();
 			var config = {
 	            url: window.location.href,
 	            title:'$!{model.collectionDetail.detail.title}',
@@ -174,7 +166,7 @@
 	            img_title:'',
 	            from:'收藏+'
 	        };
-			refConfig(config);*/
+			refConfig(config);
 		})();
 		
 		function addFavorites(collectionId)
@@ -223,36 +215,6 @@
             $.ajax(options);
 		}
 		
-		function appToShare()
-		{
-	        if (window.HostApp) {
-	            var reqURL = window.location.href;
-	            var hostURL = window.location.origin;//window.location.host;
-	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}';
-	            if (imgURL != null && imgURL.indexOf('http://') ==  -1)
-	            {
-	                imgURL = hostURL + imgURL;
-	            }
-	            var introduction = '$!{model.collectionDetail.detail.introduction}';
-	            //简介为空时，分享不出去，简介设置这空字符串
-	            if (introduction == '')
-	            {
-	               introduction = ' ';
-	            }
-		        /**window.HostApp.share('$!{model.collectionDetail.detail.title}',
-		            '$!{model.collectionDetail.detail.introduction}',
-		            reqURL,
-		            '');*/
-	            window.HostApp.share('$!{model.collectionDetail.detail.title}',
-	            introduction,
-	            imgURL ,
-	            reqURL);
-		    }
-		    else
-		    {
-		        tips("非收藏+客户端暂不支持分享");
-		    }
-		}
 	</script>
 </body>
 </html>

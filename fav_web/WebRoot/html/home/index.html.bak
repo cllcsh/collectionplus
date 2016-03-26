@@ -25,7 +25,7 @@
 	    <div class="ui-slider banner">
 	        <ul class="ui-slider-content" style="width: 300%">
 	            #foreach($ad in $model.adImagesList)
-	                <li><span style="background-image:url($!{imgWebContextPath}$!{ad.ad_image}?imageView2/2/w/640/h/150/q/50/format/png)" onclick="goAd('$!{ad.ad_path}')"></span></li>
+	                <li><span style="background-image:url($!{imgWebContextPath}$!{ad.ad_image}-canglist)" onclick="goAd('$!{ad.ad_path}')"></span></li>
 	            #end
 	        </ul>
 	    </div>

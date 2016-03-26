@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="lib/swiper/swiper.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body>
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>藏友信息</h1>
+    	#if(!$model.isOwen)
+    	<a href="friendSet?id=$!{model.user.id}" class="link more"></a>
+    	#end
+    	<!-- <a href="javascript:;" class="link share user-info-share"></a> -->
+    </header>
+    <div class="user-info main">
+	    <div class="user cc">
+	    	<img src="$!{imgWebContextPath}$!{model.user.avatar}" alt="">
+	    	<div class="txt">
+	    		<div class="name">$!{model.user.user_name}</div>
+	    		<div class="label">个性签名:</div>
+	    		<div class="intro">$!{model.user.signature}</div>
+	    	</div>
+	    </div>
+	    <ul class="ui-list ui-list-pure ui-border-tb info">
+            <li class="ui-border-t">
+              	<span class="label">用户等级：</span>Lv <span class="ui-txt-warning">$!{model.user.user_level}级</span>
+            </li>
+            <li class="ui-border-t">
+              	<span class="label">用户称号：</span>
+				<!-- <span class="ui-txt-success">已认证</span>
+				<span class="line">/</span>
+				<span class="ui-txt-primary">专家组</span>
+				<span class="line">/</span>
+				<span class="ui-txt-zise">达人</span>
+				<span class="line">/</span>
+				<span class="ui-txt-warning">VIP</span>
+				<span class="line">/</span>
+				<span class="ui-txt-highlight">拍卖行</span>
+				<span class="line">/</span>
+				<span class="ui-txt-lanse">商铺</span> -->
+				#foreach($title in $model.user.titles)
+				    <!-- <span class="ui-txt-success">$!{title}</span>
+				    <span class="line">/</span> -->
+				    <img alt="" src="$!{imgWebContextPath}$!{title}">
+				#end
+            </li>
+        </ul>
+        <div class="nums">
+        	<div class="ui-row-flex">
+        		<div class="ui-col">$!{model.user.heat} <br> 热度 </div>
+        		<div class="ui-col"><a href="userFans?id=$!{model.user.id}">$!{model.user.fans} <br> 粉丝</a> </div>
+        		<div class="ui-col"><a href="userAttentions?id=$!{model.user.id}">$!{model.user.attentions} <br> 关注</a> </div>
+        	</div>
+        </div>
+        <div class="btns cc">
+            #if(!$model.isOwen)
+                #if($model.isAdded)
+                    <a id="attentionBtn" href="javascript:delAttention('$!{model.user.id}');" class="btn fl"><img src="images/icon-ok.png" alt="">取消关注</a>
+                #else
+                    <a id="attentionBtn" href="javascript:addAttention('$!{model.user.id}');" class="btn fl"><img src="images/icon-ok.png" alt="">加关注</a>
+                #end
+        	  <a href="replyMessage?id=$!{model.user.id}" class="btn btn-border fr"><img src="images/icon-msg-active.png" alt="">发私信</a>
+            #end
+        </div>
+        <ul class="ui-list ui-list-pure ui-border-tb ui-list-link">
+            <li class="ui-border-t" data-href="userCollectionList?id=$!{model.user.id}">
+              发布藏品 <span class="ui-txt-muted">($!{model.user.collections})</span>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-pure ui-border-tb ui-list-link mt10">
+            <li class="ui-border-t" data-href="showUserReply?id=$!{model.user.id}">
+              发表回复 <span class="ui-txt-muted">($!{model.user.comments})</span>
+            </li>
+        </ul>
+        <ul class="ui-list ui-list-pure ui-border-tb ui-list-link mt10" id="showDynamic">
+            <li class="ui-border-t" data-href="userDynamic?id=$!{model.user.id}">
+              发布动态 <span class="ui-txt-muted">($!{model.user.dynamics})</span>
+            </li>
+        </ul>
+	    <div class="sharepop">
+			<div class="inner">
+				<div class="tit">分享</div>
+				<ul class="cc bb">
+					<li><a href="javascript:;"><img alt="" src="images/share-weixin.png"><p>微信</p></a></li>
+					<li><a href="javascript:;"><img alt="" src="images/share-firend.png"><p>朋友圈</p></a></li>
+					<li><a href="javascript:;"><img alt="" src="images/share-weibo.png"><p>新浪微博</p></a></li>
+					<li><a href="javascript:;"><img alt="" src="images/share-qq.png"><p>QQ</p></a></li>
+					<li><a href="javascript:;"><img alt="" src="images/share-email.png"><p>邮件</p></a></li>
+					<li><a href="javascript:;"><img alt="" src="images/share-message.png"><p>短信</p></a></li>
+				</ul>
+				<div class="p">
+					<button class="btn">取消</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<script src="lib/zepto.js"></script>
+	<script src="lib/swiper/swiper.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		// 显示分享层
+		(function(){
+			var shareBtn = $(".share");
+			var shareBox = $(".sharepop");
+			
+			shareBtn.click(function(){
+				shareBox.addClass("show");
+				return false;
+			});
+			
+			shareBox.find(".btn").click(function(){
+				shareBox.addClass("hide");
+				setTimeout(function(){
+					shareBox.removeClass("show").removeClass("hide");
+				},600);
+			});
+		})();
+		
+		function addAttention(id)
+        {
+            var options = {
+                type : "POST",
+	            url: "addAttention",
+	            data: {'id' : id},
+	            dataType : "json",
+	            success : function(result) {
+	                if (result.result)
+	                {
+	                   //$("#attentionBtn").text("取消关注");
+	                   //$("#attentionBtn").attr("href", "javascript:delAttention('"+id+"');");
+	                   window.location.reload();
+	                }
+	                tips(result.msg);
+	            },
+	            error : function(error) {
+	                tips("加关注失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        function delAttention(id)
+        {
+            var options = {
+                type : "POST",
+	            url: "deleteAttention",
+	            data: {'id' : id},
+	            dataType : "json",
+	            success : function(result) {
+	                tips(result.msg);
+	                if (result.result)
+	                {
+	                   //$("#attentionBtn").text("加关注");
+	                   //$("#attentionBtn").attr("href", "javascript:addAttention('"+id+"');");
+	                   window.location.reload();
+	                }
+	            },
+	            error : function(error) {
+	                tips("取消关注失败");
+	            }
+            }
+            $.ajax(options);
+	        return false;
+        }
+        
+        if($model.isAdded)
+        {
+            $("#showDynamic").show();
+        }
+        else
+        {
+            $("#showDynamic").hide();
+        }
+        
+	</script>
+</body>
+</html>

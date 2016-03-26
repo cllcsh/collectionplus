@@ -50,7 +50,7 @@
 		    <div id="list-view">
 		      #foreach($dynamic in $model.dynamicList)
 		    	<div class="item cc">
-		    		<img src="$!{imgWebContextPath}$!{dynamic.avatar}-canglist" alt="" class="avatar" data-href="userInfo?id=$!{dynamic.release_by}">
+		    		<img src="$!{imgWebContextPath}$!{dynamic.avatar}" alt="" class="avatar" data-href="userInfo?id=$!{dynamic.release_by}">
 		    		<div class="content"  id="$!{dynamic.id}">
 		    			<div class="name" data-href="userInfo?id=$!{dynamic.release_by}">$!{dynamic.user_name}</div>
 		    			<div class="desc">
@@ -59,7 +59,7 @@
 		    			<div class="image">
 		    				<ul class="cc">
 		    				    #foreach($imgUrl in $dynamic.images)
-		    					<li><figure style="background-image:url($!{imgWebContextPath}$!{imgUrl}-canglist)"></figure></li>
+		    					<li><figure style="background-image:url($!{imgWebContextPath}$!{imgUrl})"></figure></li>
 		    					#end
 		    				</ul>
 		    			</div>
@@ -294,7 +294,7 @@
 	                        {
 		                        for(var j = 0; j < images.length; j++)
 		                        {
-		                            htmlImg += '<li><figure style="background-image:url($!{imgWebContextPath}'+images[j]+ '?imageView2/2/w/140/h/140/q/10/format/png'+')"></figure></li>';
+		                            htmlImg += '<li><figure style="background-image:url($!{imgWebContextPath}'+images[j]+')"></figure></li>';
 		                        }
 	                        }
 	                        var htmlLike = '';

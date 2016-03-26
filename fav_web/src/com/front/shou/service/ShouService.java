@@ -53,9 +53,9 @@ public class ShouService {
 	@SuppressWarnings("unchecked")
 	public static List<JSONObject> queryDayHotCollections(BigDecimal id) throws Exception
 	{
-		String sql = "SELECT tc.*, SUM(tcm.point) as points, COUNT(tcm.source_id) as comment_num FROM tb_collection tc " +
+		String sql = "SELECT tc.*, COUNT(tcm.source_id) as comment_num FROM tb_collection tc " +
 				"INNER JOIN tb_comment tcm ON tcm.source_id = tc.id AND tcm.source_type = 0 " +
-				"WHERE tc.use_flag = 1 " +
+				"WHERE tc.use_flag = 1 AND tc.status='collection_status_show' " +
 				"GROUP BY tcm.source_id ORDER BY tc.heat DESC LIMIT 0,100";
 		List<Object> paraList = new ArrayList<Object>();
 		List<JSONObject> collectionList = BaseDao.getListBySql(new ResultSetInterface() {
@@ -89,7 +89,9 @@ public class ShouService {
 	@SuppressWarnings("unchecked")
 	public static List<JSONObject> queryAllCollections() throws Exception
 	{
-		String sql = "SELECT tc.* FROM tb_collection tc WHERE tc.use_flag =1 AND tc.status='collection_status_show' ORDER BY tc.insert_date DESC LIMIT 0, 1000";
+		String sql = "SELECT tc.* FROM tb_collection tc " + 
+						"WHERE tc.use_flag =1 AND tc.status='collection_status_show' " + 
+						"ORDER BY tc.insert_date DESC LIMIT 0, 1000";
 		List<Object> paraList = new ArrayList<Object>();
 		List<JSONObject> collectionList = BaseDao.getListBySql(new ResultSetInterface() {
 			public JSONObject getObject(ResultSet rs) throws SQLException {

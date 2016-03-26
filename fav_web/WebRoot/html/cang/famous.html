@@ -31,7 +31,7 @@
            #foreach($famous in $model.famousList)
             <li class="ui-border-t" data-href="famousShow?id=$!{famous.id}">
                 <div class="ui-avatar rect">
-                    <img src="$!{imgWebContextPath}$!{famous.icon}" alt="">
+                    <img src="$!{imgWebContextPath}$!{famous.icon}-canglist" alt="">
                 </div>
                 <div class="ui-list-info">
                     <h4 class="ui-nowrap">$!{famous.name} 
@@ -94,7 +94,7 @@
 	                        }
 	                        var html = '<li class="ui-border-t" data-href="famousShow?id=$!{famous.id}">'
 	                            +'<div class="ui-avatar rect">'
-	                            +'<img src="$!{imgWebContextPath}'+result[i].icon+'" alt="">'
+	                            +'<img src="$!{imgWebContextPath}'+result[i].icon+'?imageView2/2/w/140/h/140/q/10/format/png'+'" alt="">'
 	                            +'</div>'
 	                            +'<div class="ui-list-info">'
 	                            +'<h4 class="ui-nowrap">$!{famous.name}'

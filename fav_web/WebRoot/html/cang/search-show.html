@@ -28,7 +28,7 @@
 	    <div class="swiper">
 	    	<div class="swiper-wrapper">
 	    	   #foreach($imageUrl in $model.collectionDetail.images)
-	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}" alt=""></div>
+	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}-cllcdetail" alt=""></div>
 	    	   #end
 	    	</div>
 	    	<div class="swiper-pagination"></div>
@@ -38,7 +38,7 @@
 		    <ul class="ui-list ui-border-tb">
 	            <li>
 	                <div class="ui-avatar rect" data-href="userInfo?id=$!{model.collectionDetail.detail.insert_id}">
-	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}" alt="">
+	                    <img src="$!{imgWebContextPath}$!{model.collectionDetail.detail.avatar}-canglist" alt="">
 	                </div>
 	                <div class="ui-list-info">
 	                    <h4 class="ui-nowrap">$!{model.collectionDetail.detail.user_name} <span class="ui-txt-muted fr f12">$!{model.collectionDetail.detail.time}</span></h4>
@@ -208,7 +208,7 @@
 	        if (window.HostApp) {
 	            var reqURL = window.location.href;
 	            var hostURL = window.location.origin;
-	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}';
+	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}-canglist';
 	            
 	            if (imgURL != null && imgURL.indexOf('http://') == -1)
 	            {

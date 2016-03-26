@@ -22,7 +22,7 @@
     </header>
     <div class="user-info main">
 	    <div class="user cc">
-	    	<img src="$!{imgWebContextPath}$!{model.user.avatar}" alt="">
+	    	<img src="$!{imgWebContextPath}$!{model.user.avatar}-canglist" alt="">
 	    	<div class="txt">
 	    		<div class="name">$!{model.user.user_name}</div>
 	    		<div class="label">个性签名:</div>
@@ -49,7 +49,7 @@
 				#foreach($title in $model.user.titles)
 				    <!-- <span class="ui-txt-success">$!{title}</span>
 				    <span class="line">/</span> -->
-				    <img alt="" src="$!{imgWebContextPath}$!{title}">
+				    <img alt="" src="$!{imgWebContextPath}$!{title}-canglist">
 				#end
             </li>
         </ul>

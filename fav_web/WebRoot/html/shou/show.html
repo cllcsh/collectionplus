@@ -228,7 +228,7 @@
 	        if (window.HostApp) {
 	            var reqURL = window.location.href;
 	            var hostURL = window.location.origin;//window.location.host;
-	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}';
+	            var imgURL = '$!{imgWebContextPath}$!{model.collectionDetail.detail.icon_img}-cllcdetail';
 	            if (imgURL != null && imgURL.indexOf('http://') ==  -1)
 	            {
 	                imgURL = hostURL + imgURL;

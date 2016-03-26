@@ -20,7 +20,7 @@
 	        #foreach($dynamic in $model.dynamicList)
             <li class="ui-border-t" data-href="toCangDynamicDetail?id=$!{dynamic.id}&auctionId=$!{dynamic.auction_id}&type=$!{dynamic.auction_dynamic_type_id}">
                 <div class="ui-avatar rect">
-                    <img src="$!{imgWebContextPath}$!{dynamic.icon}" alt="">
+                    <img src="$!{imgWebContextPath}$!{dynamic.icon}-canglist" alt="">
                 </div>
                 <div class="ui-list-info">
                     <h4>$!{dynamic.title}</h4>

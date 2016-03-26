@@ -21,7 +21,7 @@
 	        #if($!{velocityCount} <= ${pageSize})
 			<li class="ui-border-t" data-href="showMessage?id=$!{message.sender}">
 				<div class="ui-avatar">
-					<img src="$!{imgWebContextPath}$!{message.avatar}" alt="">
+					<img src="$!{imgWebContextPath}$!{message.avatar}-canglist" alt="">
 					<div class="ui-badge">$!{message.unreadNum}</div>
 				</div>
 				<div class="ui-list-info">
@@ -65,7 +65,7 @@
 			            {
 				            var html = '<li class="ui-border-t" data-href="showMessage?id='+list[i].sender+'">' +
 				                       '<div class="ui-avatar">' + 
-		    			               '<img src="$!{imgWebContextPath}'+list[i].avatar+'" alt="">'+
+		    			               '<img src="$!{imgWebContextPath}'+list[i].avatar+'?imageView2/2/w/140/h/140/q/10/format/png'+'" alt="">'+
 		    				           '<div class="ui-badge">'+list[i].unreadNum+'</div>'+
 		    				           '</div>'+
 		    					       '<div class="ui-list-info">'+

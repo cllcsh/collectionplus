@@ -22,15 +22,17 @@
     <div class="user-fans main">
         <ul class="ui-list ui-border-b" id="list-view">
            #foreach($user in $model.favUserList)
+            <a href="userInfo?id=$!{tc.getId()}">
             <li class="ui-border-t">
                 <div class="ui-avatar rect">
-                    <img src="$!{imgWebContextPath}$!{user.getAvatar()}" alt="">
+                    <img src="$!{imgWebContextPath}$!{user.getAvatar()-canglist}" alt="">
                 </div>
                 <div class="ui-list-info">
                     <h4 class="ui-nowrap">$!{user.getUser_name()}</h4>
                     <p class="ui-nowrap"><span class="ui-txt-muted">$!{user.getSignature()}</span></p>
                 </div>
             </li>
+            </a>
             #end
         </ul>
         <!-- <div class="ui-loading-wrap">

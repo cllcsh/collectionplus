@@ -22,7 +22,7 @@
 	    	    #foreach($collection in $model.collectionList)
 	    	    #if($!{velocityCount} <= ${pageSize})
 	    		<li data-href="collectionDetail?id=$!{collection.id}">
-	    			<div class="img"><img src="$!{imgWebContextPath}$!{collection.image_url}" alt=""></div>
+	    			<div class="img"><img src="$!{imgWebContextPath}$!{collection.image_url}-canglist" alt=""></div>
 	    			<div class="txt">
 	    				<div class="title">$!{collection.title}</div>
 	    				<div class="info">
@@ -111,7 +111,7 @@
 					            lable = matchLable(list[i].lable);
 				            }
 				            var html = '<li data-href="collectionDetail?id=' + list[i].id + '">' +
-				                       '<div class="img" style="background-image:url($!{imgWebContextPath}'+list[i].image_url+')"></div>' + 
+				                       '<div class="img" style="background-image:url($!{imgWebContextPath}'+list[i].image_url+'?imageView2/2/w/140/h/140/q/10/format/png'+')"></div>' + 
 		    			               '<div class="txt">'+
 		    				           '<div class="title">'+list[i].title+'</div>'+
 		    				           '<div class="info">'+

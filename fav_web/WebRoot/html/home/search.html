@@ -28,7 +28,7 @@
             #foreach($user in $model.favUserList)
             <li class="ui-border-t" onclick="inviteComment('$!{user.getId()}')">
                 <div class="ui-avatar rect">
-                    <img src="$!{imgWebContextPath}$!{user.getAvatar()}" alt="">
+                    <img src="$!{imgWebContextPath}$!{user.getAvatar()}-canglist" alt="">
                 </div>
                 <div class="ui-list-info">
                     <h4 class="ui-nowrap">$!{user.getUser_name()}</h4>
@@ -74,7 +74,7 @@
 	                    for(var i = 0; i < result.length; i++)
 	                    {
 	                        $("#list-view").append('<li class="ui-border-t" onclick="inviteComment(\''+ result[i].id +'\')"><div class="ui-avatar rect"><img src="$!{imgWebContextPath}'
-	                         + result[i].avatar + '" alt=""></div><div class="ui-list-info"><h4 class="ui-nowrap">'
+	                         + result[i].avatar + '?imageView2/2/w/140/h/140/q/10/format/png'+'" alt=""></div><div class="ui-list-info"><h4 class="ui-nowrap">'
 	                         + result[i].user_name + '</h4><p class="ui-nowrap"><span class="ui-txt-muted">' + result[i].signature + '</span></p></div></li>');
 	                    }
 	                }

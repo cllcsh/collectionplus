@@ -177,7 +177,7 @@ public class HomeService {
 		List<JSONObject> collectionsList = new ArrayList<JSONObject>();
 		String sql = "SELECT tc.* FROM tb_user_interes_category tic " +
 				"INNER JOIN tb_collection tc ON tc.category_id = tic.category_id " +
-				"WHERE tic.user_id = ? AND tc.use_flag = 1 ORDER BY tc.heat DESC LIMIT 0, 100";
+				"WHERE tic.user_id = ? AND tc.use_flag = 1 AND tc.status='collection_status_show' ORDER BY tc.heat DESC LIMIT 0, 100";
 		List<Object> paraList = new ArrayList<Object>();
 		paraList.add(receiver);
 		List<JSONObject> cbList = BaseDao.getListBySql(new ResultSetInterface() {
@@ -197,7 +197,7 @@ public class HomeService {
 		
 		if (CollectionUtils.isEmpty(cbList))
 		{
-			sql = "SELECT tc.* FROM tb_collection tc WHERE tc.use_flag = 1 ORDER BY tc.heat DESC LIMIT 0, 100";
+			sql = "SELECT tc.* FROM tb_collection tc WHERE tc.use_flag = 1 AND tc.status='collection_status_show' ORDER BY tc.heat DESC LIMIT 0, 100";
 			cbList = BaseDao.getListBySql(new ResultSetInterface() {
 				public JSONObject getObject(ResultSet rs) throws SQLException {
 					JSONObject json = new JSONObject();

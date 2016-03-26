@@ -53,23 +53,20 @@ public class ShouService {
 	@SuppressWarnings("unchecked")
 	public static List<JSONObject> queryDayHotCollections(BigDecimal id) throws Exception
 	{
-		String sql = "SELECT tc.*, SUM(tcm.point) as points, COUNT(tcm.source_id) as comment_num FROM tb_user_interes_category tic " +
-				"INNER JOIN tb_collection tc ON tc.category_id = tic.category_id " +
-				"INNER JOIN tb_comment tcm ON tcm.source_id = tc.id AND tcm.source_type = ?" +
-				"WHERE tic.user_id = ? AND tc.use_flag = 1 AND DATE_FORMAT(tcm.comment_time,'%Y-%m-%d') = CURDATE() " +
-				"GROUP BY tcm.source_id ORDER BY points DESC LIMIT 0,100";
+		String sql = "SELECT tc.*, SUM(tcm.point) as points, COUNT(tcm.source_id) as comment_num FROM tb_collection tc " +
+				"INNER JOIN tb_comment tcm ON tcm.source_id = tc.id AND tcm.source_type = 0 " +
+				"WHERE tc.use_flag = 1 " +
+				"GROUP BY tcm.source_id ORDER BY tc.heat DESC LIMIT 0,100";
 		List<Object> paraList = new ArrayList<Object>();
-		paraList.add(Constant.COMMENT_SOURCE_TYPE_COLLECTION);
-		paraList.add(id);
-		List<JSONObject> collectionList =  BaseDao.getListBySql(new ResultSetInterface() {
+		List<JSONObject> collectionList = BaseDao.getListBySql(new ResultSetInterface() {
 			public JSONObject getObject(ResultSet rs) throws SQLException {
-				JSONObject json = parseDataToCollection(rs);
+				JSONObject json = parseDataToCollection(rs, false);
 				return json;
 			}
 		}, sql, paraList);
 		
 		//如果与用户兴趣有关的栏目没有相应今日最热的100个藏品藏品，则取今日最热的100个
-		if (CollectionUtils.isEmpty(collectionList))
+		/*if (CollectionUtils.isEmpty(collectionList))
 		{
 			sql = "SELECT tc.*, SUM(tcm.point) as points, COUNT(tcm.source_id) as comment_num FROM tb_collection tc " +
 					"INNER JOIN tb_comment tcm ON tcm.source_id = tc.id AND tcm.source_type = 0 " +
@@ -81,7 +78,7 @@ public class ShouService {
 					return json;
 				}
 			}, sql, null);
-		}
+		}*/
 		return collectionList;
 	}
 	/**查询全部藏品（所有类别）

@@ -92,7 +92,7 @@ public class ShouService {
 	@SuppressWarnings("unchecked")
 	public static List<JSONObject> queryAllCollections() throws Exception
 	{
-		String sql = "SELECT tc.* FROM tb_collection tc WHERE tc.use_flag =1 ORDER BY tc.insert_date DESC LIMIT 0, 1000";
+		String sql = "SELECT tc.* FROM tb_collection tc WHERE tc.use_flag =1 AND tc.status='collection_status_show' ORDER BY tc.insert_date DESC LIMIT 0, 1000";
 		List<Object> paraList = new ArrayList<Object>();
 		List<JSONObject> collectionList = BaseDao.getListBySql(new ResultSetInterface() {
 			public JSONObject getObject(ResultSet rs) throws SQLException {

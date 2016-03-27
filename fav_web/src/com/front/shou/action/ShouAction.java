@@ -466,6 +466,16 @@ public class ShouAction extends GenericPageAction{
         return new TemplateRenderer("/html/shou/user-list.html" , Constant.DEFAULT_MODULE_STRING , out);
 	}
 	
+	@Mapping("/ViewImage")
+	public Renderer ViewImage() throws Exception
+	{
+		Map<String, Object> out = getOutputMap();
+		String id = getRequest().getParameter("id");
+		JSONObject collectionDetail = ShouService.queryCollectionDetail(new BigDecimal(id));
+		out.put("collectionDetail", collectionDetail);
+		return new TemplateRenderer("html/shou/view_image.html", Constant.DEFAULT_MODULE_STRING, out);
+	}
+	
 	@Mapping("/toComment")
 	public Renderer toComment() throws Exception
 	{

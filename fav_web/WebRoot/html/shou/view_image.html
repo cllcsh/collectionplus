@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+	<title>收藏+</title>
+	<link rel="stylesheet" href="lib/frozen/css/frozen.css">
+	<link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/shou.css">
+    #parse("html/common/include.html")
+</head>
+<body class="has-footer">
+	<header class="ui-header ui-header-positive header">
+    	<i class="ui-icon-return" onclick="history.back()"></i>
+    	<h1>藏品图片</h1>
+    </header>
+    <div class="swiper">
+	    	<div class="swiper-wrapper">
+	    	   #foreach($imageUrl in $model.collectionDetail.images)
+	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}?imageView2/0/w/1080/h/1920" alt=""></div>
+	    	   #end
+	    	</div>
+	    	<div class="swiper-pagination"></div>
+	</div>
+    <script src="lib/zepto.js"></script>
+	<script src="lib/frozen/js/frozen.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		new Swiper('.swiper', {
+			pagination : '.swiper-pagination'
+		});
+	</script>
+</body>
+</html>

@@ -28,7 +28,7 @@
 	    <div class="swiper">
 	    	<div class="swiper-wrapper">
 	    	   #foreach($imageUrl in $model.collectionDetail.images)
-	    	     <div class="swiper-slide"><img src="$!{imgWebContextPath}$!{imageUrl}-cllcdetail" alt=""></div>
+	    	     <div class="swiper-slide"><a href="ViewImage"><img src="$!{imgWebContextPath}$!{imageUrl}-cllcdetail" alt=""></a></div>
 	    	   #end
 	    	</div>
 	    	<div class="swiper-pagination"></div>

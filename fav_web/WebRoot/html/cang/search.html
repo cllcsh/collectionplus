@@ -26,21 +26,29 @@
             </div>
             <button class="ui-searchbar-cancel" onclick="searchCollection('searchCollection')">确定</button>
         </div>
-	    <div class="container">
-	    	<div class="sidebar">
-	    		<ul id="categoryId">
-	    		   #foreach($category in $model.categoryList)
-	    			<li id='$!{category.getId()}'>$!{category.getCategory_name()}</li>
-	    		   #end
-	    		</ul>
-	    	</div>
-	    	<div class="content">
-	    		<div class="item cc">
-	    			#foreach($period in $model.periodList)
-	    			    <a href="javascript:goCateList('$!{period.getId()}')"><img src="$!{imgWebContextPath}$!{period.getImage_url()}-canglist" alt=""><p>$!{period.getName()}</p></a>
-	    			#end
-	    		</div>
-	    	</div>
+	    <div class="plist">
+	    	<ul id="list-view">
+	    	   #foreach($collection in $model.collectionList)
+	    	   #if($!{velocityCount} <= ${pageSize})
+	    		<li data-href="cangSearchShow?id=${collection.id}">
+	    			<div class="img" style="background-image:url($!{imgWebContextPath}$!{collection.image_url}-canglist)"></div>
+	    			<div class="txt">
+	    				<div class="title">$!{collection.title}</div>
+	    				<div class="info">
+	    					<span class="fr time">$!{collection.transaction_price_time}</span>
+	    					<span class="fl">$!{collection.category} - $!{collection.collection_period}</span>
+	    				</div>
+	    				<div class="f12 price">成交价：<span class="ui-txt-warning">$!{collection.transaction_price}$!{collection.transaction_price_unit}</span></div>
+	    				<div class="f12 ui-txt-info mt5">$!{collection.auction_name}</div>
+	    			</div>
+	    		</li>
+	    		#end
+	    		#end
+	    	</ul>
+	    	<div class="ui-loading-wrap">
+				<p class="ui-txt-info">加载中</p>
+				<i class="ui-loading"></i>
+			</div>
 	    </div>
     </div>
 	<script src="lib/zepto.js"></script>

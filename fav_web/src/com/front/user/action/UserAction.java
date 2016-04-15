@@ -481,7 +481,7 @@ public class UserAction extends GenericPageAction{
 						favUserBean.setId(userId);
 						favUserBean.setAccount(account);
 						favUserBean.setPhone(account);
-						favUserBean.setAvatar(Constant.DEFAULT_PROFLE_PHOTO);
+						favUserBean.setAvatar((int)(Math.random()*20+1)+"profle.jpg");
 						favUserBean.setUser_name(account);
 						//新注册用户默认等级为1级
 						favUserBean.setUser_level("1");

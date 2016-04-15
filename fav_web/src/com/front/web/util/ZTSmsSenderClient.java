@@ -27,7 +27,7 @@ public class ZTSmsSenderClient {
     // 发送传递的参数
     // http://www.ztsms.cn:8800/sendXSms.do?username=用户名&password=密码&mobile=手机号码&content=内容&dstime=&productid=产品ID&xh=留空
     private static String username = "scj666";
-    private static String password = "Jiang123";
+    private static String password = "daacd783f8642046d00d6ec64c7314da";
     private static Integer productid;
     private static String xh = "";
     private static String sendurl = "http://www.ztsms.cn:8800/";
@@ -42,7 +42,7 @@ public class ZTSmsSenderClient {
 
     public ZTSmsSenderClient() {
         username = "scj666"; // 您的用户名
-        password = "Jiang123"; // 密码
+        password = "daacd783f8642046d00d6ec64c7314da"; // 密码
         sendurl = "http://www.ztsms.cn:8800/"; // 助通提供的发送地址
         productid = 123123; // 产品ID号
         xh = ""; // 扩展号留空

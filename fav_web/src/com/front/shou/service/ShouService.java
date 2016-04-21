@@ -113,7 +113,7 @@ public class ShouService {
 	{
 		String sql = "SELECT tc.* FROM tb_user_interes_category tic " +
 				"INNER JOIN tb_collection tc ON tc.category_id = tic.category_id " +
-				"WHERE tic.user_id = ? AND tc.use_flag = 1 ORDER BY tc.heat DESC LIMIT 0,100";
+				"WHERE tic.user_id = ? AND tc.use_flag = 1 AND tc.status='collection_status_show' ORDER BY tc.heat DESC LIMIT 0,100";
 		List<Object> paraList = new ArrayList<Object>();
 		paraList.add(id);
 		List<JSONObject> collectionList = BaseDao.getListBySql(new ResultSetInterface() {

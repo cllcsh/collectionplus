@@ -528,19 +528,7 @@ public class ShouAction extends GenericPageAction{
 			ccBean.setComment_time(new Date());
 			ccBean.setInsert_id(getSessionUser().getId());
 			ccBean.setUpdate_id(getSessionUser().getId());
-			if (StringUtils.isBlank(reply_id))
-			{
-				ccBean.setType(Constant.COMMENT_TYPE_COMMENT);
-			}
-			else
-			{
-				ccBean.setType(Constant.COMMENT_TYPE_REPLY);
-				ccBean.setReply_id(new BigDecimal(reply_id));
-				if (StringUtils.isNotBlank(reply_user_id))
-				{
-					ccBean.setFriend_id(new BigDecimal(reply_user_id));
-				}
-			}
+			ccBean.setType(Constant.COMMENT_TYPE_COMMENT);
 			result = ShouService.addComment(ccBean);
 			rltJson.put("comment_id", ccBean.getId());
 		}
